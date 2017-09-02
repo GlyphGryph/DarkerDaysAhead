@@ -23,6 +23,6 @@ render(
 
 let unsubscribe = store.subscribe(logState)
 
-store.dispatch(newGrid())
+store.dispatch(newGrid(10,20))
 
 unsubscribe()

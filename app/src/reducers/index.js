@@ -2,7 +2,9 @@ import generateGrid from '../generateGrid'
 
 const initialState = {
   grid: {
-    columns: []
+    width: 0,
+    height: 0,
+    cells: []
   }
 }
 
@@ -11,7 +13,7 @@ export default (state = initialState, action) => {
     case "NEW_GRID":
       return {
         ...state,
-        grid: generateGrid(10,10)
+        grid: generateGrid(action.width, action.height)
       }
     default:
       return {

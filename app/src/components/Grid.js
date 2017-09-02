@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import RenderCell from '../components/Cell'
 
-const Grid = ({columns}) => (
+const Grid = ({rows}) => (
   <table>
     <tbody>
-      {columns.map( (column, columnId) => (
-        <tr key={columnId}>
-          {column.rows.map( (cell, rowId) => (
-            <RenderCell key={[rowId,columnId]} {...cell} />
+      {rows.map( (row, yy) => (
+        <tr key={yy}>
+          {row.cells.map( (cell, xx) => (
+            <RenderCell key={[xx,yy]} {...cell} />
           ))}
         </tr>
       ))}
@@ -17,7 +17,7 @@ const Grid = ({columns}) => (
 )
 
 Grid.propTypes = {
-  columns: PropTypes.array.isRequired
+  rows: PropTypes.array.isRequired
 }
 
 export default Grid
