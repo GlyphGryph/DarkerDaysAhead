@@ -1,0 +1,34 @@
+The game has several "Chapters" (sub-games) that will be built in order.
+
+Each of these implements specific features and properties that need to be included in the final full game.
+
+Suburban Prelude: Enjoy a quaint day in suburbia. Surely, nothing could go wrong on such a beautiful day, especially for a person like yourself. Suddenly, the sirens begin to wail, and your humble abode is under assault from all sides! Can you survive?
+- a small, static map the player can move around and fight monsters that spawn while trying to survive
+
+Containment Breach: Set in a lab prior to the apocalypse. A kind of prequel. You play the role of a scientist, and help conduct a variety of experiments until it all goes wrong, at which point you you must use your technical know-how to escape the creatures that are roaming the hallways. Unlocks the Scientist and Lab Tech roles in "After the End", and depending on how you complete your run additional starting equipment may become available to you. Success will involve avoiding enemies and understanding them well enough to play them against each other and clear a path.
+- Implements the following:
+  - As suburban prelude but...
+  - A mission with a "safe zone" that lets you win if you get to it
+  - Larger map with multiple "zones" loaded into and out of memory
+  - Static Krek and Zombie spawns
+  - Ability to craft tools and devices
+  - Improved enemy AI - Given different behaviour states and the ability to patrol, alone or in groups
+  - Basic Shadows, light levels, raycasting
+  - Stealth - the ability to move about unnoticed under the right circumstances. Chance of being noticed each tic.
+  - Facings for enemies.
+  - Kreks don't look up, only see in front of and below them.
+  - Various behaviours create sounds
+  - Kreks will occassionally look up if they hear a sound above them, and move to explore small sounds.
+  - Kreks will be scared away by loud sounds.
+  - Zombies will ignore small sounds but be attracted to loud sounds.
+  - Improved enemy AI 2 - Zombies and Kreks will fight each other
+  - Improved enemy AI 3 - Kreks will search for and eat food items and engage in social interaction with other Kreks
+  - Computers player needs to interact with
+  - Basic NPCs, basically a non-hostile version of zombies and kreks. Will still fight zombies and Kreks.
+  - Basic NPC dialogues.
+  - Additional optional missions that can be found during play
+
+After the End: The main game. You have somehow survived the end of the world. How long can you survive in the new one that has risen from the ashes?
+- Project Note: While this is the game I eventually intend on building, I'll be working on all the other chapters first, using them as an opportunity to introduce and refine the various technical aspects of the game.
+
+
