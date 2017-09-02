@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CurrentGrid from '../containers/CurrentGrid'
 import { newGrid } from '../actions'
@@ -34,7 +33,7 @@ class App extends React.Component{
 const mapDispatchToProps = dispatch => {
   return {
     keyPressAction: keyCode => {
-      dispatch(newGrid(10,20))
+      dispatch(newGrid(40,40))
     }
   }
 }

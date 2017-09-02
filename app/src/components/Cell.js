@@ -9,7 +9,6 @@ const Cell = ({ colorCode }) => (
       backgroundColor: colorCode
     }}
   >
-    {colorCode}
   </td>
 )
 

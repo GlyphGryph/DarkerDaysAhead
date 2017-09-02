@@ -5,7 +5,7 @@ import App from './App'
 import { newGrid } from '../actions'
 
 const store = configureStore()
-store.dispatch(newGrid(10,20))
+store.dispatch(newGrid(40,40))
 
 export default class Root extends Component {
   render() {
