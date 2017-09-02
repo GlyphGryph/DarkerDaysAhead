@@ -7,6 +7,12 @@ import App from './components/App'
 import { newGrid } from './actions'
 
 const store = createStore(reducer);
+window.store = store
+
+const logState = ()=>{
+  let state = store.getState()
+  console.log(state);
+};
 
 render(
   <Provider store={store}>
@@ -14,14 +20,6 @@ render(
   </Provider>,
   document.getElementById('root')
 )
-
-const logState = ()=>{
-  let state = store.getState()
-  console.log(state);
-  console.log("Columns count:"+state.grid.columns.length);
-  console.log("Rows count:"+state.grid.columns[0].rows.length);
-  console.log("Cell colors count:"+state.grid.columns[0].rows[0].colorCode);
-};
 
 let unsubscribe = store.subscribe(logState)
 

@@ -1,9 +1,23 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import RenderCell from '../components/Cell'
 
-const App = (state) => (
-  <div>
-    This is where the grid will go
-  </div>
+const Grid = ({columns}) => (
+  <table>
+    <tbody>
+      {columns.map( (column, columnId) => (
+        <tr key={columnId}>
+          {column.rows.map( (cell, rowId) => (
+            <RenderCell key={[rowId,columnId]} {...cell} />
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
 )
 
-export default App
+Grid.propTypes = {
+  columns: PropTypes.array.isRequired
+}
+
+export default Grid

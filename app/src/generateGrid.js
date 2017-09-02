@@ -5,7 +5,7 @@ export default function generateGrid(rowCount, columnCount) {
   }
   return {
     columns
-  };
+  }
 }
 
 const randColorValue = () => {

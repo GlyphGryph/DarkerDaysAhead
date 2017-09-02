@@ -1,6 +1,12 @@
 import generateGrid from '../generateGrid'
 
-export default (state = {}, action) => {
+const initialState = {
+  grid: {
+    columns: []
+  }
+}
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case "NEW_GRID":
       return {

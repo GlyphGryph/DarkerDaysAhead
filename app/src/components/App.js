@@ -1,9 +1,9 @@
 import React from 'react'
-import Grid from './Grid'
+import CurrentGrid from '../containers/CurrentGrid'
 
 const App = (store) => (
   <div>
-    <Grid />
+    <CurrentGrid grid={store}/>
   </div>
 )
 
