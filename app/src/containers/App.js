@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CurrentGrid from '../containers/CurrentGrid'
-import { newGrid } from '../actions'
+import { newGrid, spawnCreature } from '../actions'
 
 class App extends React.Component{
  constructor() {
@@ -10,7 +10,18 @@ class App extends React.Component{
   }
 
   handleKeyPress(event) {
-    this.props.keyPressAction(event.keyCode);
+    const ENTER = 13
+    const SPACE = 32
+    switch (event.which) {
+      case ENTER:
+        this.props.enterPressed(this.props.state, 20, 20)
+        break;
+      case SPACE:
+        this.props.spacePressed();
+        break;
+      default:
+        break;
+    }
   }
 
   componentDidMount() {
@@ -30,12 +41,22 @@ class App extends React.Component{
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    state
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
-    keyPressAction: keyCode => {
+    spacePressed: ()=>{
       dispatch(newGrid(40,40))
+    },
+    enterPressed: (state, xx, yy)=>{
+      console.log(state)
+      dispatch(spawnCreature(state, xx, yy))
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

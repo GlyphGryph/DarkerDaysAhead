@@ -1,4 +1,4 @@
 import generateGrid from './generateGrid';
-import spawnCreature from './spawnCreature';
+import generateCreature from './generateCreature';
 
-export {generateGrid, spawnCreature}
+export {generateGrid, generateCreature}

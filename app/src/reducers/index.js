@@ -1,19 +1,26 @@
-import {generateGrid, spawnCreature} from '../logic'
-import {NEW_GRID, SPAWN_CREATURE} from '../actions'
+import {NEW_GRID, SPAWN_CREATURE_SUCCESS, SPAWN_CREATURE_FAILURE} from '../actions'
 
 export default (state, action) => {
   switch (action.type) {
     case NEW_GRID:
       return {
         ...state,
-        grid: generateGrid(action.width, action.height)
+        grid: action.grid
       }
-    case SPAWN_CREATURE:
+    case SPAWN_CREATURE_SUCCESS:
       return {
         ...state,
         creatures: [
           ...state.creatures,
-          spawnCreature(action.x, action.y)
+          action.creature
+        ]
+      }
+    case SPAWN_CREATURE_FAILURE:
+      return {
+        ...state,
+        errors: [
+          ...state.errors,
+          action.error
         ]
       }
     default:
