@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CurrentGrid from '../containers/CurrentGrid'
+import CurrentErrors from '../containers/CurrentErrors'
 import { newGrid, spawnCreature } from '../actions'
 
 class App extends React.Component{
@@ -36,6 +37,7 @@ class App extends React.Component{
     return (
       <div>
         <CurrentGrid />
+        <CurrentErrors />
       </div>
     )
   }
