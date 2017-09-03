@@ -1,9 +1,17 @@
 import { connect } from 'react-redux'
 import Cell from '../components/Cell'
 
-const getTextFromContents = (ownProps) => {
-  if(ownProps.contents[0]){
-    return ownProps.contents[0].icon
+
+const getTextFromContents = (state, ownProps) => {
+  let content = ownProps.contents[0]
+  if(content){
+    if(content.type === 'CREATURE'){
+      console.log(state)
+      console.log(state.creatures)
+      return state.creatures.find( (creature)=>{
+        return creature.id === content.id
+      }).icon
+    }
   } else {
     return ''
   }
@@ -12,7 +20,7 @@ const getTextFromContents = (ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
-    text: getTextFromContents(ownProps)
+    text: getTextFromContents(state, ownProps)
   }
 }
 

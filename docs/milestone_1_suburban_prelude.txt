@@ -8,11 +8,25 @@ Goal: A small, static map the player can move around and fight monsters that spa
 
 Tasks:
 ✓ - Local World (single screen), initially blank
-  - Character
-  - Movement
-  - Kreks spawn from edges of map, instant kill player on touch
+✓  - Character
+  - Player Driven Movement of Character
+    - Detect movement keypresses
+    - Player can move cardinal
+    - Player cannot move past edge of map
+    - Player can move diagonal
+  - Kreks spawn from edges of map
+    - Make sure only the player character moves
+  - If player moves onto Krek, game over
+    - Resets the grid
+    - Displays "You died. Starting new game." message
+  - Kreks move around randomly
+    - If Krek moves on to player, game over
   - Add "terrain" of various sorts, nonfunctional
   - Add "boundary zones" that can display walls and triggers
+    - This is big and important!
+    - Put walls *between* moveable.
+    - Players cannot move between cells that have blocking walls between them
+    - L shaped walls should not allow players to move
   - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
   - Larger world (still fully loaded in memory, but beyond edge of screen)
   - Visual calculations - you can't see through walls!

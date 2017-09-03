@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import reducer from '../reducers'
+import rootReducer from '../reducers'
 import { generateGrid } from '../logic'
 
 const defaultState = {
@@ -11,7 +11,7 @@ const defaultState = {
 
 const newStore = ()=>{
   const store = createStore(
-    reducer,
+    rootReducer,
     defaultState,
     applyMiddleware(thunk)
   )
