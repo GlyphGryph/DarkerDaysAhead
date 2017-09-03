@@ -14,7 +14,7 @@ class App extends React.Component{
     const SPACE = 32
     switch (event.which) {
       case ENTER:
-        this.props.enterPressed(this.props.state, 20, 20)
+        this.props.enterPressed(this.props.state, 0, 0)
         break;
       case SPACE:
         this.props.spacePressed();
@@ -50,11 +50,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     spacePressed: ()=>{
-      dispatch(newGrid(40,40))
+      return dispatch(newGrid(40,40))
     },
     enterPressed: (state, xx, yy)=>{
-      console.log(state)
-      dispatch(spawnCreature(state, xx, yy))
+      let cell = state.grid.cells.find( (cell) =>{
+        return cell.x === xx && cell.y === yy
+      })
+
+      return dispatch(spawnCreature(cell))
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import RenderCell from '../components/Cell'
+import RenderCell from '../containers/RenderCell'
 
 const Grid = ({rows}) => (
   <table>

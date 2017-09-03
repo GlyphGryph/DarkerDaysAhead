@@ -3,8 +3,8 @@ import reducer from '../reducers'
 import { generateGrid } from '../logic'
 
 const defaultState = {
-  grid: generateGrid(40,40),
-  creatures: [],
+  grid: generateGrid(5,5),
+  creatures: new Map(),
   errors: []
 }
 

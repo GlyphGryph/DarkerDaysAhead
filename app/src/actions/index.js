@@ -12,9 +12,8 @@ export const newGrid = (width, height) => {
   }
 }
 
-export const spawnCreature = (state, xx, yy) => {
-  console.log(state)
-  const creature = generateCreature(state.creatures, xx, yy)
+export const spawnCreature = (cell) => {
+  const creature = generateCreature(cell)
   if(creature.error){
      return {
       type: SPAWN_CREATURE_FAILURE,
