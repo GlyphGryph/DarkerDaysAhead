@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 const Cell = ( { colorCode, text } ) => (
   <td
     style={{
-      width: '12px',
-      height: '12px',
+      width: '20px',
+      height: '20px',
+      textAlign: 'center',
       color: '#FF0000',
       backgroundColor: colorCode
     }}

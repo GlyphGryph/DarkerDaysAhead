@@ -5,7 +5,6 @@ import { move } from './move'
 
 export const userInput = (key)=> {
   return (dispatch, getState) => {
-    console.log('Detecting user input. Key: '+key)
     if(Keybinds.SELECT.includes(key)){
       let xx = 0
       let yy = 0
@@ -16,7 +15,7 @@ export const userInput = (key)=> {
         return dispatch(spawnCreature(cell.id))
       }
     }else if(Keybinds.CHANGE.includes(key)) {
-      return dispatch(newGrid(40,40))
+      return dispatch(newGrid(10,10))
     }else if(Keybinds.MOVE_KEYS.includes(key)){
       if(Keybinds.UP.includes(key)){
         return dispatch(move(0));

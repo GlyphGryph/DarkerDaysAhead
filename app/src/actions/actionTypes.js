@@ -1,7 +1,11 @@
 export const CREATE_ERROR = 'CREATE_ERROR'
+
 export const NEW_GRID = 'NEW_GRID'
-export const CREATE_CREATURE = 'CREATE_CREATURE'
 export const ADD_TO_CELL = 'ADD_TO_CELL'
 export const REMOVE_FROM_CELL = 'REMOVE_FROM_CELL'
+
+export const CREATE_CREATURE = 'CREATE_CREATURE'
 export const UPDATE_CREATURE = 'UPDATE_CREATURE'
+export const CLEAR_CREATURES = 'CLEAR_CREATURES'
+
 export const MOVE = 'MOVE'

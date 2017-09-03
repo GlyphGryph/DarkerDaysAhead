@@ -6,8 +6,6 @@ const getTextFromContents = (state, ownProps) => {
   let content = ownProps.contents[0]
   if(content){
     if(content.type === 'CREATURE'){
-      console.log(state)
-      console.log(state.creatures)
       return state.creatures.find( (creature)=>{
         return creature.id === content.id
       }).icon

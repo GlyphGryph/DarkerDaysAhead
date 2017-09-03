@@ -1,6 +1,6 @@
 let Keys = {
   ENTER: 'Enter',
-  SPACE: 'Space',
+  SPACE: ' ',
   W: 'w',
   S: 's',
   A: 'a',

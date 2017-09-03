@@ -1,7 +1,9 @@
 import { createReducer } from 'redux-create-reducer'
+
 import {
   CREATE_CREATURE,
-  UPDATE_CREATURE
+  UPDATE_CREATURE,
+  CLEAR_CREATURES
 } from '../actions'
 
 const createCreature = (state = [], action)=>{
@@ -24,9 +26,14 @@ const updateCreature = (state = [], action)=>{
   })
 }
 
+const clearCreatures = (state = [], action)=>{
+  return []
+}
+
 const creatures = createReducer([], {
   CREATE_CREATURE: createCreature,
-  UPDATE_CREATURE: updateCreature
+  UPDATE_CREATURE: updateCreature,
+  CLEAR_CREATURES: clearCreatures
 })
 
 export default creatures
