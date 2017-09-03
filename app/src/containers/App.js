@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import CurrentGrid from '../containers/CurrentGrid'
 import CurrentErrors from '../containers/CurrentErrors'
-import { newGrid, spawnCreature } from '../actions'
+import { userInput } from '../actions'
 
 class App extends React.Component{
  constructor() {
@@ -11,26 +11,15 @@ class App extends React.Component{
   }
 
   handleKeyPress(event) {
-    const ENTER = 13
-    const SPACE = 32
-    switch (event.which) {
-      case ENTER:
-        this.props.enterPressed(this.props.state, 0, 0)
-        break;
-      case SPACE:
-        this.props.spacePressed();
-        break;
-      default:
-        break;
-    }
+    this.props.keyPressed(event.key)
   }
 
   componentDidMount() {
-     document.addEventListener('keypress', this.handleKeyPress);
+    document.addEventListener('keypress', this.handleKeyPress)
   }
 
   componentWillUnmount() {
-     document.removeEventListener('keypress', this.handleKeyPress);
+    document.removeEventListener('keypress', this.handleKeyPress)
   }
 
   render(){
@@ -51,16 +40,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    spacePressed: ()=>{
-      return dispatch(newGrid(40,40))
+    keyPressed: (keyCode)=>{
+      return dispatch(userInput(keyCode))
     },
-    enterPressed: (state, xx, yy)=>{
-      let cell = state.grid.cells.find( (cell) =>{
-        return cell.x === xx && cell.y === yy
-      })
-
-      return dispatch(spawnCreature(cell))
-    }
   }
 }
 
