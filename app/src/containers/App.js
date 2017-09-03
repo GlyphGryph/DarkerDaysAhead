@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import CurrentGrid from '../containers/CurrentGrid'
+import VisibleCells from '../containers/VisibleCells'
 import CurrentErrors from '../containers/CurrentErrors'
 import { userInput } from '../actions'
 
@@ -25,7 +25,7 @@ class App extends React.Component{
   render(){
     return (
       <div>
-        <CurrentGrid />
+        <VisibleCells />
         <CurrentErrors />
       </div>
     )

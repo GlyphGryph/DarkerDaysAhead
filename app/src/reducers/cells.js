@@ -1,18 +1,25 @@
 import { createReducer } from 'redux-create-reducer'
- 
-const newGrid = (state, action)=>{
-  return action.grid
+import generateCell from '../logic/generateCell'
+
+const recreateCells = (state, action)=>{
+  let cells = []
+  for (let xx = 0; xx < action.width; xx++){
+    for (let yy = 0; yy < action.height; yy++){
+      cells.push(generateCell(xx,yy))
+    }
+  }
+  return cells
 }
 
 const addToCell = (state, action)=>{
-  let thisCell = state.cells.find((cell)=>{
+  let thisCell = state.find((cell)=>{
     return cell.id === action.id
   })
   let contents = [
     ...thisCell.contents,
     action.content
   ]
-  let cells = state.cells.map( (cell)=>{
+  let cells = state.map( (cell)=>{
     if(cell.id === action.id){
       return {
         ...cell,
@@ -23,14 +30,11 @@ const addToCell = (state, action)=>{
     }
   })
 
-  return {
-    ...state,
-    cells
-  }
+  return cells
 }
 
 const removeFromCell = (state, action)=>{
-  let thisCell = state.cells.find((cell)=>{
+  let thisCell = state.find((cell)=>{
     return cell.id === action.id
   })
   let contents = thisCell.contents.filter((content)=>{
@@ -39,7 +43,7 @@ const removeFromCell = (state, action)=>{
       && content.type === action.content.type
     )
   })
-  let cells = state.cells.map( (cell)=>{
+  let cells = state.map( (cell)=>{
     if(cell.id === action.id){
       return {
         ...cell,
@@ -50,16 +54,13 @@ const removeFromCell = (state, action)=>{
     }
   })
 
-  return {
-    ...state,
-    cells
-  }
+  return cells
 }
 
-const grid = createReducer([], {
+const cells = createReducer([], {
   ADD_TO_CELL: addToCell,
   REMOVE_FROM_CELL: removeFromCell,
-  NEW_GRID: newGrid
+  RESET_MAP: recreateCells
 })
 
-export default grid
+export default cells

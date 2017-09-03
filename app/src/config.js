@@ -1,6 +1,6 @@
 const config ={
-  VIEW_WIDTH: 5,
-  VIEW_HEIGHT: 5
+  VIEW_WIDTH: 20,
+  VIEW_HEIGHT: 20
 }
 
 export default config

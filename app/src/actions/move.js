@@ -4,7 +4,7 @@ import helpers from '../logic/helpers'
 export const move = (direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    let cells = state.grid.cells
+    let cells = state.cells
     let creature = state.creatures[0]
     if(creature){
       let currentCell = helpers.findCellByCoords(

@@ -27,7 +27,7 @@ const clearCreatures = (state = [], action)=>{
 const creatures = createReducer([], {
   CREATE_CREATURE: createCreature,
   UPDATE_CREATURE: updateCreature,
-  CLEAR_CREATURES: clearCreatures
+  RESET_MAP: clearCreatures
 })
 
 export default creatures

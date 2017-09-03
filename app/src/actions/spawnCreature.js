@@ -4,7 +4,7 @@ import helpers from '../logic/helpers'
 let creatureId = 0
 export const spawnCreature = (cellId)=> {
   return (dispatch, getState)=>{
-    let cell = getState().grid.cells.find((cell)=>{
+    let cell = getState().cells.find((cell)=>{
       return cell.id === cellId
     })
     

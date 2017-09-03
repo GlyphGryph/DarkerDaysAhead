@@ -10,10 +10,11 @@ Tasks:
 ✓ - Local World (single screen), initially blank
 ✓  - Character
   - Player Driven Movement of Character
-    - Detect movement keypresses
-    - Player can move cardinal
-    - Player cannot move past edge of map
+  ✓  - Detect movement keypresses
+  ✓  - Player can move cardinal
+  ✓  - Player cannot move past edge of map
     - Player can move diagonal
+  - Get performance acceptable
   - Kreks spawn from edges of map
     - Make sure only the player character moves
   - If player moves onto Krek, game over
