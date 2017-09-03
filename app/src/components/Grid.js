@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import RenderCell from '../containers/RenderCell'
 
 const Grid = ({rows}) => (
-  <table>
+  <table
+    cellSpacing="0"
+    cellPadding="0"
+    style={{
+      border: 'none',
+      borderCollapse: 'collapse'
+    }}
+  >
     <tbody>
       {rows.map( (row, yy) => (
         <tr key={yy}>

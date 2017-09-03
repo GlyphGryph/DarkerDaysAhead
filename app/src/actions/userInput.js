@@ -15,7 +15,7 @@ export const userInput = (key)=> {
         return dispatch(spawnCreature(cell.id))
       }
     }else if(Keybinds.CHANGE.includes(key)) {
-      return dispatch(newGrid(10,10))
+      return dispatch(newGrid())
     }else if(Keybinds.MOVE_KEYS.includes(key)){
       if(Keybinds.UP.includes(key)){
         return dispatch(move(0));

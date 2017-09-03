@@ -1,11 +1,5 @@
 import { createReducer } from 'redux-create-reducer'
 
-import {
-  CREATE_CREATURE,
-  UPDATE_CREATURE,
-  CLEAR_CREATURES
-} from '../actions'
-
 const createCreature = (state = [], action)=>{
   return [
     ...state,

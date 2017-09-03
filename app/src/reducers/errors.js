@@ -1,11 +1,8 @@
 import { createReducer } from 'redux-create-reducer'
-import {
-  CREATE_ERROR,
-} from '../actions'
 
 const createError = (state, action)=>{
   return [
-    ...state.errors,
+    ...state,
     action.error
   ]
 }

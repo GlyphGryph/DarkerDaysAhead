@@ -1,9 +1,4 @@
 import { createReducer } from 'redux-create-reducer'
-import {
-  NEW_GRID,
-  ADD_TO_CELL,
-  REMOVE_FROM_CELL,
-} from '../actions'
  
 const newGrid = (state, action)=>{
   return action.grid
