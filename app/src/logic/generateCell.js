@@ -1,5 +1,5 @@
 const randColorValue = () => {
-  return Math.floor(Math.random() * 16).toString(16);
+  return (Math.floor(Math.random() * 6)+4).toString(16);
 };
 
 let id = 0;
