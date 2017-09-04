@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import config from '../config'
+import config from '../config/config'
 
 export const resetMap = ()=>{
   let width = config.VIEW_WIDTH

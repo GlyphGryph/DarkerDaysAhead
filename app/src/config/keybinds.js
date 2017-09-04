@@ -1,0 +1,45 @@
+let Keys = {
+  ENTER: 'Enter',
+  SPACE: ' ',
+  W: 'w',
+  S: 's',
+  A: 'a',
+  D: 'd',
+  UP: 'ArrowUp',
+  DOWN: 'ArrowDown',
+  LEFT: 'ArrowLeft',
+  RIGHT: 'ArrowRight',
+  NUMPAD1: '1',
+  NUMPAD2: '2',
+  NUMPAD3: '3',
+  NUMPAD4: '4',
+  NUMPAD5: '5',
+  NUMPAD6: '6',
+  NUMPAD7: '7',
+  NUMPAD8: '8',
+  NUMPAD9: '9',
+}
+let Keybinds = [
+  [Keys.ENTER, {value: 'SELECT', tags: []}],
+  [Keys.SPACE, {value: 'CHANGE', tags: []}],
+  [Keys.W, {value: 0, tags: ['MOVE']}],
+  [Keys.UP, {value: 0, tags: ['MOVE']}],
+  [Keys.NUMPAD8, {value: 0, tags: ['MOVE']}],
+  [Keys.NUMPAD9, {value: 1, tags: ['MOVE']}],
+  [Keys.D, {value: 2, tags: ['MOVE']}],
+  [Keys.RIGHT, {value: 2, tags: ['MOVE']}],
+  [Keys.NUMPAD6, {value: 2, tags: ['MOVE']}],
+  [Keys.NUMPAD3, {value: 3, tags: ['MOVE']}],
+  [Keys.S, {value: 4, tags: ['MOVE']}],
+  [Keys.DOWN, {value: 4, tags: ['MOVE']}],
+  [Keys.NUMPAD2, {value: 4, tags: ['MOVE']}],
+  [Keys.NUMPAD1, {value: 5, tags: ['MOVE']}],
+  [Keys.W, {value: 6, tags: ['MOVE']}],
+  [Keys.LEFT, {value: 6, tags: ['MOVE']}],
+  [Keys.NUMPAD4, {value: 6, tags: ['MOVE']}],
+  [Keys.NUMPAD7, {value: 7, tags: ['MOVE']}],
+]
+Keybinds = new Map(Keybinds)
+
+
+export default Keybinds

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
-import config from '../config'
+import config from '../config/config'
 
 const defaultState = {
   view: {

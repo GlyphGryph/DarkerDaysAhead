@@ -51,9 +51,13 @@ export const move = (direction)=>{
 
 const xAfterMove = (xx, direction)=>{
   switch(direction){
+    case 1:
     case 2:
+    case 3:
       return xx+1
+    case 5:
     case 6:
+    case 7:
       return xx-1
     default:
       return xx
@@ -61,9 +65,13 @@ const xAfterMove = (xx, direction)=>{
 }
 const yAfterMove = (yy, direction)=>{
   switch(direction){
+    case 7:
     case 0:
+    case 1:
       return yy-1
+    case 3:
     case 4:
+    case 5:
       return yy+1
     default:
       return yy
