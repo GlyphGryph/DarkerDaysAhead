@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 const Errors = ({errors}) => (
   <ul
     style={{
-      backgroundColor: 'red'
+      color: 'red',
+      textAlign: 'right',
+      zIndex: 1
     }}
   >
     {errors.map( (error, index) => (

@@ -1,45 +1,65 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
 
-export const spawnCreature = (cellId, template='KREK')=> {
+export const spawnCreature = (template='KREK', xx, yy)=> {
+  console.log('Spawning Creature '+template)
   return (dispatch, getState)=>{
-    let cell = getState().cells.find((cell)=>{
-      return cell.id === cellId
-    })
-    
-    if(helpers.cellIsBlocked(cell)){
+    let state = getState()
+    let cell = state.cells[
+      helpers.findCellId(xx, yy, state.view)
+    ]
+    if(!cell){
       dispatch({
         type: actionTypes.CREATE_ERROR,
-        error: "Could not create creature. There was already a creature at this location."
+        error: "Could not create creature. Location out of bounds."
       })
-    } else {
-      let creature = createCreature(template, cell.x, cell.y)
+    }else if(helpers.cellIsBlocked(cell)){
       dispatch({
-        type: actionTypes.CREATE_CREATURE,
-        creature
+        type: actionTypes.CREATE_ERROR,
+        error: "Could not create creature. Cell is blocked."
       })
-      dispatch({
-        type: actionTypes.ADD_TO_CELL,
-        id: cell.id,
-        content: {
-          type: creature.type,
-          id: creature.id
-        }
-      })
+    }else{
+      let creature = createCreature(template, xx, yy)
+      if(creature.errors){
+        dispatch({
+          type: actionTypes.CREATE_ERROR,
+          error: creature.errors
+        })
+      }else{
+        dispatch({
+          type: actionTypes.CREATE_CREATURE,
+          creature
+        })
+        dispatch({
+          type: actionTypes.ADD_TO_CELL,
+          id: cell.id,
+          content: {
+            type: creature.type,
+            id: creature.id
+          }
+        })
+      }
     }
   }
 }
 
 let creatureId = 0
 const createCreature = (template, x, y)=>{
-  return {
-    ...creatureTemplates[template],
-    id: creatureId++,
-    type: 'CREATURE',
-    template,
-    x,
-    y
-  }     
+  let creatureTemplate = creatureTemplates[template]
+  if(creatureTemplate){
+    return {
+      ...creatureTemplate,
+      id: creatureId++,
+      type: 'CREATURE',
+      template,
+      x,
+      y
+    }
+  }else{
+    return {
+      errors: 'Could not create creature. Invalid definition.'
+    }
+  }
 }
 
 const creatureTemplates = {

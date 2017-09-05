@@ -8,12 +8,13 @@ Goal: A small, static map the player can move around and fight monsters that spa
 
 Tasks:
 ✓ - Local World (single screen), initially blank
-✓  - Character
+✓ - Character
   - Player Driven Movement of Character
-  ✓  - Detect movement keypresses
-  ✓  - Player can move cardinal
-  ✓  - Player cannot move past edge of map
-  ✓  - Player can move diagonal
+  ✓ - Detect movement keypresses
+  ✓ - Player can move cardinal
+  ✓ - Player cannot move past edge of map
+  ✓ - Player can move diagonal
+    - Player starts on map
   - Kreks spawn from edges of map
     - Spawned Manually with a keypress, not a timing issue
     - Make sure only the player character moves
@@ -32,6 +33,8 @@ Tasks:
   - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
   - Larger world (still fully loaded in memory, but beyond edge of view area)
   - Get performance acceptable
+  ✓ - Performance improved for map rendering
+
   - Visual calculations - you can't see through walls!
   - Go up and down stairs, multiple levels, drop between levels
   - Enemies will actually follow across levels if they can see you, otherwise wander randomly

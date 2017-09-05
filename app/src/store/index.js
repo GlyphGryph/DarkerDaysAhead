@@ -1,30 +1,32 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 import config from '../config/config'
+import { resetMap } from '../actions'
 
 const defaultState = {
   view: {
-    width: 0,
-    height: 0
+    width: config.VIEW_WIDTH,
+    height: config.VIEW_HEIGHT
   },
   cells: [],
   creatures: [],
   errors: []
 }
 
+console.log(defaultState)
+
 const newStore = ()=>{
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const store = createStore(
     rootReducer,
     defaultState,
-    applyMiddleware(thunk)
+    composeEnhancers(
+      applyMiddleware(thunk),
+    )
   )
   window.store = store
-  store.dispatch({
-    type: 'RESET_MAP',
-    width: config.VIEW_WIDTH,
-    height: config.VIEW_HEIGHT
-  })
+  store.dispatch(resetMap())
   return store
 }
 

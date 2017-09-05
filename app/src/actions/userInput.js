@@ -12,12 +12,7 @@ export const userInput = (key)=> {
     } else if(keyAction.value === 'SELECT'){
       let xx = 0
       let yy = 0
-      let cell = getState().cells.find( (cell) =>{
-        return cell.x === xx && cell.y === yy
-      })
-      if(cell) {
-        return dispatch(spawnCreature(cell.id, 'KREK'))
-      }
+      return dispatch(spawnCreature('KREK', xx, yy))
     }else if(keyAction.value === 'CHANGE') {
       return dispatch(resetMap())
     }else if(keyAction.tags.includes('MOVE')){
