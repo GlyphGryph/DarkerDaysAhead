@@ -16,7 +16,7 @@ export const userInput = (key)=> {
         return cell.x === xx && cell.y === yy
       })
       if(cell) {
-        return dispatch(spawnCreature(cell.id))
+        return dispatch(spawnCreature(cell.id, 'KREK'))
       }
     }else if(keyAction.value === 'CHANGE') {
       return dispatch(resetMap())

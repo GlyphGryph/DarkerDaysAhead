@@ -13,13 +13,14 @@ Tasks:
   ✓  - Detect movement keypresses
   ✓  - Player can move cardinal
   ✓  - Player cannot move past edge of map
-    - Player can move diagonal
-  - Get performance acceptable
+  ✓  - Player can move diagonal
   - Kreks spawn from edges of map
+    - Spawned Manually with a keypress, not a timing issue
     - Make sure only the player character moves
   - If player moves onto Krek, game over
     - Resets the grid
     - Displays "You died. Starting new game." message
+  - Implement time progression (every time a player moves, process time events)
   - Kreks move around randomly
     - If Krek moves on to player, game over
   - Add "terrain" of various sorts, nonfunctional
@@ -29,7 +30,8 @@ Tasks:
     - Players cannot move between cells that have blocking walls between them
     - L shaped walls should not allow players to move
   - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
-  - Larger world (still fully loaded in memory, but beyond edge of screen)
+  - Larger world (still fully loaded in memory, but beyond edge of view area)
+  - Get performance acceptable
   - Visual calculations - you can't see through walls!
   - Go up and down stairs, multiple levels, drop between levels
   - Enemies will actually follow across levels if they can see you, otherwise wander randomly

@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
 
-let creatureId = 0
-export const spawnCreature = (cellId)=> {
+export const spawnCreature = (cellId, template='KREK')=> {
   return (dispatch, getState)=>{
     let cell = getState().cells.find((cell)=>{
       return cell.id === cellId
@@ -14,13 +13,7 @@ export const spawnCreature = (cellId)=> {
         error: "Could not create creature. There was already a creature at this location."
       })
     } else {
-      let creature = {
-        id: creatureId++,
-        type: 'CREATURE',
-        icon: '@',
-        x: cell.x,
-        y: cell.y
-      }     
+      let creature = createCreature(template, cell.x, cell.y)
       dispatch({
         type: actionTypes.CREATE_CREATURE,
         creature
@@ -35,4 +28,21 @@ export const spawnCreature = (cellId)=> {
       })
     }
   }
+}
+
+let creatureId = 0
+const createCreature = (template, x, y)=>{
+  return {
+    ...creatureTemplates[template],
+    id: creatureId++,
+    type: 'CREATURE',
+    template,
+    x,
+    y
+  }     
+}
+
+const creatureTemplates = {
+  'PLAYER': {name: 'Player', icon: '@'},
+  'KREK': {name: 'Krek', icon: 'K'},
 }
