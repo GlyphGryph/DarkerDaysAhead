@@ -9,15 +9,17 @@ Goal: A small, static map the player can move around and fight monsters that spa
 Tasks:
 ✓ - Local World (single screen), initially blank
 ✓ - Character
-  - Player Driven Movement of Character
+✓ - Player Driven Movement of Character
   ✓ - Detect movement keypresses
   ✓ - Player can move cardinal
   ✓ - Player cannot move past edge of map
   ✓ - Player can move diagonal
-    - Player starts on map
-  - Kreks spawn from edges of map
-    - Spawned Manually with a keypress, not a timing issue
-    - Make sure only the player character moves
+  ✓ - Player starts on map
+✓ - Kreks spawn from edges of map
+  ✓ - Spawn in a specific square
+  ✓ - Spawn in a random unoccupied square alone the edge
+  ✓ - Spawned Manually with a keypress, not a timing issue
+  ✓ - Make sure only the player character moves
   - If player moves onto Krek, game over
     - Resets the grid
     - Displays "You died. Starting new game." message
