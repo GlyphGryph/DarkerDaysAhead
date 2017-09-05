@@ -3,58 +3,40 @@ import generateCell from '../logic/generateCell'
 
 const recreateCells = (state, action)=>{
   let cells = []
+  let id = 0
   for (let xx = 0; xx < action.width; xx++){
     for (let yy = 0; yy < action.height; yy++){
-      cells.push(generateCell(xx,yy))
+      cells[id] = generateCell(id, xx,yy)
+      id++
     }
   }
   return cells
 }
 
 const addToCell = (state, action)=>{
-  let thisCell = state.find((cell)=>{
-    return cell.id === action.id
-  })
-  let contents = [
-    ...thisCell.contents,
-    action.content
-  ]
-  let cells = state.map( (cell)=>{
-    if(cell.id === action.id){
-      return {
-        ...cell,
-        contents
-      }
-    }else{
-      return cell
-    }
-  })
+  let cell = {
+    ...state[action.id],
+    contents: [action.content]
+  }
 
-  return cells
+  return [
+    ...state.slice(0, action.id),
+    cell,
+    ...state.slice(action.id + 1)
+  ]
 }
 
 const removeFromCell = (state, action)=>{
-  let thisCell = state.find((cell)=>{
-    return cell.id === action.id
-  })
-  let contents = thisCell.contents.filter((content)=>{
-    return !(
-      content.id === action.content.id 
-      && content.type === action.content.type
-    )
-  })
-  let cells = state.map( (cell)=>{
-    if(cell.id === action.id){
-      return {
-        ...cell,
-        contents
-      }
-    }else{
-      return cell
-    }
-  })
+  let cell = {
+    ...state[action.id],
+    contents: []
+  }
 
-  return cells
+  return [
+    ...state.slice(0, action.id),
+    cell,
+    ...state.slice(action.id + 1)
+  ]
 }
 
 const cells = createReducer([], {

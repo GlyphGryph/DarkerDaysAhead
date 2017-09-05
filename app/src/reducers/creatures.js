@@ -8,16 +8,14 @@ const createCreature = (state = [], action)=>{
 }
 
 const updateCreature = (state = [], action)=>{
-  return state.map( (creature)=>{
-    if(creature.id === action.id){
-      return {
-        ...creature,
+  return [
+    ...state.slice(0, action.id),
+    {
+        ...state[action.id],
         ...action.attributes
-      }
-    }else{
-      return creature
-    }
-  })
+    },
+    ...state.slice(action.id)
+  ]
 }
 
 const clearCreatures = (state = [], action)=>{
