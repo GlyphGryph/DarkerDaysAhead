@@ -1,13 +1,9 @@
 export default {
-  findCellByCoords: (cells, xx, yy)=>{
-    return cells.find( (cell)=>{
-      return cell.x === xx && cell.y === yy
-    })
+  findCellId: (xx, yy, view)=>{
+    // Calculate the id from the coordinates and the width of the grid
+    return yy * view.width + xx
   },
   cellIsBlocked: (cell)=>{
-    let blockingContent = cell.contents.find((content)=>{
-      return content.type === 'CREATURE'
-    })
-    return !!blockingContent
+    return cell.contents.length > 0
   }
 }

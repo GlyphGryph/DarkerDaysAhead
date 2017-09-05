@@ -7,18 +7,18 @@ export const move = (direction)=>{
     let cells = state.cells
     let creature = state.creatures[0]
     if(creature){
-      let currentCell = helpers.findCellByCoords(
-        cells,
+      let currentCell = cells[helpers.findCellId(
         creature.x,
-        creature.y
-      )
+        creature.y,
+        state.view
+      )]
       let targetX = xAfterMove(creature.x, direction)
       let targetY = yAfterMove(creature.y, direction)
-      let targetCell = helpers.findCellByCoords(
-        cells,
+      let targetCell = cells[helpers.findCellId(
         targetX, 
-        targetY
-      )
+        targetY,
+        state.view
+      )]
       if(targetCell){
         dispatch({
           type: actionTypes.REMOVE_FROM_CELL,

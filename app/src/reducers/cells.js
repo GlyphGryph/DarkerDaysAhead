@@ -4,9 +4,11 @@ import generateCell from '../logic/generateCell'
 const recreateCells = (state, action)=>{
   let cells = []
   let id = 0
-  for (let xx = 0; xx < action.width; xx++){
-    for (let yy = 0; yy < action.height; yy++){
-      cells[id] = generateCell(id, xx,yy)
+  // Cells are built from left to right, then top to bottom
+  // Important for quick access "findCellId" logic to keep this in mind
+  for (let yy = 0; yy < action.height; yy++){
+    for (let xx = 0; xx < action.width; xx++){
+      cells[id] = generateCell(id, xx, yy)
       id++
     }
   }
