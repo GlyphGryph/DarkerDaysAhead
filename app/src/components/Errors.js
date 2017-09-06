@@ -5,11 +5,10 @@ const Errors = ({errors}) => (
   <ul
     style={{
       color: 'red',
-      textAlign: 'right',
       zIndex: 1
     }}
   >
-    {errors.map( (error, index) => (
+    {[...errors].reverse().map( (error, index) => (
       <li key={index}>
         {error}
       </li>

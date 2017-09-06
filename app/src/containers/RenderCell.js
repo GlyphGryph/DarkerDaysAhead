@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import Cell from '../components/Cell'
-
-const size = 20
+import config from '../config/config'
 
 const getTextFromContents = (state, ownProps) => {
   let content = ownProps.contents[0]
@@ -18,8 +17,8 @@ const getTextFromContents = (state, ownProps) => {
 
 const getPosition = (state, ownProps) => {
   return {
-    x: ownProps.x * size,
-    y: ownProps.y * size
+    x: ownProps.x * config.CELL_WIDTH,
+    y: ownProps.y * config.CELL_HEIGHT
   }
 }
 
@@ -27,8 +26,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
     text: getTextFromContents(state, ownProps),
-    width: size,
-    height: size,
+    width: config.CELL_WIDTH,
+    height: config.CELL_HEIGHT,
     position: getPosition(state, ownProps)
   }
 }
