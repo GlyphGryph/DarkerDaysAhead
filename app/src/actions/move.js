@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
+import { resetMap } from './resetMap'
 
 export const move = (direction)=>{
   return (dispatch, getState)=>{
@@ -20,32 +21,52 @@ export const move = (direction)=>{
         state.view
       )]
       if(targetCell){
-        dispatch({
-          type: actionTypes.REMOVE_FROM_CELL,
-          id: currentCell.id,
-          content: {
-            type: creature.type,
-            id: creature.id
-          }
-        })
-        dispatch({
-          type: actionTypes.ADD_TO_CELL,
-          id: targetCell.id,
-          content: {
-            type: creature.type,
-            id: creature.id
-          }
-        })
-        dispatch({
-          type: actionTypes.UPDATE_CREATURE,
-          id: creature.id,
-          attributes: {
-            x: targetX,
-            y: targetY
-          }
-        })
+        if(targetCell.contents.length == 0){
+          dispatch(completeMove(creature, currentCell, targetCell))
+        }else{
+          dispatch(blockMove(creature, currentCell, targetCell))
+        }
       }
     }
+  }
+}
+
+const blockMove = (creature, currentCell, targetCell)=>{
+  return (dispatch, getState)=>{
+    dispatch(resetMap())
+    dispatch({
+      type: actionTypes.CREATE_ERROR,
+      error: "Cell was occupied by an enemy. You died. GAME OVER."
+    })
+  }
+}
+
+const completeMove = (creature, currentCell, targetCell)=>{
+  return (dispatch, getState)=>{
+    dispatch({
+      type: actionTypes.REMOVE_FROM_CELL,
+      id: currentCell.id,
+      content: {
+        type: creature.type,
+        id: creature.id
+      }
+    })
+    dispatch({
+      type: actionTypes.ADD_TO_CELL,
+      id: targetCell.id,
+      content: {
+        type: creature.type,
+        id: creature.id
+      }
+    })
+    dispatch({
+      type: actionTypes.UPDATE_CREATURE,
+      id: creature.id,
+      attributes: {
+        x: targetCell.x,
+        y: targetCell.y
+      }
+    })
   }
 }
 

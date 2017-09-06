@@ -19,7 +19,7 @@ export const spawnCreature = (template='KREK', xx, yy)=> {
         error: "Could not create creature. Cell is blocked."
       })
     }else{
-      let creature = createCreature(template, xx, yy)
+      let creature = createCreature(template, state.creatures.length, xx, yy)
       if(creature.errors){
         dispatch({
           type: actionTypes.CREATE_ERROR,
@@ -43,13 +43,12 @@ export const spawnCreature = (template='KREK', xx, yy)=> {
   }
 }
 
-let creatureId = 0
-const createCreature = (template, x, y)=>{
+const createCreature = (template, id, x, y)=>{
   let creatureTemplate = creatureTemplates[template]
   if(creatureTemplate){
     return {
       ...creatureTemplate,
-      id: creatureId++,
+      id,
       type: 'CREATURE',
       template,
       x,

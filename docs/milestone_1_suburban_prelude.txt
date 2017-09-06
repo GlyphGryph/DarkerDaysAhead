@@ -20,9 +20,9 @@ Tasks:
   ✓ - Spawn in a random unoccupied square alone the edge
   ✓ - Spawned Manually with a keypress, not a timing issue
   ✓ - Make sure only the player character moves
-  - If player moves onto Krek, game over
-    - Resets the grid
-    - Displays "You died. Starting new game." message
+  ✓ - If player moves onto Krek, game over
+    ✓ - Resets the grid
+    ✓ - Displays "You died. Starting new game." message
   - Implement time progression (every time a player moves, process time events)
   - Kreks move around randomly
     - If Krek moves on to player, game over
