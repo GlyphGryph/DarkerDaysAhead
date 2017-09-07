@@ -12,7 +12,7 @@ Tasks:
 ✓ - Player Driven Movement of Character
   ✓ - Detect movement keypresses
   ✓ - Player can move cardinal
-  ✓ - Player cannot move past edge of map
+XXX- Player cannot move past edge of map
   ✓ - Player can move diagonal
   ✓ - Player starts on map
 ✓ - Kreks spawn from edges of map
@@ -36,10 +36,12 @@ Tasks:
   - Larger world (still fully loaded in memory, but beyond edge of view area)
   - Get performance acceptable
   ✓ - Performance improved for map rendering
-
+    - Make sure cells only rerender when they change
+    - Don't worry too much - eventually this will all be moving to Canvas!
   - Visual calculations - you can't see through walls!
   - Go up and down stairs, multiple levels, drop between levels
   - Enemies will actually follow across levels if they can see you, otherwise wander randomly
+  - It's time - switch to canvas rendering! Otherwise this will all be super slow
   - The ability to damage enemies
   - Health points, enemies now damage instead of killing character
   - Inventory, the ability to pick up and put down items
