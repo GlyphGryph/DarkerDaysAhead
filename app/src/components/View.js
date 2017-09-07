@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import RenderCell from '../containers/RenderCell'
 
-const View = ({cells, width, height}) => (
+const View = ({cellIds, width, height}) => (
   <div
     id='view' 
     style={{
@@ -10,14 +10,14 @@ const View = ({cells, width, height}) => (
       width: ''+width+'px'
     }}
   >
-    {cells.map((cell)=>(
-      <RenderCell key={cell.id} {...cell} />
+    {cellIds.map((id)=>(
+      <RenderCell key={id} id={id} />
     ))}
   </div>
 )
 
 View.propTypes = {
-  cells: PropTypes.array.isRequired,
+  cellIds: PropTypes.array.isRequired,
   width: PropTypes.number,
   height: PropTypes.number
 }

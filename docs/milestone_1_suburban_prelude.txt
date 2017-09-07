@@ -23,8 +23,8 @@ XXX- Player cannot move past edge of map
   ✓ - If player moves onto Krek, game over
     ✓ - Resets the grid
     ✓ - Displays "You died. Starting new game." message
-  - Implement time progression (every time a player moves, process time events)
   - Kreks move around randomly
+    - Implement time progression (every time a player moves, process time events)
     - If Krek moves on to player, game over
   - Add "terrain" of various sorts, nonfunctional
   - Add "boundary zones" that can display walls and triggers
@@ -36,8 +36,8 @@ XXX- Player cannot move past edge of map
   - Larger world (still fully loaded in memory, but beyond edge of view area)
   - Get performance acceptable
   ✓ - Performance improved for map rendering
-    - Make sure cells only rerender when they change
-    - Don't worry too much - eventually this will all be moving to Canvas!
+    ✓ - Make sure cells only rerender when they change
+    ✓ - Don't worry too much - eventually this will all be moving to Canvas!
   - Visual calculations - you can't see through walls!
   - Go up and down stairs, multiple levels, drop between levels
   - Enemies will actually follow across levels if they can see you, otherwise wander randomly

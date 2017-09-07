@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Cell = ( { colorCode, text, width, height, position } ) => (
+const Cell = ( { colorCode, text, width, height, xPosition, yPosition } ) => (
   <div
     style={{
       position: 'absolute',
-      top: ''+position.y+'px',
-      left: ''+position.x+'px',
+      top: ''+yPosition+'px',
+      left: ''+xPosition+'px',
       width: ''+width+'px',
       height: ''+height+'px',
       textAlign: 'center',
@@ -14,6 +14,7 @@ const Cell = ( { colorCode, text, width, height, position } ) => (
       backgroundColor: colorCode
     }}
   > 
+    {console.log('rerendering cell')}
     { text }
   </div>
 )
@@ -22,7 +23,9 @@ Cell.propTypes = {
   colorCode: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  xPosition: PropTypes.number.isRequired,
+  yPosition: PropTypes.number.isRequired
 }
 
 export default Cell

@@ -4,7 +4,7 @@ import config from '../config/config'
 
 const mapStateToProps = state => {
   return {
-    cells: state.cells,
+    cellIds: state.cells.map((cell, index)=>{ return index }),
     width: state.view.width * config.CELL_WIDTH,
     height: state.view.height * config.CELL_HEIGHT
   }

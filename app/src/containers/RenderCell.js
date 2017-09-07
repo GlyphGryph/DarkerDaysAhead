@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import Cell from '../components/Cell'
 import config from '../config/config'
 
-const getTextFromContents = (state, ownProps) => {
-  let content = ownProps.contents[0]
+const getTextFromContents = (state, cell) => {
+  let content = cell.contents[0]
   if(content){
     if(content.type === 'CREATURE'){
       return state.creatures.find( (creature)=>{
@@ -15,20 +15,15 @@ const getTextFromContents = (state, ownProps) => {
   }
 }
 
-const getPosition = (state, ownProps) => {
-  return {
-    x: ownProps.x * config.CELL_WIDTH,
-    y: ownProps.y * config.CELL_HEIGHT
-  }
-}
-
 const mapStateToProps = (state, ownProps) => {
+  let cell = state.cells[ownProps.id]
   return {
-    ...ownProps,
-    text: getTextFromContents(state, ownProps),
+    ...cell,
+    text: getTextFromContents(state, cell),
     width: config.CELL_WIDTH,
     height: config.CELL_HEIGHT,
-    position: getPosition(state, ownProps)
+    xPosition: cell.x * config.CELL_WIDTH,
+    yPosition: cell.y * config.CELL_HEIGHT
   }
 }
 
