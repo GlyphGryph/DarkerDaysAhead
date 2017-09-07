@@ -12,7 +12,7 @@ Tasks:
 ✓ - Player Driven Movement of Character
   ✓ - Detect movement keypresses
   ✓ - Player can move cardinal
-XXX- Player cannot move past edge of map
+  ✓ - Player cannot move past edge of map
   ✓ - Player can move diagonal
   ✓ - Player starts on map
 ✓ - Kreks spawn from edges of map

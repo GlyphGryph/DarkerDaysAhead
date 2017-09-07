@@ -20,7 +20,10 @@ export const move = (direction)=>{
         targetY,
         state.view
       )]
-      if(targetCell){
+      if(
+        targetX >= 0 && targetX < state.view.width &&
+        targetY >= 0 && targetY < state.view.height
+      ){
         if(targetCell.contents.length == 0){
           dispatch(completeMove(creature, currentCell, targetCell))
         }else{
@@ -31,7 +34,7 @@ export const move = (direction)=>{
   }
 }
 
-const blockMove = (creature, currentCell, targetCell)=>{
+const blockMove = (creature, currentCell, targetCell, message)=>{
   return (dispatch, getState)=>{
     dispatch(resetMap())
     dispatch({
