@@ -2,43 +2,53 @@ import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
 import { resetMap } from './resetMap'
 import { processNextTurn } from './processing'
+import { sendError } from './errors'
 
-export const move = (direction)=>{
+export const playerMove = (direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    let cells = state.cells
-    let creature = state.creatures[0]
+    let currentCreatureId = state.turnQueue[0]
+    let creature = state.creatures[currentCreatureId]
+    if(creature.controlled){
+      return dispatch(move(currentCreatureId, direction))
+    } else {
+      return dispatch(sendError("It is not your turn yet."))
+    }
+  }
+}
 
-    if(creature){
-      if(!state.creatures[state.turnQueue[0]].controlled){
-        return dispatch({
-          type: actionTypes.CREATE_ERROR,
-          error: "It is not your turn yet."
-        })
-      }
-
-      let currentCell = cells[helpers.findCellId(
-        creature.x,
-        creature.y,
-        state.view
-      )]
-      let targetX = xAfterMove(creature.x, direction)
-      let targetY = yAfterMove(creature.y, direction)
-      let targetCell = cells[helpers.findCellId(
-        targetX, 
-        targetY,
-        state.view
-      )]
-      if(
-        targetX >= 0 && targetX < state.view.width &&
-        targetY >= 0 && targetY < state.view.height
-      ){
-        if(targetCell.contents.length === 0){
-          dispatch(completeMove(creature, currentCell, targetCell))
-        }else{
-          dispatch(blockMove(creature, currentCell, targetCell))
-        }
-      }
+export const move = (creatureId, direction)=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+    let creature = state.creatures[creatureId]
+    if(!creature){
+      return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
+    }
+    let currentCell = state.cells[helpers.findCellId(
+      creature.x,
+      creature.y,
+      state.view
+    )]
+    let targetX = xAfterMove(creature.x, direction)
+    let targetY = yAfterMove(creature.y, direction)
+    let targetCell = state.cells[helpers.findCellId(
+      targetX, 
+      targetY,
+      state.view
+    )]
+    
+    // If user would move out map, do not execute move
+    let withinXBorders = targetX >= 0 && targetX < state.view.width
+    let withinYBorders = targetY >= 0 && targetY < state.view.height
+    if(!withinXBorders || !withinYBorders){
+      return dispatch(sendError('Move target out of bounds'))
+    }
+    
+    // Process if this move can be completed or if it is interrupted
+    if(targetCell.contents.length === 0){
+      return dispatch(completeMove(creature, currentCell, targetCell))
+    }else{
+      return dispatch(blockMove(creature, currentCell, targetCell))
     }
   }
 }

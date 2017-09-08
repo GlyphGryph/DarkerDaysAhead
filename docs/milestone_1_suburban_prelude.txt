@@ -28,8 +28,9 @@ Tasks:
   ✓ - Specifically, implement an "turn order" populated by spawned creatures
   ✓ - Process turns until it is the player's turn then return to normal app control
   ✓ - When a creature takes a turn, move them to the end of the turn queu
-    - On a Krek's turn, have the Krek move in a random direction
+  ✓ - On a Krek's turn, have the Krek move in a random direction
     - If Krek moves on to player, game over
+    - BUGFIX: Figure out why Players don't get to all their turns
   - Why is it creating creatures constantly!?!?!? FIX THAT!
   - Control more than one character
     - Different keys for spawning enemies and allies

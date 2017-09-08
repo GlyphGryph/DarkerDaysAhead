@@ -1,7 +1,7 @@
 import Keybinds from '../config/keybinds'
 import { resetMap } from './resetMap'
 import { spawnCreature } from './spawnCreature'
-import { move } from './move'
+import { playerMove } from './move'
 import helpers from '../logic/helpers'
 
 export const userInput = (key)=> {
@@ -13,12 +13,11 @@ export const userInput = (key)=> {
       return
     } else if(keyAction.value === 'SELECT'){
       let [xx, yy] = helpers.randomEdgeCoords(state)
-      console.log(''+xx+'/'+yy)
       return dispatch(spawnCreature('KREK', xx, yy))
     }else if(keyAction.value === 'CHANGE') {
       return dispatch(resetMap())
     }else if(keyAction.tags.includes('MOVE')){
-      return dispatch(move(keyAction.value));
+      return dispatch(playerMove(keyAction.value));
     }else{
     }
   }

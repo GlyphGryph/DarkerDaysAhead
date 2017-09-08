@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes'
+import { move } from './move'
 
 export const processNextTurn = ()=>{
   return (dispatch, getState) => {
@@ -11,7 +12,9 @@ export const processNextTurn = ()=>{
       console.log('Players turn')
       return
     }else{
-      console.log('Krek did nothing!')
+      console.log('Krek '+nextUp+"' turn")
+      let randomDirection = Math.floor(Math.random()*8)
+      dispatch(move(nextUp, randomDirection))
       return dispatch(processNextTurn())
     }
   }
