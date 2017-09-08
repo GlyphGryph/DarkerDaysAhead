@@ -1,13 +1,22 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
 import { resetMap } from './resetMap'
+import { processNextTurn } from './processing'
 
 export const move = (direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
     let cells = state.cells
     let creature = state.creatures[0]
+
     if(creature){
+      if(!state.creatures[state.turnQueue[0]].controlled){
+        return dispatch({
+          type: actionTypes.CREATE_ERROR,
+          error: "It is not your turn yet."
+        })
+      }
+
       let currentCell = cells[helpers.findCellId(
         creature.x,
         creature.y,
@@ -24,7 +33,7 @@ export const move = (direction)=>{
         targetX >= 0 && targetX < state.view.width &&
         targetY >= 0 && targetY < state.view.height
       ){
-        if(targetCell.contents.length == 0){
+        if(targetCell.contents.length === 0){
           dispatch(completeMove(creature, currentCell, targetCell))
         }else{
           dispatch(blockMove(creature, currentCell, targetCell))
@@ -70,6 +79,7 @@ const completeMove = (creature, currentCell, targetCell)=>{
         y: targetCell.y
       }
     })
+    dispatch(processNextTurn())
   }
 }
 

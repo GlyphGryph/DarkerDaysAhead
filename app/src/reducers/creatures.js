@@ -14,7 +14,7 @@ const updateCreature = (state = [], action)=>{
         ...state[action.id],
         ...action.attributes
     },
-    ...state.slice(action.id)
+    ...state.slice(action.id+1)
   ]
 }
 

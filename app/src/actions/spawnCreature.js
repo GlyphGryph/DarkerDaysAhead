@@ -62,6 +62,6 @@ const createCreature = (template, id, x, y)=>{
 }
 
 const creatureTemplates = {
-  'PLAYER': {name: 'Player', icon: '@'},
-  'KREK': {name: 'Krek', icon: 'K'},
+  'PLAYER': {name: 'Player', icon: '@', controlled: true},
+  'KREK': {name: 'Krek', icon: 'K', controlled: false},
 }

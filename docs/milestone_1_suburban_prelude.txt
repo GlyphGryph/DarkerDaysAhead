@@ -24,8 +24,18 @@ Tasks:
     ✓ - Resets the grid
     ✓ - Displays "You died. Starting new game." message
   - Kreks move around randomly
-    - Implement time progression (every time a player moves, process time events)
+  ✓ - Implement time progression (every time a player moves, process time events)
+  ✓ - Specifically, implement an "turn order" populated by spawned creatures
+  ✓ - Process turns until it is the player's turn then return to normal app control
+  ✓ - When a creature takes a turn, move them to the end of the turn queu
+    - On a Krek's turn, have the Krek move in a random direction
     - If Krek moves on to player, game over
+  - Why is it creating creatures constantly!?!?!? FIX THAT!
+  - Control more than one character
+    - Different keys for spawning enemies and allies
+    - Modify the control character logic so multiple can be controlled
+    - If not already done, make sure creatures know they are explicitly controlled
+    - Make sure that when the player takes an action it goes to the correct character
   - Add "terrain" of various sorts, nonfunctional
   - Add "boundary zones" that can display walls and triggers
     - This is big and important!

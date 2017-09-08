@@ -9,4 +9,6 @@ export const CREATE_CREATURE = 'CREATE_CREATURE'
 export const UPDATE_CREATURE = 'UPDATE_CREATURE'
 export const CONTROL_CREATURE = 'CONTROL_CREATURE'
 
+export const ADVANCE_QUEUE = 'ADVANCE_QUEUE'
+
 export const MOVE = 'MOVE'
