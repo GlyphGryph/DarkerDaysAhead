@@ -5,7 +5,6 @@ import { processNextTurn } from './processing'
 import { sendError } from './errors'
 
 export const playerMove = (direction)=>{
-  console.log('Player sent a move request')
   return (dispatch, getState)=>{
     let state = getState()
     let currentCreatureId = state.turnQueue[0]
@@ -22,7 +21,6 @@ export const playerMove = (direction)=>{
 export const move = (creatureId, direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    console.log(''+state.moment+': '+creatureId+' sent a move request')
     let creature = state.creatures[creatureId]
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
@@ -44,7 +42,7 @@ export const move = (creatureId, direction)=>{
     let withinXBorders = targetX >= 0 && targetX < state.view.width
     let withinYBorders = targetY >= 0 && targetY < state.view.height
     if(!withinXBorders || !withinYBorders){
-      return dispatch(sendError('Move target out of bounds'))
+      return dispatch(sendError(creature.name + ' tried to move out of bounds'))
     }
     
     // Process if this move can be completed or if it is interrupted
@@ -57,12 +55,16 @@ export const move = (creatureId, direction)=>{
 }
 
 const blockMove = (creature, currentCell, targetCell, message)=>{
-  console.log('Move blocked')
   return (dispatch, getState)=>{
-    dispatch(resetMap())
+    let error = creature.name + " couldn't move into occupied cell"
+    let blockingCreature = getState().creatures[targetCell.contents[0].id]
+    if(creature.controlled || blockingCreature.controlled){
+      error = "You touched a Krek. You died. GAME OVER."
+      dispatch(resetMap())
+    }
     dispatch({
       type: actionTypes.CREATE_ERROR,
-      error: "Cell was occupied by an enemy. You died. GAME OVER."
+      error
     })
   }
 }
@@ -93,7 +95,6 @@ const completeMove = (creature, currentCell, targetCell)=>{
         y: targetCell.y
       }
     })
-    console.log('Move completed')
   }
 }
 
