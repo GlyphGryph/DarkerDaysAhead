@@ -58,7 +58,11 @@ const blockMove = (creature, currentCell, targetCell, message)=>{
   return (dispatch, getState)=>{
     let error = creature.name + " couldn't move into occupied cell"
     let blockingCreature = getState().creatures[targetCell.contents[0].id]
-    if(creature.controlled || blockingCreature.controlled){
+    // If one of these is an enemy and one is player controlled...
+    if(
+      (creature.controlled && !blockingCreature.controlled) ||
+      (blockingCreature.controlled && !creature.controlled)
+    ){
       error = "You touched a Krek. You died. GAME OVER."
       dispatch(resetMap())
     }

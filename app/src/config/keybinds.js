@@ -5,6 +5,7 @@ let Keys = {
   S: 's',
   A: 'a',
   D: 'd',
+  R: 'r',
   UP: 'ArrowUp',
   DOWN: 'ArrowDown',
   LEFT: 'ArrowLeft',
@@ -22,6 +23,7 @@ let Keys = {
 let Keybinds = [
   [Keys.ENTER, {value: 'SELECT', tags: []}],
   [Keys.SPACE, {value: 'CHANGE', tags: []}],
+  [Keys.R, {value: 'RESET', tags: []}],
   [Keys.W, {value: 0, tags: ['MOVE']}],
   [Keys.UP, {value: 0, tags: ['MOVE']}],
   [Keys.NUMPAD8, {value: 0, tags: ['MOVE']}],

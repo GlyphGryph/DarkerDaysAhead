@@ -15,6 +15,16 @@ export const userInput = (key)=> {
       let [xx, yy] = helpers.randomEdgeCoords(state)
       return dispatch(spawnCreature('KREK', xx, yy))
     }else if(keyAction.value === 'CHANGE') {
+      let sourceCreatureId = state.player.controlledCreatures[0]
+      console.log('id: '+sourceCreatureId)
+      let sourceCreature = state.creatures[sourceCreatureId]
+      let [xx, yy] = helpers.randomNeighbourCoords(
+        sourceCreature.x,
+        sourceCreature.y,
+        state
+      )
+      return dispatch(spawnCreature('PLAYER', xx, yy))
+    }else if(keyAction.value === 'RESET') {
       return dispatch(resetMap())
     }else if(keyAction.tags.includes('MOVE')){
       return dispatch(playerMove(keyAction.value));

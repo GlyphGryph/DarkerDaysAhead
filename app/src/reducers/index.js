@@ -5,6 +5,7 @@ import creatures from './creatures'
 import errors from './errors'
 import turnQueue from './turnQueue'
 import moment from './moment'
+import player from './player'
 
 export default combineReducers({
   view,
@@ -12,5 +13,6 @@ export default combineReducers({
   creatures,
   errors,
   turnQueue,
-  moment
+  moment,
+  player
 })

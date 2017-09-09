@@ -30,8 +30,32 @@ const randomEdgeCoords = (state)=>{
   let randomIndex = Math.floor(Math.random()*edgeCells.length)
   return [edgeCells[randomIndex].x, edgeCells[randomIndex].y]
 }
+
+const randomNeighbourCoords = (xx, yy, state)=>{
+  let neighbourCells = [
+    state.cells[findCellId(xx, yy-1, state.view)],
+    state.cells[findCellId(xx+1, yy-1, state.view)],
+    state.cells[findCellId(xx+1, yy, state.view)],
+    state.cells[findCellId(xx+1, yy+1, state.view)],
+    state.cells[findCellId(xx, yy+1, state.view)],
+    state.cells[findCellId(xx-1, yy+1, state.view)],
+    state.cells[findCellId(xx-1, yy, state.view)],
+    state.cells[findCellId(xx-1, yy-1, state.view)],
+  ].filter((cell)=>{
+    return cell.contents.length < 1
+  })
+
+  // If there are no valid cells to spawn in, return an invalid spawn location
+  if(neighbourCells.length < 1){
+    return [-1,-1]
+  }
+  let randomIndex = Math.floor(Math.random()*neighbourCells.length)
+  return [neighbourCells[randomIndex].x, neighbourCells[randomIndex].y]
+}
+
 export default {
   findCellId,
   cellIsBlocked,
-  randomEdgeCoords
+  randomEdgeCoords,
+  randomNeighbourCoords
 }
