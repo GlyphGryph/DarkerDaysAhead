@@ -5,12 +5,14 @@ import { processNextTurn } from './processing'
 import { sendError } from './errors'
 
 export const playerMove = (direction)=>{
+  console.log('Player sent a move request')
   return (dispatch, getState)=>{
     let state = getState()
     let currentCreatureId = state.turnQueue[0]
     let creature = state.creatures[currentCreatureId]
     if(creature.controlled){
-      return dispatch(move(currentCreatureId, direction))
+      dispatch(move(currentCreatureId, direction))
+      return dispatch(processNextTurn())
     } else {
       return dispatch(sendError("It is not your turn yet."))
     }
@@ -20,6 +22,7 @@ export const playerMove = (direction)=>{
 export const move = (creatureId, direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
+    console.log(''+state.moment+': '+creatureId+' sent a move request')
     let creature = state.creatures[creatureId]
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
@@ -54,6 +57,7 @@ export const move = (creatureId, direction)=>{
 }
 
 const blockMove = (creature, currentCell, targetCell, message)=>{
+  console.log('Move blocked')
   return (dispatch, getState)=>{
     dispatch(resetMap())
     dispatch({
@@ -89,7 +93,7 @@ const completeMove = (creature, currentCell, targetCell)=>{
         y: targetCell.y
       }
     })
-    dispatch(processNextTurn())
+    console.log('Move completed')
   }
 }
 

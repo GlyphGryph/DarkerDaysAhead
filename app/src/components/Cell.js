@@ -14,7 +14,6 @@ const Cell = ( { colorCode, text, width, height, xPosition, yPosition } ) => (
       backgroundColor: colorCode
     }}
   > 
-    {console.log('rerendering cell')}
     { text }
   </div>
 )
