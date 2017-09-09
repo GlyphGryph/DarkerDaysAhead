@@ -51,6 +51,9 @@ Tasks:
 ✓- Performance improved for map rendering
    ✓- Make sure cells only rerender when they change
    ✓- Don't worry too much - eventually this will all be moving to Canvas!
+ - Performance improved for map rendering 2
+    - Map only renders anything at beginning of players turn
+    - Map STILL only renders things that changed
  - Visual calculations - you can't see through walls!
  - Go up and down stairs, multiple levels, drop between levels
  - Enemies will actually follow across levels if they can see you, otherwise wander randomly
