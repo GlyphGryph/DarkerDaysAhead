@@ -7,69 +7,68 @@ Goal: A small, static map the player can move around and fight monsters that spa
 ✓ = insert->ctrl-v + u2713
 
 Tasks:
-✓ - Local World (single screen), initially blank
-✓ - Character
-✓ - Player Driven Movement of Character
-  ✓ - Detect movement keypresses
-  ✓ - Player can move cardinal
-  ✓ - Player cannot move past edge of map
-  ✓ - Player can move diagonal
-  ✓ - Player starts on map
-✓ - Kreks spawn from edges of map
-  ✓ - Spawn in a specific square
-  ✓ - Spawn in a random unoccupied square alone the edge
-  ✓ - Spawned Manually with a keypress, not a timing issue
-  ✓ - Make sure only the player character moves
-  ✓ - If player moves onto Krek, game over
-    ✓ - Resets the grid
-    ✓ - Displays "You died. Starting new game." message
-✓ - Kreks move around randomly
-  ✓ - Implement time progression (every time a player moves, process time events)
-  ✓ - Specifically, implement an "turn order" populated by spawned creatures
-  ✓ - Process turns until it is the player's turn then return to normal app control
-  ✓ - When a creature takes a turn, move them to the end of the turn queu
-  ✓ - On a Krek's turn, have the Krek move in a random direction
-  ✓ - If Krek moves on to player, game over
-  ✓ - BUGFIX: Figure out why Players don't get to all their turns
-✓ - Control more than one character
-  ✓ - Different keys for spawning enemies and allies
-  ✓ - Modify the control character logic so multiple can be controlled
-  ✓ - If not already done, make sure creatures know they are explicitly controlled
-  ✓ - Make sure that when the player takes an action it goes to the correct character
-  - Game over when all player characters die instead of first touch
-    - Instead of touching a player character be a game over, remove them from the map
-    - Game over only when all of them are removed
-  - Add "terrain" of various sorts, nonfunctional
-  - Add "boundary zones" that can display walls and triggers
-    - This is big and important!
-    - Put walls *between* moveable.
-    - Players cannot move between cells that have blocking walls between them
-    - L shaped walls should not allow players to move
-  - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
-  - Larger world (still fully loaded in memory, but beyond edge of view area)
-  - Get performance acceptable
-  ✓ - Performance improved for map rendering
-    ✓ - Make sure cells only rerender when they change
-    ✓ - Don't worry too much - eventually this will all be moving to Canvas!
-  - Visual calculations - you can't see through walls!
-  - Go up and down stairs, multiple levels, drop between levels
-  - Enemies will actually follow across levels if they can see you, otherwise wander randomly
-  - It's time - switch to canvas rendering! Otherwise this will all be super slow
-  - The ability to damage enemies
-  - Health points, enemies now damage instead of killing character
-  - Inventory, the ability to pick up and put down items
-  - Wield melee weapons to do additional damage and better defend yourself
-  - Butcher enemies to gain food, need food needed to survive
-  - Furniture. You can move it around! Close and open doors and curtains too.
-  - Enemies can bash down doors and break through windows
-  - Player can use supplies to fix doors and windows.
-  - Player can set traps.
-  - Player can use guns.
-  - Advanced Enemies:
-    - Zombies revive unless butchered.
-    - Worms burrow under the ground creating tunnels through soil.
-    - Robots are super tough.
-    - Soldiers have guns.
-    - Ants can destroy walls and floors and ceilings, and climb between levels.
-    - Rust Eaters can fly.
-
+✓- Local World (single screen), initially blank
+✓- Character
+✓- Player Driven Movement of Character
+  ✓- Detect movement keypresses
+  ✓- Player can move cardinal
+  ✓- Player cannot move past edge of map
+  ✓- Player can move diagonal
+  ✓- Player starts on map
+✓- Kreks spawn from edges of map
+  ✓- Spawn in a specific square
+  ✓- Spawn in a random unoccupied square alone the edge
+  ✓- Spawned Manually with a keypress, not a timing issue
+  ✓- Make sure only the player character moves
+✓- If player moves onto Krek, game over
+  ✓- Resets the grid
+  ✓- Displays "You died. Starting new game." message
+✓- Kreks move around randomly
+  ✓- Implement time progression (every time a player moves, process time events)
+  ✓- Specifically, implement an "turn order" populated by spawned creatures
+  ✓- Process turns until it is the player's turn then return to normal app control
+  ✓- When a creature takes a turn, move them to the end of the turn queu
+  ✓- On a Krek's turn, have the Krek move in a random direction
+  ✓- If Krek moves on to player, game over
+  ✓- BUGFIX: Figure out why Players don't get to all their turns
+✓- Control more than one character
+  ✓- Different keys for spawning enemies and allies
+  ✓- Modify the control character logic so multiple can be controlled
+  ✓- If not already done, make sure creatures know they are explicitly controlled
+  ✓- Make sure that when the player takes an action it goes to the correct character
+ - Game over when all player characters die instead of first touch
+   - Instead of touching a player character be a game over, remove them from the map
+   - Game over only when all of them are removed
+ - Add "terrain" of various sorts, nonfunctional
+ - Add "boundary zones" that can display walls and triggers
+   - This is big and important!
+   - Put walls *between* moveable.
+   - Players cannot move between cells that have blocking walls between them
+   - L shaped walls should not allow players to move
+ - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
+ - Larger world (still fully loaded in memory, but beyond edge of view area)
+ - Get performance acceptable
+✓- Performance improved for map rendering
+   ✓- Make sure cells only rerender when they change
+   ✓- Don't worry too much - eventually this will all be moving to Canvas!
+ - Visual calculations - you can't see through walls!
+ - Go up and down stairs, multiple levels, drop between levels
+ - Enemies will actually follow across levels if they can see you, otherwise wander randomly
+ - It's time - switch to canvas rendering! Otherwise this will all be super slow
+ - The ability to damage enemies
+ - Health points, enemies now damage instead of killing character
+ - Inventory, the ability to pick up and put down items
+ - Wield melee weapons to do additional damage and better defend yourself
+ - Butcher enemies to gain food, need food needed to survive
+ - Furniture. You can move it around! Close and open doors and curtains too.
+ - Enemies can bash down doors and break through windows
+ - Player can use supplies to fix doors and windows.
+ - Player can set traps.
+ - Player can use guns.
+ - Advanced Enemies:
+   - Zombies revive unless butchered.
+   - Worms burrow under the ground creating tunnels through soil.
+   - Robots are super tough.
+   - Soldiers have guns.
+   - Ants can destroy walls and floors and ceilings, and climb between levels.
+   - Rust Eaters can fly.
