@@ -41,6 +41,9 @@ Tasks:
    - Game over only when all of them are removed
    - Do not actually move the character doing the touching
    - Describe it as an "attack" instead
+ - Enemies move "towards" player when possible
+   - random square from those closest to closet player character
+ - Highlight currently active player character
  - Add "terrain" of various sorts, nonfunctional
  - Add "boundary zones" that can display walls and triggers
    - This is big and important!
