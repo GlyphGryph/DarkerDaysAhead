@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
-import { resetMap } from './resetMap'
 import { processNextTurn } from './processing'
 import { sendError } from './errors'
 import { attack } from './attack'
@@ -59,7 +58,7 @@ const blockMove = (creature, currentCell, targetCell)=>{
   return (dispatch, getState)=>{
     let blockingCreature = getState().creatures[targetCell.contents[0].id]
     // If one of these is an enemy and one is player controlled...
-    if(creature.faction != blockingCreature.faction){
+    if(creature.faction !== blockingCreature.faction){
       return dispatch(attack(creature.id, blockingCreature.id))
     }else{
       return dispatch({

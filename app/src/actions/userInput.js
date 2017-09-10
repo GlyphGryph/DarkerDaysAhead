@@ -12,13 +12,13 @@ export const userInput = (key)=> {
       console.log('Key Unbound: '+key)
       return
     } else if(keyAction.value === 'SELECT'){
-      let [xx, yy] = helpers.randomEdgeCoords(state)
+      let [xx, yy] = helpers.randomEmptyEdgeCoords(state)
       return dispatch(spawnCreature('KREK', xx, yy))
     }else if(keyAction.value === 'CHANGE') {
       let sourceCreatureId = state.player.controlledCreatures[0]
       console.log('id: '+sourceCreatureId)
       let sourceCreature = state.creatures[sourceCreatureId]
-      let [xx, yy] = helpers.randomNeighbourCoords(
+      let [xx, yy] = helpers.randomEmptyNeighbourCoords(
         sourceCreature.x,
         sourceCreature.y,
         state
