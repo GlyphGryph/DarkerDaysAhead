@@ -3,6 +3,7 @@ import helpers from '../logic/helpers'
 import { resetMap } from './resetMap'
 import { processNextTurn } from './processing'
 import { sendError } from './errors'
+import { attack } from './attack'
 
 export const playerMove = (direction)=>{
   return (dispatch, getState)=>{
@@ -54,22 +55,18 @@ export const move = (creatureId, direction)=>{
   }
 }
 
-const blockMove = (creature, currentCell, targetCell, message)=>{
+const blockMove = (creature, currentCell, targetCell)=>{
   return (dispatch, getState)=>{
-    let error = creature.name + " couldn't move into occupied cell"
     let blockingCreature = getState().creatures[targetCell.contents[0].id]
     // If one of these is an enemy and one is player controlled...
-    if(
-      (creature.controlled && !blockingCreature.controlled) ||
-      (blockingCreature.controlled && !creature.controlled)
-    ){
-      error = "You touched a Krek. You died. GAME OVER."
-      dispatch(resetMap())
+    if(creature.faction != blockingCreature.faction){
+      return dispatch(attack(creature.id, blockingCreature.id))
+    }else{
+      return dispatch({
+        type: actionTypes.CREATE_ERROR,
+        error: creature.name + " couldn't move into occupied cell"
+      })
     }
-    dispatch({
-      type: actionTypes.CREATE_ERROR,
-      error
-    })
   }
 }
 
