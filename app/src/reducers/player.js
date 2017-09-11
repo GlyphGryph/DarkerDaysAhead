@@ -14,6 +14,15 @@ const controlCreature = (state = {}, action)=>{
   }
 }
 
+const loseControl = (state = [], action)=>{
+  return {
+    ...state,
+    controlledCreatures: state.controlledCreatures.filter((id)=>{
+      return id !== action.object.id
+    })
+  }
+}
+
 const resetPlayer = (state = {}, action)=>{
   return {
     controlledCreatures: []
@@ -22,6 +31,7 @@ const resetPlayer = (state = {}, action)=>{
 
 const player = createReducer([], {
   CREATE_CREATURE: controlCreature,
+  DESTROY_OBJECT: loseControl,
   RESET_MAP: resetPlayer,
 })
 

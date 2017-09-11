@@ -1,5 +1,7 @@
 import { processNextTurn } from './processing'
 import { sendError } from './errors'
+import helpers from '../logic/helpers'
+import { spawnCreature } from './spawnCreature'
 
 export const executePlayerAction = (action, ...args)=>{
   return (dispatch, getState)=>{
@@ -12,5 +14,22 @@ export const executePlayerAction = (action, ...args)=>{
     } else {
       return dispatch(sendError("It is not your turn yet."))
     }
+  }
+}
+
+export const spawnAdjacentAlly = ()=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+
+    let sourceCreatureId = state.player.controlledCreatures[0]
+    console.log('id: '+sourceCreatureId)
+    let sourceCreature = state.creatures[sourceCreatureId]
+
+    let [xx, yy] = helpers.randomEmptyNeighbourCoords(
+      sourceCreature.x,
+      sourceCreature.y,
+      state
+    )
+    return dispatch(spawnCreature('PLAYER', xx, yy))
   }
 }
