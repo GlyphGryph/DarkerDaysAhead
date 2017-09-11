@@ -25,11 +25,6 @@ export const move = (creatureId, direction)=>{
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
-    let currentCell = state.cells[helpers.findCellId(
-      creature.x,
-      creature.y,
-      state.view
-    )]
     let targetX = xAfterMove(creature.x, direction)
     let targetY = yAfterMove(creature.y, direction)
     let targetCell = state.cells[helpers.findCellId(
@@ -47,53 +42,32 @@ export const move = (creatureId, direction)=>{
     
     // Process if this move can be completed or if it is interrupted
     if(targetCell.contents.length === 0){
-      return dispatch(completeMove(creature, currentCell, targetCell))
+      return dispatch(completeMove(creature, targetCell))
     }else{
-      return dispatch(blockMove(creature, currentCell, targetCell))
+      return dispatch(blockMove(creature, targetCell))
     }
   }
 }
 
-const blockMove = (creature, currentCell, targetCell)=>{
+const blockMove = (creature, targetCell)=>{
   return (dispatch, getState)=>{
     let blockingCreature = getState().creatures[targetCell.contents[0].id]
     // If one of these is an enemy and one is player controlled...
     if(creature.faction !== blockingCreature.faction){
       return dispatch(attack(creature.id, blockingCreature.id))
     }else{
-      return dispatch({
-        type: actionTypes.CREATE_ERROR,
-        error: creature.name + " couldn't move into occupied cell"
-      })
+      return dispatch(sendError(creature.name + " couldn't move into occupied cell"))
     }
   }
 }
 
-const completeMove = (creature, currentCell, targetCell)=>{
+const completeMove = (creature, targetCell)=>{
   return (dispatch, getState)=>{
+    console.log('completing move')
     dispatch({
-      type: actionTypes.REMOVE_FROM_CELL,
-      id: currentCell.id,
-      content: {
-        type: creature.type,
-        id: creature.id
-      }
-    })
-    dispatch({
-      type: actionTypes.ADD_TO_CELL,
-      id: targetCell.id,
-      content: {
-        type: creature.type,
-        id: creature.id
-      }
-    })
-    dispatch({
-      type: actionTypes.UPDATE_CREATURE,
-      id: creature.id,
-      attributes: {
-        x: targetCell.x,
-        y: targetCell.y
-      }
+      type: actionTypes.MOVE_OBJECT,
+      targetCell: targetCell,
+      object: creature
     })
   }
 }

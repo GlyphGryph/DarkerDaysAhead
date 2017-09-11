@@ -36,11 +36,11 @@ Tasks:
   ✓- Modify the control character logic so multiple can be controlled
   ✓- If not already done, make sure creatures know they are explicitly controlled
   ✓- Make sure that when the player takes an action it goes to the correct character
- - Game over when all player characters die instead of first touch
-   - Instead of touching a player character be a game over, remove them from the map
-   - Game over only when all of them are removed
-   - Do not actually move the character doing the touching
-   - Describe it as an "attack" instead
+✓- Game over when all player characters die instead of first touch
+  ✓- Instead of touching a player character be a game over, remove them from the map
+  ✓- Game over only when all of them are removed
+  ✓- Do not actually move the character doing the touching
+  ✓- Describe it as an "attack" instead
  - Enemies move "towards" player when possible
    - random square from those closest to closet player character
  - Highlight currently active player character

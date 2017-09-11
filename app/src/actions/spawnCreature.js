@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
+import { sendError } from './errors'
 
 export const spawnCreature = (template='KREK', xx, yy)=> {
   console.log('Spawning Creature '+template)
@@ -9,41 +10,27 @@ export const spawnCreature = (template='KREK', xx, yy)=> {
       helpers.findCellId(xx, yy, state.view)
     ]
     if(!cell){
-      dispatch({
-        type: actionTypes.CREATE_ERROR,
-        error: "Could not create creature. Location out of bounds."
-      })
+      dispatch(sendError("Could not create creature. Location out of bounds."))
     }else if(helpers.cellIsBlocked(cell)){
-      dispatch({
-        type: actionTypes.CREATE_ERROR,
-        error: "Could not create creature. Cell is blocked."
-      })
+      dispatch(sendError("Could not create creature. Cell is blocked."))
     }else{
-      let creature = createCreature(template, state.creatures.length, xx, yy)
+      let creature = createCreature(template, state, xx, yy)
       if(creature.errors){
-        dispatch({
-          type: actionTypes.CREATE_ERROR,
-          error: creature.errors
-        })
+        dispatch(sendError(creature.errors))
       }else{
         dispatch({
           type: actionTypes.CREATE_CREATURE,
-          creature
-        })
-        dispatch({
-          type: actionTypes.ADD_TO_CELL,
-          id: cell.id,
-          content: {
-            type: creature.type,
-            id: creature.id
-          }
+          targetCell: cell,
+          object: creature
         })
       }
     }
   }
 }
 
-const createCreature = (template, id, x, y)=>{
+const createCreature = (template, state, x, y)=>{
+  let id = state.creatures.length
+  let cellId = helpers.findCellId(x, y, state.view)
   let creatureTemplate = creatureTemplates[template]
   if(creatureTemplate){
     return {
@@ -51,6 +38,7 @@ const createCreature = (template, id, x, y)=>{
       id,
       type: 'CREATURE',
       template,
+      cellId,
       x,
       y
     }

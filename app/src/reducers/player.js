@@ -1,12 +1,12 @@
 import { createReducer } from 'redux-create-reducer'
 
 const controlCreature = (state = {}, action)=>{
-  if(action.creature.controlled){
+  if(action.object.controlled){
     return {
       ...state,
       controlledCreatures: [
         ...state.controlledCreatures,
-        action.creature.id
+        action.object.id
       ]
     }
   } else {

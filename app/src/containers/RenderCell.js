@@ -6,9 +6,7 @@ const getTextFromContents = (state, cell) => {
   let content = cell.contents[0]
   if(content){
     if(content.type === 'CREATURE'){
-      return state.creatures.find( (creature)=>{
-        return creature.id === content.id
-      }).icon
+      return state.creatures[content.id].icon
     }
   } else {
     return ''
