@@ -1,22 +1,7 @@
 import * as actionTypes from './actionTypes'
 import helpers from '../logic/helpers'
-import { processNextTurn } from './processing'
 import { sendError } from './errors'
 import { attack } from './attack'
-
-export const playerMove = (direction)=>{
-  return (dispatch, getState)=>{
-    let state = getState()
-    let currentCreatureId = state.turnQueue[0]
-    let creature = state.creatures[currentCreatureId]
-    if(creature.controlled){
-      dispatch(move(currentCreatureId, direction))
-      return dispatch(processNextTurn())
-    } else {
-      return dispatch(sendError("It is not your turn yet."))
-    }
-  }
-}
 
 export const move = (creatureId, direction)=>{
   return (dispatch, getState)=>{

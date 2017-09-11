@@ -1,4 +1,6 @@
 import * as actionTypes from './actionTypes'
+import * as factionTypes from './factionTypes'
+import * as objectTypes from './objectTypes'
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 
@@ -36,7 +38,7 @@ const createCreature = (template, state, x, y)=>{
     return {
       ...creatureTemplate,
       id,
-      type: 'CREATURE',
+      type: objectTypes.CREATURE,
       template,
       cellId,
       x,
@@ -50,6 +52,6 @@ const createCreature = (template, state, x, y)=>{
 }
 
 const creatureTemplates = {
-  'PLAYER': {name: 'Player', icon: '@', controlled: true, faction: 0},
-  'KREK': {name: 'Krek', icon: 'K', controlled: false, faction: 1},
+  PLAYER: {name: 'Player', icon: '@', controlled: true, faction: factionTypes.PLAYER},
+  KREK: {name: 'Krek', icon: 'K', controlled: false, faction: factionTypes.ENEMY1},
 }

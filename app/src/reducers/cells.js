@@ -1,5 +1,7 @@
 import { createReducer } from 'redux-create-reducer'
 import generateCell from '../logic/generateCell'
+import * as objectTypes from '../actions/objectTypes'
+
 const recreateCells = (state, action)=>{
   let cells = []
   let id = 0
@@ -18,7 +20,7 @@ const addToCell = (state, action)=>{
   let cell = {
     ...state[action.targetCell.id],
     contents: [{
-      type: 'CREATURE',
+      type: objectTypes.CREATURE,
       id: action.object.id
     }]
   }

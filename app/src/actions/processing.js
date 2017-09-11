@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import { move } from './move'
+import { executeBehaviourFor } from './behaviours'
 
 export const processNextTurn = ()=>{
   return (dispatch, getState)=>{
@@ -8,9 +8,10 @@ export const processNextTurn = ()=>{
     )
     let state = getState()
     let nextUp = state.turnQueue[0]
+    let creature = state.creatures[nextUp]
     
     // If the creature no longer exists, remove them from the queue
-    if(state.creatures[nextUp] === null){
+    if(creature === null){
       dispatch({
         type: actionTypes.REMOVE_NEXT_FROM_QUEUE
       })
@@ -23,8 +24,7 @@ export const processNextTurn = ()=>{
     }
 
     // Otherwise, creature takes its turn and we repeat this action
-    let randomDirection = Math.floor(Math.random()*8)
-    dispatch(move(nextUp, randomDirection))
+    dispatch(executeBehaviourFor(creature))
     return dispatch(processNextTurn())
   }
 }

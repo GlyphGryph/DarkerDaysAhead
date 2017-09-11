@@ -40,6 +40,7 @@ let Keybinds = [
   [Keys.LEFT, {value: 6, tags: ['MOVE']}],
   [Keys.NUMPAD4, {value: 6, tags: ['MOVE']}],
   [Keys.NUMPAD7, {value: 7, tags: ['MOVE']}],
+  [Keys.NUMPAD5, {value: 'WAIT', tags: []}],
 ]
 Keybinds = new Map(Keybinds)
 

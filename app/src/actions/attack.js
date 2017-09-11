@@ -1,4 +1,3 @@
-import * as actionTypes from './actionTypes'
 import { destroyObject } from './objects'
 import { resetMap } from './resetMap'
 import { sendError } from './errors'

@@ -64,10 +64,17 @@ const randomEmptyNeighbourCoords = (xx, yy, state)=>{
   return randomCoords(emptyCells(neighbourCells(xx, yy, state)))
 }
 
+const findDistance = (source, target)=>{
+  let a = source.x - target.x
+  let b = source.y - target.y
+  return Math.hypot(a, b);
+}
+
 export default {
   findCellId,
   cellIsBlocked,
   randomEmptyEdgeCoords,
   randomEmptyNeighbourCoords,
-  randomCoords
+  randomCoords,
+  findDistance
 }
