@@ -6,7 +6,6 @@ export const wait = (id)=>{
   return (dispatch, getState)=>{
     let state = getState()
     let actor = state.creatures[id]
-    console.log(actor.name+' skips turn')
     return Promise.resolve
   }
 }

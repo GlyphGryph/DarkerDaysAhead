@@ -22,7 +22,6 @@ export const spawnAdjacentAlly = ()=>{
     let state = getState()
 
     let sourceCreatureId = state.player.controlledCreatures[0]
-    console.log('id: '+sourceCreatureId)
     let sourceCreature = state.creatures[sourceCreatureId]
 
     let [xx, yy] = helpers.randomEmptyNeighbourCoords(

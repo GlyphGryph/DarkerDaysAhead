@@ -7,7 +7,7 @@ export const attack = (attackerId, defenderId)=>{
     let state = getState()
     let attacker = state.creatures[attackerId]
     let defender = state.creatures[defenderId]
-    console.log(''+attacker.name+' KILL! '+defender.name)
+
     // Unless the object is the last controlled character, destroy them
     let isPlayerCharacter = (defender.id === state.player.controlledCreatures[0])
     let remainingPlayerCharacters = state.player.controlledCreatures.length

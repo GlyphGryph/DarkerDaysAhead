@@ -48,7 +48,6 @@ const blockMove = (creature, targetCell)=>{
 
 const completeMove = (creature, targetCell)=>{
   return (dispatch, getState)=>{
-    console.log('completing move')
     dispatch({
       type: actionTypes.MOVE_OBJECT,
       targetCell: targetCell,

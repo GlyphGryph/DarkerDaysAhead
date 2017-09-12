@@ -14,8 +14,6 @@ const defaultState = {
   errors: []
 }
 
-console.log(defaultState)
-
 const newStore = ()=>{
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const store = createStore(

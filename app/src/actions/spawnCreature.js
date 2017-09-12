@@ -5,7 +5,6 @@ import helpers from '../logic/helpers'
 import { sendError } from './errors'
 
 export const spawnCreature = (template='KREK', xx, yy)=> {
-  console.log('Spawning Creature '+template)
   return (dispatch, getState)=>{
     let state = getState()
     let cell = state.cells[
