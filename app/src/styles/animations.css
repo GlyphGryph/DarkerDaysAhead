@@ -1,0 +1,10 @@
+.blink-to-white{
+  animation-name: blinkToWhite;
+  animation-duration: .7s;
+  animation-timing-function: steps(2, start);
+  animation-iteration-count: infinite;
+}
+
+@keyframes blinkToWhite{  
+  0% { background-color: #FFF; }
+}

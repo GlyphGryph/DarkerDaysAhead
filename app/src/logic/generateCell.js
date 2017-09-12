@@ -3,12 +3,12 @@ const randColorValue = () => {
 };
 
 const generateCell = (id, x, y) => {
-  let colorCode = "#"+0+randColorValue()+0;
+  let backgroundColor = "#"+0+randColorValue()+0;
   let cell = {
     id,
     x,
     y,
-    colorCode,
+    backgroundColor,
     contents: []
   };
   return cell;

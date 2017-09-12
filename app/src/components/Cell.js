@@ -1,8 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Cell = ( { colorCode, text, width, height, xPosition, yPosition } ) => (
+const getClassName = (active)=>{
+  return active ? 'blink-to-white' : ''
+}
+
+const Cell = ( {
+  color,
+  backgroundColor,
+  active,
+  text,
+  width,
+  height,
+  xPosition,
+  yPosition
+} ) => (
   <div
+    className={getClassName(active)}
     style={{
       position: 'absolute',
       top: ''+yPosition+'px',
@@ -10,8 +24,8 @@ const Cell = ( { colorCode, text, width, height, xPosition, yPosition } ) => (
       width: ''+width+'px',
       height: ''+height+'px',
       textAlign: 'center',
-      color: '#FF0000',
-      backgroundColor: colorCode
+      color,
+      backgroundColor
     }}
   > 
     { text }
@@ -19,7 +33,9 @@ const Cell = ( { colorCode, text, width, height, xPosition, yPosition } ) => (
 )
 
 Cell.propTypes = {
-  colorCode: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,

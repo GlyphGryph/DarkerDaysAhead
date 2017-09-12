@@ -46,7 +46,7 @@ Tasks:
   ✓- When units of an enemy faction exist, they find the closest
   ✓- They then move directly towards the closest (no pathing)
   ✓- They 'wait' when they cannot find a valid enemy
- - Highlight currently active player character
+✓- Highlight currently active player character
  - Add "terrain" of various sorts, nonfunctional
  - Add "boundary zones" that can display walls and triggers
    - This is big and important!
