@@ -48,7 +48,7 @@ Tasks:
   ✓- They 'wait' when they cannot find a valid enemy
 ✓- Highlight currently active player character
 ✓- Add "terrain" of various sorts, nonfunctional
- - Blocking terrain prevent player from moving onto that space (blocking)
+✓- Blocking terrain prevent player from moving onto that space (blocking)
  - Add "boundary zones" that can display walls and triggers
    - This is big and important!
    - Put walls *between* moveable.
