@@ -4,8 +4,6 @@ import * as factionTypes from './factionTypes'
 
 export const wait = (id)=>{
   return (dispatch, getState)=>{
-    let state = getState()
-    let actor = state.creatures[id]
     return Promise.resolve
   }
 }
