@@ -1,12 +1,15 @@
 import { connect } from 'react-redux'
+import { objectTypes } from '../types'
 import Cell from '../components/Cell'
 import config from '../config/config'
 
-const getCreatureFromContents = (state, cell)=>{
+const getObjectFromContents = (state, cell)=>{
   let content = cell.contents[0]
   if(content){
-    if(content.type === 'CREATURE'){
+    if(content.type === objectTypes.CREATURE){
       return state.creatures[content.id]
+    }else if(content.type === objectTypes.TERRAIN){
+      return state.terrain[content.id]
     }
   }
   return null
@@ -14,17 +17,19 @@ const getCreatureFromContents = (state, cell)=>{
 
 const mapStateToProps = (state, ownProps) => {
   let cell = state.cells[ownProps.id]
-  let creature = getCreatureFromContents(state, cell)
+  let content = getObjectFromContents(state, cell)
 
   let text = ''
   let color = '#000'
   let active = false
-  if(creature){
-    text = creature.icon
-    if(creature.color){
-      color = creature.color
+  if(content){
+    text = content.icon
+    if(content.color){
+      color = content.color
     }
-    active = creature.controlled && creature.id === state.turnQueue[0]
+    if(content.type === objectTypes.CREATURE){
+      active = content.controlled && content.id === state.turnQueue[0]
+    }
   }
 
   return {

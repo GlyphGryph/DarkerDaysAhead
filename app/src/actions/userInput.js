@@ -1,6 +1,6 @@
 import Keybinds from '../config/keybinds'
 import { resetMap } from './resetMap'
-import { spawnCreature } from './spawnCreature'
+import { spawnCreature } from './createCreature'
 import { executePlayerAction, spawnAdjacentAlly } from './player'
 import { move } from './move'
 import { wait } from './behaviours'

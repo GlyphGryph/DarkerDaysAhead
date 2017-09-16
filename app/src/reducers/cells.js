@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-create-reducer'
 import generateCell from '../logic/generateCell'
-import * as objectTypes from '../actions/objectTypes'
+import { actionTypes } from '../types'
 
 const recreateCells = (state, action)=>{
   let cells = []
@@ -20,7 +20,7 @@ const addToCell = (state, action)=>{
   let cell = {
     ...state[action.targetCell.id],
     contents: [{
-      type: objectTypes.CREATURE,
+      type: action.object.type,
       id: action.object.id
     }]
   }
@@ -74,12 +74,13 @@ const moveToCell = (state, action)=>{
 }
 
 const cells = createReducer([], {
-  ADD_TO_CELL: addToCell,
-  CREATE_CREATURE: addToCell,
-  REMOVE_FROM_CELL: removeFromCell,
-  DESTROY_OBJECT: removeFromCell,
-  MOVE_OBJECT: moveToCell,
-  RESET_MAP: recreateCells
+  [actionTypes.ADD_TO_CELL]: addToCell,
+  [actionTypes.CREATE_CREATURE]: addToCell,
+  [actionTypes.CREATE_TERRAIN]: addToCell,
+  [actionTypes.REMOVE_FROM_CELL]: removeFromCell,
+  [actionTypes.DESTROY_OBJECT]: removeFromCell,
+  [actionTypes.MOVE_OBJECT]: moveToCell,
+  [actionTypes.RESET_MAP]: recreateCells
 })
 
 export default cells

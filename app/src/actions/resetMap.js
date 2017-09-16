@@ -1,5 +1,6 @@
-import * as actionTypes from './actionTypes'
-import { spawnCreature } from './spawnCreature'
+import { actionTypes } from '../types'
+import { spawnCreature } from './createCreature'
+import { spawnTerrain } from './createTerrain'
 
 export const resetMap = ()=>{
   return (dispatch, getState)=>{
@@ -13,6 +14,9 @@ export const resetMap = ()=>{
     })
     dispatch(
       spawnCreature('PLAYER', Math.floor(width/2), Math.floor(height/2))
+    )
+    dispatch(
+      spawnTerrain('BOULDER', 0, 0)
     )
     dispatch({
       type: actionTypes.CONTROL_CREATURE,

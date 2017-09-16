@@ -1,7 +1,7 @@
 import { processNextTurn } from './processing'
 import { sendError } from './errors'
 import helpers from '../logic/helpers'
-import { spawnCreature } from './spawnCreature'
+import { spawnCreature } from './createCreature'
 
 export const executePlayerAction = (action, ...args)=>{
   return (dispatch, getState)=>{

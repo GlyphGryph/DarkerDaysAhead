@@ -1,4 +1,5 @@
 import { createReducer } from 'redux-create-reducer'
+import { actionTypes } from '../types'
 
 const createCreature = (state = [], action)=>{
   return [
@@ -44,11 +45,11 @@ const clearCreatures = (state = [], action)=>{
 }
 
 const creatures = createReducer([], {
-  CREATE_CREATURE: createCreature,
-  UPDATE_CREATURE: updateCreature,
-  MOVE_OBJECT: moveCreature,
-  DESTROY_OBJECT: killCreature,
-  RESET_MAP: clearCreatures
+  [actionTypes.CREATE_CREATURE]: createCreature,
+  [actionTypes.UPDATE_CREATURE]: updateCreature,
+  [actionTypes.MOVE_OBJECT]: moveCreature,
+  [actionTypes.DESTROY_OBJECT]: killCreature,
+  [actionTypes.RESET_MAP]: clearCreatures
 })
 
 export default creatures

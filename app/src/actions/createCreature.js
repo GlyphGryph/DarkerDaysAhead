@@ -1,31 +1,10 @@
-import * as actionTypes from './actionTypes'
-import * as factionTypes from './factionTypes'
-import * as objectTypes from './objectTypes'
+import { actionTypes, factionTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
-import { sendError } from './errors'
+import { spawnObject } from './objects'
 
 export const spawnCreature = (template='KREK', xx, yy)=> {
   return (dispatch, getState)=>{
-    let state = getState()
-    let cell = state.cells[
-      helpers.findCellId(xx, yy, state.view)
-    ]
-    if(!cell){
-      dispatch(sendError("Could not create creature. Location out of bounds."))
-    }else if(helpers.cellIsBlocked(cell)){
-      dispatch(sendError("Could not create creature. Cell is blocked."))
-    }else{
-      let creature = createCreature(template, state, xx, yy)
-      if(creature.errors){
-        dispatch(sendError(creature.errors))
-      }else{
-        dispatch({
-          type: actionTypes.CREATE_CREATURE,
-          targetCell: cell,
-          object: creature
-        })
-      }
-    }
+    return dispatch(spawnObject(template, xx, yy, createCreature, actionTypes.CREATE_CREATURE))
   }
 }
 

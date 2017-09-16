@@ -47,13 +47,14 @@ Tasks:
   ✓- They then move directly towards the closest (no pathing)
   ✓- They 'wait' when they cannot find a valid enemy
 ✓- Highlight currently active player character
- - Add "terrain" of various sorts, nonfunctional
+✓- Add "terrain" of various sorts, nonfunctional
+ - Blocking terrain prevent player from moving onto that space (blocking)
  - Add "boundary zones" that can display walls and triggers
    - This is big and important!
    - Put walls *between* moveable.
    - Players cannot move between cells that have blocking walls between them
    - L shaped walls should not allow players to move
- - Walls and blocking terrain prevent player from moving onto that space (blocking) or through it (wall)
+ - Walls prevent player from moving through it (wall)
  - Get performance acceptable
 ✓- Performance improved for map rendering
    ✓- Make sure cells only rerender when they change

@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes'
+import { actionTypes } from '../types'
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'

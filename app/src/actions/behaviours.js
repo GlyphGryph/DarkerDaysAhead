@@ -1,6 +1,6 @@
 import { move } from './move'
 import helpers from '../logic/helpers'
-import * as factionTypes from './factionTypes'
+import { factionTypes } from '../types'
 
 export const wait = (id)=>{
   return (dispatch, getState)=>{

@@ -1,4 +1,5 @@
-import * as actionTypes from './actionTypes'
+import { actionTypes } from '../types'
+
 
 export const sendError = (message)=> {
   return {

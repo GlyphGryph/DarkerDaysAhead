@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes'
+import { actionTypes } from '../types'
 import { executeBehaviourFor } from './behaviours'
 
 export const processNextTurn = ()=>{
