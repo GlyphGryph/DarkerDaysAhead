@@ -1,5 +1,8 @@
 import { cellTypes } from '../types'
 const findCellId = (xx, yy, view)=>{
+  if(xx < 0 || xx >= cellsWidth(view) || yy < 0 || yy >= cellsHeight(view)){
+    return null
+  }
   // Calculate the id from the coordinates and the width of the grid
   return yy * cellsWidth(view) + xx
 }

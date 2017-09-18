@@ -102,9 +102,13 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       targetY = currentCell.y
       break
   }
-  return state.cells[helpers.findCellId(
+  let cellId = helpers.findCellId(
       targetX, 
       targetY,
       state.view
-  )]
+  )
+  if(!cellId){
+    return null
+  }
+  return state.cells[cellId]
 }
