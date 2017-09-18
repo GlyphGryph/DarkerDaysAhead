@@ -1,4 +1,4 @@
-import { actionTypes, objectTypes } from '../types'
+import { actionTypes, cellTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
@@ -10,44 +10,43 @@ export const move = (creatureId, direction)=>{
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
-    let targetX = xAfterMove(creature.x, direction)
-    let targetY = yAfterMove(creature.y, direction)
-    let targetCell = state.cells[helpers.findCellId(
-      targetX, 
-      targetY,
-      state.view
-    )]
+    let currentCell = state.cells[creature.cellId]
+    let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
+    let targetCell = findCellInDirection(state, currentCell, direction, 2)
     
-    // If user would move out map, do not execute move
-    let width = helpers.cellsWidth(state.view)
-    let height = helpers.cellsHeight(state.view)
-    let withinXBorders = targetX >= 0 && targetX < width
-    let withinYBorders = targetY >= 0 && targetY < height
-    if(!withinXBorders || !withinYBorders){
+    console.log(targetCell)
+    console.log(crossedBoundary)
+    if(targetCell === null){
       return dispatch(sendError(creature.name + ' tried to move out of bounds'))
     }
     
     // Process if this move can be completed or if it is interrupted
-    if(targetCell.contents.length === 0){
-      return dispatch(completeMove(creature, targetCell))
-    }else{
+    if(targetCell.contents.length !== 0){
       return dispatch(blockMove(creature, targetCell))
+    }else if(crossedBoundary.contents.length !== 0){
+      return dispatch(blockMove(creature, crossedBoundary))
+    }else{
+      return dispatch(completeMove(creature, targetCell))
     }
   }
 }
 
-const blockMove = (creature, targetCell)=>{
+const blockMove = (creature, blockingCell)=>{
   return (dispatch, getState)=>{
-    let blockingObjectId = targetCell.contents[0].id
-    let blockingObjectType = targetCell.contents[0].type
-    // If one of these is an enemy and one is player controlled...
-    if(
-      blockingObjectType === objectTypes.CREATURE &&
-      creature.faction !== getState().creatures[blockingObjectId].faction
-    ){
-      return dispatch(attack(creature.id, blockingObjectId))
+    if(blockingCell.type === cellTypes.SQUARE){
+      let blockingObjectId = blockingCell.contents[0].id
+      let blockingObjectType = blockingCell.contents[0].type
+      // If one of these is an enemy and one is player controlled...
+      if(
+        blockingObjectType === objectTypes.CREATURE &&
+        creature.faction !== getState().creatures[blockingObjectId].faction
+      ){
+        return dispatch(attack(creature.id, blockingObjectId))
+      } else {
+        return dispatch(sendError(creature.name + " couldn't move into occupied cell"))
+      }
     } else {
-      return dispatch(sendError(creature.name + " couldn't move into occupied cell"))
+      return dispatch(sendError(creature.name + " couldn't move through unpassable barrier"))
     }
   }
 }
@@ -62,31 +61,50 @@ const completeMove = (creature, targetCell)=>{
   }
 }
 
-const xAfterMove = (xx, direction)=>{
+const findCellInDirection = (state, currentCell, direction, distance)=>{
+  let targetX = -1
+  let targetY = -1
   switch(direction){
-    case 1:
-    case 2:
-    case 3:
-      return xx+2
-    case 5:
-    case 6:
-    case 7:
-      return xx-2
-    default:
-      return xx
-  }
-}
-const yAfterMove = (yy, direction)=>{
-  switch(direction){
-    case 7:
     case 0:
+      targetX = currentCell.x
+      targetY = currentCell.y - distance
+      break
     case 1:
-      return yy-2
+      targetX = currentCell.x + distance
+      targetY = currentCell.y - distance
+      break
+    case 2:
+      targetX = currentCell.x + distance
+      targetY = currentCell.y
+      break
     case 3:
+      targetX = currentCell.x + distance
+      targetY = currentCell.y + distance
+      break
     case 4:
+      targetX = currentCell.x
+      targetY = currentCell.y + distance
+      break
     case 5:
-      return yy+2
+      targetX = currentCell.x - distance
+      targetY = currentCell.y + distance
+      break
+    case 6:
+      targetX = currentCell.x - distance
+      targetY = currentCell.y
+      break
+    case 7:
+      targetX = currentCell.x - distance
+      targetY = currentCell.y - distance
+      break
     default:
-      return yy
+      targetX = currentCell.x
+      targetY = currentCell.y
+      break
   }
+  return state.cells[helpers.findCellId(
+      targetX, 
+      targetY,
+      state.view
+  )]
 }

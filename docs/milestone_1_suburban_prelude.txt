@@ -53,9 +53,9 @@ Tasks:
   ✓- This is big and important!
   ✓- Put places between normal squares for boundaries to exist
   ✓- Add and display walls in those boundary zones
-   - Players cannot move between cells that have blocking walls between them
-   - L shaped walls should not allow players to move
- - Walls prevent player from moving through it (wall)
+  ✓- Players cannot move between cells that have blocking walls between them
+  ✓- L shaped walls should not allow players to move (via corner blocks)
+ - Fix bug with players able to go out of map
  - Get performance acceptable
 ✓- Performance improved for map rendering
    ✓- Make sure cells only rerender when they change
