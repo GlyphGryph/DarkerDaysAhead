@@ -2,9 +2,9 @@ import { actionTypes, factionTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
 import { spawnObject } from './objects'
 
-export const spawnCreature = (template='KREK', xx, yy)=> {
+export const spawnCreature = (template='KREK', cell)=> {
   return (dispatch, getState)=>{
-    return dispatch(spawnObject(template, xx, yy, createCreature, actionTypes.CREATE_CREATURE))
+    return dispatch(spawnObject(template, cell, createCreature, actionTypes.CREATE_CREATURE))
   }
 }
 

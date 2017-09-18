@@ -26,13 +26,22 @@ export const resetMap = ()=>{
     })
     state = getState()
     dispatch(
-      spawnCreature('PLAYER', ...helpers.randomEmptyCoords(state))
+      spawnCreature('PLAYER', helpers.randomEmptySquare(state))
     )
     dispatch(
-      spawnTerrain('BOULDER', ...helpers.randomEmptyCoords(state))
+      spawnTerrain('BOULDER', helpers.randomEmptySquare(state))
     )
     dispatch(
-      spawnTerrain('BOULDER', ...helpers.randomEmptyCoords(state))
+      spawnTerrain('BOULDER', helpers.randomEmptySquare(state))
+    )
+    dispatch(
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
+    )
+    dispatch(
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
+    )
+    dispatch(
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
     )
     dispatch({
       type: actionTypes.CONTROL_CREATURE,
@@ -74,7 +83,7 @@ const generateSquare = (id, x, y) => {
 };
 
 const generateHorizontalBoundary = (id, x, y) => {
-  let backgroundColor = "#F00";
+  let backgroundColor = "transparent";
   let cell = {
     id,
     x,
@@ -87,7 +96,7 @@ const generateHorizontalBoundary = (id, x, y) => {
 };
 
 const generateVerticalBoundary = (id, x, y) => {
-  let backgroundColor = "#F00";
+  let backgroundColor = "transparent";
   let cell = {
     id,
     x,
@@ -100,7 +109,7 @@ const generateVerticalBoundary = (id, x, y) => {
 }
 
 const generateCornerBoundary = (id, x, y) => {
-  let backgroundColor = "#000";
+  let backgroundColor = "transparent";
   let cell = {
     id,
     x,

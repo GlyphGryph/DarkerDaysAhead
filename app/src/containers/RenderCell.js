@@ -61,13 +61,20 @@ const mapStateToProps = (state, ownProps) => {
   let position = getPosition(cell)
   let dimensions = getDimensions(cell)
 
+  let backgroundColor = cell.backgroundColor
+
   let text = ''
   let color = '#000'
   let active = false
   if(content){
-    text = content.icon
+    if(content.icon){
+      text = content.icon
+    }
     if(content.color){
       color = content.color
+    }
+    if(content.backgroundColor){
+      backgroundColor = content.backgroundColor
     }
     if(content.type === objectTypes.CREATURE){
       active = content.controlled && content.id === state.turnQueue[0]
@@ -78,6 +85,7 @@ const mapStateToProps = (state, ownProps) => {
     ...cell,
     text,
     color,
+    backgroundColor,
     active,
     width: dimensions.x,
     height: dimensions.y,

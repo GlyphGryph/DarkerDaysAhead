@@ -3,19 +3,19 @@ import { terrainTemplates } from '../templates/terrainTemplates'
 import helpers from '../logic/helpers'
 import { spawnObject } from './objects'
 
-export const spawnTerrain = (template='BOULDER', xx, yy)=> {
+export const spawnTerrain = (template='BOULDER', cell)=> {
   return (dispatch, getState)=>{
-    return dispatch(spawnObject(template, xx, yy, createTerrain, actionTypes.CREATE_TERRAIN))
+    return dispatch(spawnObject(template, cell, createTerrain, actionTypes.CREATE_TERRAIN))
   }
 }
 
 const createTerrain = (template, state, x, y)=>{
   let id = state.terrain.length
   let cellId = helpers.findCellId(x, y, state.view)
-  let creatureTemplate = terrainTemplates[template]
-  if(creatureTemplate){
+  let terrainTemplate = terrainTemplates[template]
+  if(terrainTemplate){
     return {
-      ...creatureTemplate,
+      ...terrainTemplate,
       id,
       type: objectTypes.TERRAIN,
       template,
@@ -25,7 +25,7 @@ const createTerrain = (template, state, x, y)=>{
     }
   }else{
     return {
-      errors: 'Could not create creature. Invalid definition.'
+      errors: 'Could not create terrain. Invalid definition.'
     }
   }
 }

@@ -9,19 +9,16 @@ export const destroyObject = (object)=>{
   }
 }
 
-export const spawnObject = (template, xx, yy, createFunction, actionType)=>{
-  console.log('spawning '+template+' at '+xx+','+yy)
+export const spawnObject = (template, cell, createFunction, actionType)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    let cell = state.cells[
-      helpers.findCellId(xx, yy, state.view)
-    ]
     if(!cell){
       dispatch(sendError("Could not create "+template+". Location out of bounds."))
     }else if(helpers.cellIsBlocked(cell)){
       dispatch(sendError("Could not create "+template+". Cell is blocked."))
     }else{
-      let object = createFunction(template, state, xx, yy)
+      console.log('spawning '+template+' at '+cell.x+','+cell.y)
+      let object = createFunction(template, state, cell.x, cell.y)
       if(object.errors){
         dispatch(sendError(object.errors))
       }else{

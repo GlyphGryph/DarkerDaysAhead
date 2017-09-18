@@ -21,6 +21,12 @@ const squareCells = (state)=>{
   })
 }
 
+const boundaryCells = (state)=>{
+  return state.cells.filter((cell)=>{
+    return ( cell.type !== cellTypes.SQUARE )
+  })
+}
+
 const edgeSquares = (state)=>{
   return squareCells(state).filter((cell)=>{
     return (
@@ -45,13 +51,13 @@ const neighbourSquares = (xx, yy, state)=>{
   ]
 }
 
-const emptyCells = (cells)=>{
+const findEmptyCells = (cells)=>{
   return cells.filter((cell)=>{
     return cell.contents.length < 1
   })
 }
 
-const randomCell = (cells)=>{
+const findRandomCell = (cells)=>{
   if(cells.length < 1){
     return false
   }
@@ -59,22 +65,20 @@ const randomCell = (cells)=>{
   return cells[randomIndex]
 }
 
-const randomCoords = (cells, state)=>{
-  let cell = randomCell(cells)
-  // If there are no valid cells to spawn in, return an invalid spawn location
-  return cell ? [cell.x, cell.y] : [-1,-1]
+const randomEmptyEdgeSquare = (state)=>{
+  return findRandomCell(findEmptyCells(edgeSquares(state)))
 }
 
-const randomEmptyEdgeCoords = (state)=>{
-  return randomCoords(emptyCells(edgeSquares(state)))
+const randomEmptyNeighbourSquare = (xx, yy, state)=>{
+  return findRandomCell(findEmptyCells(neighbourSquares(xx, yy, state)))
 }
 
-const randomEmptyNeighbourCoords = (xx, yy, state)=>{
-  return randomCoords(emptyCells(neighbourSquares(xx, yy, state)))
+const randomEmptySquare = (state)=>{
+  return findRandomCell(findEmptyCells(squareCells(state)))
 }
 
-const randomEmptyCoords = (state)=>{
-  return randomCoords(emptyCells(squareCells(state)))
+const randomEmptyBoundary = (state)=>{
+  return findRandomCell(findEmptyCells(boundaryCells(state)))
 }
 
 const findDistance = (source, target)=>{
@@ -88,9 +92,10 @@ export default {
   cellsWidth,
   cellsHeight,
   cellIsBlocked,
-  randomEmptyEdgeCoords,
-  randomEmptyNeighbourCoords,
-  randomEmptyCoords,
+  randomEmptyEdgeSquare,
+  randomEmptyNeighbourSquare,
+  randomEmptySquare,
+  randomEmptyBoundary,
   findDistance,
   squareCells,
 }
