@@ -51,7 +51,8 @@ Tasks:
 ✓- Blocking terrain prevent player from moving onto that space (blocking)
  - Add "boundary zones" that can display walls and triggers
   ✓- This is big and important!
-  ✓- Put walls *between* moveable.
+  ✓- Put places between normal squares for boundaries to exist
+   - Add and display walls in those boundary zones
    - Players cannot move between cells that have blocking walls between them
    - L shaped walls should not allow players to move
  - Walls prevent player from moving through it (wall)
