@@ -14,8 +14,8 @@ export const userInput = (key)=> {
       console.log('Key Unbound: '+key)
       return
     } else if(keyAction.value === 'SELECT'){
-      let [xx, yy] = helpers.randomEmptyEdgeCoords(state)
-      return dispatch(spawnCreature('KREK', xx, yy))
+      let cell = helpers.randomEmptyEdgeSquare(state)
+      return dispatch(spawnCreature('KREK', cell))
     }else if(keyAction.value === 'CHANGE'){
       return dispatch(spawnAdjacentAlly())
     }else if(keyAction.value === 'RESET'){

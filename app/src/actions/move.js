@@ -14,8 +14,6 @@ export const move = (creatureId, direction)=>{
     let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
     let targetCell = findCellInDirection(state, currentCell, direction, 2)
     
-    console.log(targetCell)
-    console.log(crossedBoundary)
     if(targetCell === null){
       return dispatch(sendError(creature.name + ' tried to move out of bounds'))
     }
