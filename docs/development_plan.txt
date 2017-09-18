@@ -27,6 +27,7 @@ Containment Breach: Set in a lab prior to the apocalypse. A kind of prequel. You
   - Basic NPCs, basically a non-hostile version of zombies and kreks. Will still fight zombies and Kreks.
   - Basic NPC dialogues.
   - Additional optional missions that can be found during play
+  - Advanced tech - portals, the ability to move "between" spaces like that SP bug I did.
 
 After the End: The main game. You have somehow survived the end of the world. How long can you survive in the new one that has risen from the ashes?
 - Project Note: While this is the game I eventually intend on building, I'll be working on all the other chapters first, using them as an opportunity to introduce and refine the various technical aspects of the game.
