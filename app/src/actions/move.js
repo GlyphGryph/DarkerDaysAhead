@@ -1,4 +1,4 @@
-import { actionTypes } from '../types'
+import { actionTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
@@ -38,11 +38,15 @@ export const move = (creatureId, direction)=>{
 
 const blockMove = (creature, targetCell)=>{
   return (dispatch, getState)=>{
-    let blockingCreature = getState().creatures[targetCell.contents[0].id]
+    let blockingObjectId = targetCell.contents[0].id
+    let blockingObjectType = targetCell.contents[0].type
     // If one of these is an enemy and one is player controlled...
-    if(creature.faction !== blockingCreature.faction){
-      return dispatch(attack(creature.id, blockingCreature.id))
-    }else{
+    if(
+      blockingObjectType === objectTypes.CREATURE &&
+      creature.faction !== getState().creatures[blockingObjectId].faction
+    ){
+      return dispatch(attack(creature.id, blockingObjectId))
+    } else {
       return dispatch(sendError(creature.name + " couldn't move into occupied cell"))
     }
   }
