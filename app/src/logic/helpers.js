@@ -32,16 +32,16 @@ const edgeSquares = (state)=>{
   })
 }
 
-const neighbourCells = (xx, yy, state)=>{
+const neighbourSquares = (xx, yy, state)=>{
   return [
-    state.cells[findCellId(xx, yy-1, state.view)],
-    state.cells[findCellId(xx+1, yy-1, state.view)],
-    state.cells[findCellId(xx+1, yy, state.view)],
-    state.cells[findCellId(xx+1, yy+1, state.view)],
-    state.cells[findCellId(xx, yy+1, state.view)],
-    state.cells[findCellId(xx-1, yy+1, state.view)],
-    state.cells[findCellId(xx-1, yy, state.view)],
-    state.cells[findCellId(xx-1, yy-1, state.view)],
+    state.cells[findCellId(xx, yy-2, state.view)],
+    state.cells[findCellId(xx+2, yy-2, state.view)],
+    state.cells[findCellId(xx+2, yy, state.view)],
+    state.cells[findCellId(xx+2, yy+2, state.view)],
+    state.cells[findCellId(xx, yy+2, state.view)],
+    state.cells[findCellId(xx-2, yy+2, state.view)],
+    state.cells[findCellId(xx-2, yy, state.view)],
+    state.cells[findCellId(xx-2, yy-2, state.view)],
   ]
 }
 
@@ -70,7 +70,7 @@ const randomEmptyEdgeCoords = (state)=>{
 }
 
 const randomEmptyNeighbourCoords = (xx, yy, state)=>{
-  return randomCoords(emptyCells(neighbourCells(xx, yy, state)))
+  return randomCoords(emptyCells(neighbourSquares(xx, yy, state)))
 }
 
 const randomEmptyCoords = (state)=>{
