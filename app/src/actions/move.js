@@ -19,8 +19,10 @@ export const move = (creatureId, direction)=>{
     )]
     
     // If user would move out map, do not execute move
-    let withinXBorders = targetX >= 0 && targetX < state.view.width
-    let withinYBorders = targetY >= 0 && targetY < state.view.height
+    let width = helpers.cellsWidth(state.view)
+    let height = helpers.cellsHeight(state.view)
+    let withinXBorders = targetX >= 0 && targetX < width
+    let withinYBorders = targetY >= 0 && targetY < height
     if(!withinXBorders || !withinYBorders){
       return dispatch(sendError(creature.name + ' tried to move out of bounds'))
     }
@@ -61,11 +63,11 @@ const xAfterMove = (xx, direction)=>{
     case 1:
     case 2:
     case 3:
-      return xx+1
+      return xx+2
     case 5:
     case 6:
     case 7:
-      return xx-1
+      return xx-2
     default:
       return xx
   }
@@ -75,11 +77,11 @@ const yAfterMove = (yy, direction)=>{
     case 7:
     case 0:
     case 1:
-      return yy-1
+      return yy-2
     case 3:
     case 4:
     case 5:
-      return yy+1
+      return yy+2
     default:
       return yy
   }

@@ -1,19 +1,8 @@
 import { createReducer } from 'redux-create-reducer'
-import generateCell from '../logic/generateCell'
 import { actionTypes } from '../types'
 
 const recreateCells = (state, action)=>{
-  let cells = []
-  let id = 0
-  // Cells are built from left to right, then top to bottom
-  // Important for quick access "findCellId" logic to keep this in mind
-  for (let yy = 0; yy < action.height; yy++){
-    for (let xx = 0; xx < action.width; xx++){
-      cells[id] = generateCell(id, xx, yy)
-      id++
-    }
-  }
-  return cells
+  return action.cells
 }
 
 const addToCell = (state, action)=>{

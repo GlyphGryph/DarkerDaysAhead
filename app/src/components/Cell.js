@@ -12,6 +12,7 @@ const Cell = ( {
   text,
   width,
   height,
+  zIndex,
   xPosition,
   yPosition
 } ) => (
@@ -24,6 +25,7 @@ const Cell = ( {
       width: ''+width+'px',
       height: ''+height+'px',
       textAlign: 'center',
+      zIndex,
       color,
       backgroundColor
     }}
@@ -39,6 +41,7 @@ Cell.propTypes = {
   text: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
   xPosition: PropTypes.number.isRequired,
   yPosition: PropTypes.number.isRequired
 }

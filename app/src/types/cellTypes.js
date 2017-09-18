@@ -1,0 +1,6 @@
+export const cellTypes = {
+  SQUARE: 'SQUARE',
+  VBOUNDARY: 'VBOUNDARY',
+  HBOUNDARY: 'HBOUNDARY',
+  CORNER: 'CORNER'
+}

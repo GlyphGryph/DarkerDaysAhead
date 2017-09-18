@@ -1,26 +1,35 @@
+import { cellTypes } from '../types'
 const findCellId = (xx, yy, view)=>{
   // Calculate the id from the coordinates and the width of the grid
-  return yy * view.width + xx
+  return yy * cellsWidth(view) + xx
 }
 
 const cellIsBlocked = (cell)=>{
   return cell.contents.length > 0
 }
 
-const edgeCells = (state)=>{
-  let cells = [
-    ...state.cells.slice(0, state.view.width),
-    ...state.cells.slice(-state.view.width)
-  ]
-  for(let yy=1; yy < state.view.height-1; yy++){
-    cells.push(
-      state.cells[findCellId(0, yy, state.view)]
+const cellsWidth = (view)=>{
+  return view.width * 2 + 1
+}
+const cellsHeight = (view)=>{
+  return view.height * 2 + 1
+}
+
+const squareCells = (state)=>{
+  return state.cells.filter((cell)=>{
+    return ( cell.type === cellTypes.SQUARE )
+  })
+}
+
+const edgeSquares = (state)=>{
+  return squareCells(state).filter((cell)=>{
+    return (
+      cell.x === 1 ||
+      cell.x === cellsWidth(state.view)-2 ||
+      cell.y === 1 ||
+      cell.y === cellsHeight(state.view)-2
     )
-    cells.push(
-      state.cells[findCellId(state.view.width-1, yy, state.view)]
-    )
-  }
-  return cells
+  })
 }
 
 const neighbourCells = (xx, yy, state)=>{
@@ -57,11 +66,15 @@ const randomCoords = (cells, state)=>{
 }
 
 const randomEmptyEdgeCoords = (state)=>{
-  return randomCoords(emptyCells(edgeCells(state)))
+  return randomCoords(emptyCells(edgeSquares(state)))
 }
 
 const randomEmptyNeighbourCoords = (xx, yy, state)=>{
   return randomCoords(emptyCells(neighbourCells(xx, yy, state)))
+}
+
+const randomEmptyCoords = (state)=>{
+  return randomCoords(emptyCells(squareCells(state)))
 }
 
 const findDistance = (source, target)=>{
@@ -72,9 +85,12 @@ const findDistance = (source, target)=>{
 
 export default {
   findCellId,
+  cellsWidth,
+  cellsHeight,
   cellIsBlocked,
   randomEmptyEdgeCoords,
   randomEmptyNeighbourCoords,
-  randomCoords,
-  findDistance
+  randomEmptyCoords,
+  findDistance,
+  squareCells,
 }
