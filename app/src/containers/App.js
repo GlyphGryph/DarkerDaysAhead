@@ -33,9 +33,7 @@ class App extends React.Component{
 }
 
 const mapStateToProps = state => {
-  return {
-    state
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {

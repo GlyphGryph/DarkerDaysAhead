@@ -56,11 +56,13 @@ Tasks:
   ✓- Players cannot move between cells that have blocking walls between them
   ✓- L shaped walls should not allow players to move (via corner blocks)
 ✓- Fix bug with players able to go out of map
- - Get performance acceptable
 ✓- Performance improved for map rendering
    ✓- Make sure cells only rerender when they change
    ✓- Don't worry too much - eventually this will all be moving to Canvas!
- - Performance improved for map rendering 2
+✓- Performance improved for map rendering 2
+   ✓- Use perf testing!
+   ✓- Map only rerenders things that REALLY change.
+ - Performance improved for map rendering 3
     - Map only renders anything at beginning of players turn
     - Map STILL only renders things that changed
  - Go up and down stairs, multiple levels, drop between levels

@@ -6,25 +6,36 @@ export const processNextTurn = ()=>{
     dispatch(
       {type: actionTypes.ADVANCE_QUEUE}
     )
-    let state = getState()
-    let nextUp = state.turnQueue[0]
-    let creature = state.creatures[nextUp]
-    
-    // If the creature no longer exists, remove them from the queue
-    if(creature === null){
-      dispatch({
-        type: actionTypes.REMOVE_NEXT_FROM_QUEUE
-      })
-      return dispatch(processNextTurn())
-    }
+    let exit = false
+    while(!exit){
+      let state = getState()
+      let nextUp = state.turnQueue[0]
+      let creature = state.creatures[nextUp]
 
-    // If creature is player controlled, exit early
-    if(state.creatures[nextUp].controlled){
-      return Promise.resolve()
+      if(creature === null){
+        // If the creature no longer exists, remove them from the queue
+        dispatch(dropFromQueue())
+      }else if(creature.controlled){
+        // If creature is controlled, stop processing and wait for user input
+        exit = true
+      }else{
+        // Otherwise, creature takes its turn and we repeat this action
+        dispatch(executeBehaviourFor(creature))
+        dispatch(advanceQueue())
+      }
     }
+    return Promise.resolve()
+  }
+}
 
-    // Otherwise, creature takes its turn and we repeat this action
-    dispatch(executeBehaviourFor(creature))
-    return dispatch(processNextTurn())
+const dropFromQueue = ()=>{
+  return {
+    type: actionTypes.REMOVE_NEXT_FROM_QUEUE
+  }
+}
+
+const advanceQueue = ()=>{
+  return {
+    type: actionTypes.ADVANCE_QUEUE
   }
 }
