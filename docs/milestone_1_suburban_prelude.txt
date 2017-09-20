@@ -49,7 +49,7 @@ Tasks:
 ✓- Highlight currently active player character
 ✓- Add "terrain" of various sorts, nonfunctional
 ✓- Blocking terrain prevent player from moving onto that space (blocking)
- - Add "boundary zones" that can display walls and triggers
+✓- Add "boundary zones" that can display walls and triggers
   ✓- This is big and important!
   ✓- Put places between normal squares for boundaries to exist
   ✓- Add and display walls in those boundary zones
