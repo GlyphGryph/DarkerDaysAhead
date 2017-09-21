@@ -62,16 +62,31 @@ Tasks:
 ✓- Performance improved for map rendering 2
    ✓- Use perf testing!
    ✓- Map only rerenders things that REALLY change.
+ - Z-levels
+   - multiple levels (4)
+   - characters can switch between levels with a keypress
+   - Pressing the keypress only works over a "ladder"
+   - Characters can switch between levels by moving horizontally along "stairs"
+ - Z-levels Part 2
+   - There is a difference between spaces with floors and spaces without.
+   - Stepping onto a space without a floor drops the player to the z-level below
+   - Drops can be chained, allowing player to drop several z-levels
+ - AI improvements: Line of sight
+   - Enemies will actually follow across levels if they can see you, otherwise wander randomly
+   - Only works on same z-levels
+   - Blocked by walls
+   - Enemies have "hunting patterns" that make them explore better than a random walk
+ - Status effects (crippled)
+   - Enemies falling through floor holes are crippled
+ - Crippled enemies skip their next several turns
+ - If falling 2 levels, they are killed instead.
+ - Add "soft terrain.
+   - If falling onto soft terrain, damage reduced by one level
+          (killed -> crippled, crippled -> unhurt)
+ - Enemies leave corpses, which count as soft terrain
  - Performance improved for map rendering 3
     - Map only renders anything at beginning of players turn
     - Map STILL only renders things that changed
- - Go up and down stairs, multiple levels, drop between levels
- - Enemies will actually follow across levels if they can see you, otherwise wander randomly
- - Enemies have "hunting patterns" that make them explore
- - Holes in floor, enemies falling through them are crippled
-   - If falling 2 levels, they are killed.
-   - If falling onto a corpse, damage reduced by one level
-          (killed -> crippled, crippled -> unhurt)
  - Inventory, the ability to pick up and put down an item
  - Items spawn randomly around map as time progresses
  - Instead of dying to crippled enemies, kill them if you have a weapon
