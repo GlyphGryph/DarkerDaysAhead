@@ -64,7 +64,10 @@ Tasks:
   ✓- Map only rerenders things that REALLY change.
  - Z-levels
   ✓- multiple levels (3)
+   - For ease of coding, consider storing neighbour-id for cells.
+     - Neighbours include cells next to, above, below, diagonal!
    - characters can switch between levels with a keypress
+   - Have ladders spawn in the same x/y position on two adjacent levels
    - Pressing the keypress only works over a "ladder"
    - Characters can switch between levels by moving horizontally along "stairs"
  - Z-levels Part 2
