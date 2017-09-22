@@ -36,7 +36,7 @@ let Keybinds = [
   [Keys.DOWN, {value: 4, tags: ['MOVE']}],
   [Keys.NUMPAD2, {value: 4, tags: ['MOVE']}],
   [Keys.NUMPAD1, {value: 5, tags: ['MOVE']}],
-  [Keys.W, {value: 6, tags: ['MOVE']}],
+  [Keys.A, {value: 6, tags: ['MOVE']}],
   [Keys.LEFT, {value: 6, tags: ['MOVE']}],
   [Keys.NUMPAD4, {value: 6, tags: ['MOVE']}],
   [Keys.NUMPAD7, {value: 7, tags: ['MOVE']}],
