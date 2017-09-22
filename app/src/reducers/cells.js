@@ -1,65 +1,71 @@
 import { createReducer } from 'redux-create-reducer'
 import { actionTypes } from '../types'
 
-const recreateCells = (state, action)=>{
-  return action.cells
+const defaultState = {
+  items: {},
+  idList: [],
+  idByType: {},
+  idByPosition: {}
+}
+
+const recreateCells = (state = defaultState, action)=>{
+  return {
+    items: action.cells.reduce((result, cell)=>{
+      result[cell.id] = cell
+      return result
+    }, {}),
+    idList: action.cells.map((cell)=>{
+      return cell.id
+    }),
+    idsByType: action.cells.reduce((result, cell)=>{
+      result[cell.type] = result[cell.type] || []
+      result[cell.type].push(cell.id)
+      return result
+    }, {}),
+    idByPosition: action.cells.reduce((result, cell)=>{
+      result[cell.x] = result[cell.x] || {}
+      result[cell.x][cell.y] = result[cell.x][cell.y] || {}
+      result[cell.x][cell.y][cell.z] = cell.id
+      return result
+    }, {})
+  }
 }
 
 const addToCell = (state, action)=>{
   let cell = {
-    ...state[action.targetCell.id],
+    ...state.items[action.targetCell.id],
     contents: [{
       type: action.object.type,
       id: action.object.id
     }]
   }
 
-  return [
-    ...state.slice(0, action.targetCell.id),
-    cell,
-    ...state.slice(action.targetCell.id + 1)
-  ]
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [cell.id]: cell,
+    }
+  }
 }
 
 const removeFromCell = (state, action)=>{
   let cell = {
-    ...state[action.object.cellId],
+    ...state.items[action.object.cellId],
     contents: []
   }
-  let bogey =[
-    ...state.slice(0, action.object.cellId),
-    cell,
-    ...state.slice(action.object.cellId + 1)
-  ]
-  return bogey
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [cell.id]: cell,
+    }
+  }
 }
 
 const moveToCell = (state, action)=>{
   let newState = removeFromCell(state, action)
   return addToCell(newState, action)
-  /*let current = {
-    ...state[action.object.cellId],
-    contents: []
-  }
-
-  let target = {
-    ...state[action.targetCell.id],
-    contents: [{
-      id: action.object.id,
-      type: action.object.type
-    }]
-  }
-
-  let cells = [current, target].sort( (a, b)=>{
-    return a - b;
-  })
-  return [
-    ...state.slice(0, cells[0].id),
-    cells[0],
-    ...state.slice(cells[0].id + 1, cells[1].id),
-    cells[1],
-    ...state.slice(cells[1] +1)
-  ]*/
 }
 
 const cells = createReducer([], {

@@ -9,9 +9,9 @@ export const spawnTerrain = (template='BOULDER', cell)=> {
   }
 }
 
-const createTerrain = (template, state, x, y)=>{
+const createTerrain = (template, state, x, y, z)=>{
   let id = state.terrain.length
-  let cellId = helpers.findCellId(x, y, state.view)
+  let cellId = helpers.findCellIdByPosition(x, y, z, state)
   let terrainTemplate = terrainTemplates[template]
   if(terrainTemplate){
     return {

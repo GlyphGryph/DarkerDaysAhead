@@ -21,9 +21,14 @@ const getObjectFromContents = (state, cell)=>{
 const getPosition = (cell)=>{
   let x = Math.floor(cell.x/2) * config.CELL_WIDTH
   let y = Math.floor(cell.y/2) * config.CELL_HEIGHT
+  let z = -1 * config.CELL_DEPTH * cell.z
+
+  x += 300 * cell.z
+
   if(cell.type === cellTypes.CORNER){
     x = x - 2
     y = y - 2
+    z = z + 1
   }else if(cell.type === cellTypes.VBOUNDARY){
     x = x - 1
     y = y + 2
@@ -31,32 +36,28 @@ const getPosition = (cell)=>{
     x = x + 2
     y = y - 1
   }
-  return {x, y}
+  return {x, y, z}
 }
 
 const getDimensions = (cell)=>{
   let x = config.CELL_WIDTH
   let y = config.CELL_HEIGHT
-  let z = 0
 
   if(cell.type === cellTypes.CORNER){
     x = 4
     y = 4
-    z = 2
   }else if(cell.type === cellTypes.VBOUNDARY){
     y = y - 4
     x = 2
-    z = 1
   }else if(cell.type === cellTypes.HBOUNDARY){
     x = x - 4
     y = 2
-    z = 1
   }
-  return {x, y, z}
+  return {x, y}
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let cell = state.cells[ownProps.id]
+  let cell = state.cells.items[ownProps.id]
   let content = getObjectFromContents(state, cell)
   let position = getPosition(cell)
   let dimensions = getDimensions(cell)
@@ -89,7 +90,7 @@ const mapStateToProps = (state, ownProps) => {
     active,
     width: dimensions.x,
     height: dimensions.y,
-    zIndex: dimensions.z,
+    zIndex: position.z,
     xPosition: position.x,
     yPosition: position.y
   }

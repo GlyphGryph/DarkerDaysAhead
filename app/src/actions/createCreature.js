@@ -8,9 +8,9 @@ export const spawnCreature = (template='KREK', cell)=> {
   }
 }
 
-const createCreature = (template, state, x, y)=>{
+const createCreature = (template, state, x, y, z)=>{
   let id = state.creatures.length
-  let cellId = helpers.findCellId(x, y, state.view)
+  let cellId = helpers.findCellIdByPosition(x, y, z, state)
   let creatureTemplate = creatureTemplates[template]
   if(creatureTemplate){
     return {

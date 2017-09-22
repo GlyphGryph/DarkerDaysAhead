@@ -8,40 +8,45 @@ export const resetMap = ()=>{
     let state = getState()
     let width = helpers.cellsWidth(state.view)
     let height = helpers.cellsHeight(state.view)
+    let depth = helpers.cellsDepth(state.view)
     // Cells are built from left to right, then top to bottom
     // Important for quick access "findCellId" logic to keep this in mind
     let cells = []
     let id = 0
     for (let yy = 0; yy < width; yy++){
       for (let xx = 0; xx < height; xx++){
-        cells[id] = generateCell(id, xx, yy)
-        id++
+        for (let zz = 0; zz < depth; zz++){
+          cells.push(generateCell(id, xx, yy, zz))
+          id++
+        }
       }
     }
+
     dispatch({
       type: actionTypes.RESET_MAP,
       cells,
       width: state.view.width,
-      height: state.view.height
+      height: state.view.height,
+      depth: state.view.depth
     })
-    state = getState()
+
     dispatch(
-      spawnCreature('PLAYER', helpers.randomEmptySquare(state))
+      spawnCreature('PLAYER', helpers.randomEmptySquare(getState()))
     )
     dispatch(
-      spawnTerrain('BOULDER', helpers.randomEmptySquare(state))
+      spawnTerrain('BOULDER', helpers.randomEmptySquare(getState()))
     )
     dispatch(
-      spawnTerrain('BOULDER', helpers.randomEmptySquare(state))
+      spawnTerrain('BOULDER', helpers.randomEmptySquare(getState()))
     )
     dispatch(
-      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(getState()))
     )
     dispatch(
-      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(getState()))
     )
     dispatch(
-      spawnTerrain('WALL', helpers.randomEmptyBoundary(state))
+      spawnTerrain('WALL', helpers.randomEmptyBoundary(getState()))
     )
     dispatch({
       type: actionTypes.CONTROL_CREATURE,
@@ -54,69 +59,58 @@ const randColorValue = () => {
   return (Math.floor(Math.random() * 6)+4).toString(16);
 };
 
-const generateCell = (id, x, y) => {
-  // Note well: the x and y positions represent the cells position in the grid
+const generateCell = (id, x, y, z) => {
+  // Note well: the x, y, z positions represent the cells position in the grid
   // NOT the position it appears to exist at in the final map
   // Every other column and row is a "boundary" cell and not a visible square
+  let attributes = {}
   if(x%2 !== 0 && y%2 !== 0){
-    return generateSquare(id, x, y)
+    attributes = generateSquare()
   }else if(y%2 !== 0){
-    return generateVerticalBoundary(id, x, y)
+    attributes = generateVerticalBoundary()
   }else if(x%2 !== 0){
-    return generateHorizontalBoundary(id, x, y)
+    attributes = generateHorizontalBoundary()
   }else{
-    return generateCornerBoundary(id, x, y)
+    attributes = generateCornerBoundary()
+  }
+  return {
+    id,
+    x,
+    y,
+    z,
+    contents: [],
+    ...attributes
   }
 }
 
-const generateSquare = (id, x, y) => {
+const generateSquare = () => {
   let backgroundColor = "#"+0+randColorValue()+0;
-  let cell = {
-    id,
-    x,
-    y,
+  return {
     type: cellTypes.SQUARE,
-    backgroundColor,
-    contents: []
-  };
-  return cell;
-};
+    backgroundColor
+  }
+}
 
-const generateHorizontalBoundary = (id, x, y) => {
+const generateHorizontalBoundary = () => {
   let backgroundColor = "transparent";
-  let cell = {
-    id,
-    x,
-    y,
+  return {
     type: cellTypes.HBOUNDARY,
-    backgroundColor,
-    contents: []
-  };
-  return cell;
-};
+    backgroundColor
+  }
+}
 
-const generateVerticalBoundary = (id, x, y) => {
+const generateVerticalBoundary = () => {
   let backgroundColor = "transparent";
-  let cell = {
-    id,
-    x,
-    y,
+  return {
     type: cellTypes.VBOUNDARY,
     backgroundColor,
-    contents: []
-  };
-  return cell;
+  }
 }
 
 const generateCornerBoundary = (id, x, y) => {
   let backgroundColor = "transparent";
-  let cell = {
-    id,
-    x,
-    y,
+  return {
     type: cellTypes.CORNER,
     backgroundColor,
-    contents: []
-  };
-  return cell;
+  }
 }

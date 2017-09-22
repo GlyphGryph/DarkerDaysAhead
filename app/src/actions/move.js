@@ -10,7 +10,7 @@ export const move = (creatureId, direction)=>{
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
-    let currentCell = state.cells[creature.cellId]
+    let currentCell = state.cells.items[creature.cellId]
     let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
     let targetCell = findCellInDirection(state, currentCell, direction, 2)
     
@@ -62,6 +62,8 @@ const completeMove = (creature, targetCell)=>{
 const findCellInDirection = (state, currentCell, direction, distance)=>{
   let targetX = -1
   let targetY = -1
+  let targetZ = currentCell.z
+
   switch(direction){
     case 0:
       targetX = currentCell.x
@@ -100,13 +102,14 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       targetY = currentCell.y
       break
   }
-  let cellId = helpers.findCellId(
+  let cellId = helpers.findCellIdByPosition(
       targetX, 
       targetY,
-      state.view
+      targetZ,
+      state
   )
   if(!cellId){
     return null
   }
-  return state.cells[cellId]
+  return state.cells.items[cellId]
 }

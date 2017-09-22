@@ -57,13 +57,13 @@ Tasks:
   ✓- L shaped walls should not allow players to move (via corner blocks)
 ✓- Fix bug with players able to go out of map
 ✓- Performance improved for map rendering
-   ✓- Make sure cells only rerender when they change
-   ✓- Don't worry too much - eventually this will all be moving to Canvas!
+  ✓- Make sure cells only rerender when they change
+  ✓- Don't worry too much - eventually this will all be moving to Canvas!
 ✓- Performance improved for map rendering 2
-   ✓- Use perf testing!
-   ✓- Map only rerenders things that REALLY change.
+  ✓- Use perf testing!
+  ✓- Map only rerenders things that REALLY change.
  - Z-levels
-   - multiple levels (4)
+  ✓- multiple levels (3)
    - characters can switch between levels with a keypress
    - Pressing the keypress only works over a "ladder"
    - Characters can switch between levels by moving horizontally along "stairs"
@@ -71,6 +71,8 @@ Tasks:
    - There is a difference between spaces with floors and spaces without.
    - Stepping onto a space without a floor drops the player to the z-level below
    - Drops can be chained, allowing player to drop several z-levels
+ - Z-levels Part 3
+   - Actually display the z-levels in a final usable form, overlayed and filtered somehow
  - AI improvements: Line of sight
    - Enemies will actually follow across levels if they can see you, otherwise wander randomly
    - Only works on same z-levels

@@ -1,10 +1,20 @@
 import { cellTypes } from '../types'
-const findCellId = (xx, yy, view)=>{
-  if(xx < 0 || xx >= cellsWidth(view) || yy < 0 || yy >= cellsHeight(view)){
-    return null
-  }
-  // Calculate the id from the coordinates and the width of the grid
-  return yy * cellsWidth(view) + xx
+const findCellIdByPosition = (xx, yy, zz, state)=>{
+  // Dig through the byPosition structure, if ever encountering
+  // an invalid position, return null
+  let xxCells = state.cells.idByPosition[xx]
+  if(xxCells === undefined){ return null }
+  let yyCells = xxCells[yy]
+  if(yyCells === undefined){ return null }
+  let cellId = yyCells[zz]
+  if(cellId === undefined){ return null }
+  return cellId
+}
+
+const findCellsFromIds = (ids, state)=>{
+  return ids.map((cellid)=>{
+    return state.cells.items[cellid]
+  })
 }
 
 const cellIsBlocked = (cell)=>{
@@ -18,16 +28,26 @@ const cellsHeight = (view)=>{
   return view.height * 2 + 1
 }
 
+const cellsDepth = (view)=>{
+  return view.depth
+}
+
 const squareCells = (state)=>{
-  return state.cells.filter((cell)=>{
-    return ( cell.type === cellTypes.SQUARE )
-  })
+  return findCellsFromIds(
+    state.cells.idsByType[cellTypes.SQUARE],
+    state
+  )
 }
 
 const boundaryCells = (state)=>{
-  return state.cells.filter((cell)=>{
-    return ( cell.type !== cellTypes.SQUARE )
-  })
+  return findCellsFromIds(
+    state.cells.idsByType[cellTypes.VBOUNDARY].concat(
+      state.cells.idsByType[cellTypes.HBOUNDARY] 
+    ).concat(
+      state.cells.idsByType[cellTypes.VBOUNDARY] 
+    ),
+    state
+  )
 }
 
 const edgeSquares = (state)=>{
@@ -43,14 +63,14 @@ const edgeSquares = (state)=>{
 
 const neighbourSquares = (xx, yy, state)=>{
   return [
-    state.cells[findCellId(xx, yy-2, state.view)],
-    state.cells[findCellId(xx+2, yy-2, state.view)],
-    state.cells[findCellId(xx+2, yy, state.view)],
-    state.cells[findCellId(xx+2, yy+2, state.view)],
-    state.cells[findCellId(xx, yy+2, state.view)],
-    state.cells[findCellId(xx-2, yy+2, state.view)],
-    state.cells[findCellId(xx-2, yy, state.view)],
-    state.cells[findCellId(xx-2, yy-2, state.view)],
+    state.cells.items[findCellIdByPosition(xx, yy-2, state.view)],
+    state.cells.items[findCellIdByPosition(xx+2, yy-2, state.view)],
+    state.cells.items[findCellIdByPosition(xx+2, yy, state.view)],
+    state.cells.items[findCellIdByPosition(xx+2, yy+2, state.view)],
+    state.cells.items[findCellIdByPosition(xx, yy+2, state.view)],
+    state.cells.items[findCellIdByPosition(xx-2, yy+2, state.view)],
+    state.cells.items[findCellIdByPosition(xx-2, yy, state.view)],
+    state.cells.items[findCellIdByPosition(xx-2, yy-2, state.view)],
   ]
 }
 
@@ -91,9 +111,11 @@ const findDistance = (source, target)=>{
 }
 
 export default {
-  findCellId,
+  findCellIdByPosition,
+  findCellsFromIds,
   cellsWidth,
   cellsHeight,
+  cellsDepth,
   cellIsBlocked,
   randomEmptyEdgeSquare,
   randomEmptyNeighbourSquare,

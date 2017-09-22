@@ -3,7 +3,8 @@ import { createReducer } from 'redux-create-reducer'
 const resetView = (state, action)=>{
   return {
     width: action.width,
-    height: action.height
+    height: action.height,
+    depth: action.depth
   }
 }
  

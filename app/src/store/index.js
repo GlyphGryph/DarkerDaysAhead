@@ -7,7 +7,8 @@ import { resetMap } from '../actions'
 const defaultState = {
   view: {
     width: config.VIEW_WIDTH,
-    height: config.VIEW_HEIGHT
+    height: config.VIEW_HEIGHT,
+    depth: config.VIEW_DEPTH
   },
   cells: [],
   creatures: [],
