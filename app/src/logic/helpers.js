@@ -29,7 +29,7 @@ const cellsHeight = (view)=>{
 }
 
 const cellsDepth = (view)=>{
-  return view.depth
+  return view.depth * 2 + 1
 }
 
 const squareCells = (state)=>{

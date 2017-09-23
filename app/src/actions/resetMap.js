@@ -55,73 +55,71 @@ export const resetMap = ()=>{
   }
 }
 
-const randColorValue = () => {
-  return (Math.floor(Math.random() * 6)+4).toString(16);
-};
+const randColorValue = ()=>{
+  return (Math.floor(Math.random() * 6)+4).toString(16)
+}
 
-const generateCell = (id, x, y, z) => {
+const generateCell = (id, x, y, z)=>{
   // Note well: the x, y, z positions represent the cells position in the grid
   // NOT the position it appears to exist at in the final map
+  // Every other level is a "floor/ceiling" level and only contains LBoundaries
+  // On a 'primary' level,
   // Every other column and row is a "boundary" cell and not a visible square
   let attributes = {}
-  if(x%2 !== 0 && y%2 !== 0){
-    attributes = generateSquare(z)
-  }else if(y%2 !== 0){
-    attributes = generateVerticalBoundary()
-  }else if(x%2 !== 0){
-    attributes = generateHorizontalBoundary()
+  if(z%2 === 1){
+    if(x%2 !== 0 && y%2 !== 0){
+      attributes = generateSquare(z)
+    }else if(y%2 !== 0){
+      attributes = generateVerticalBoundary()
+    }else if(x%2 !== 0){
+      attributes = generateHorizontalBoundary()
+    }else{
+      attributes = generateCornerBoundary()
+    }
   }else{
-    attributes = generateCornerBoundary()
+    if(x%2 !== 0 && y%2 !== 0){
+      attributes = generateLevelBoundary()
+    }
   }
-
   return {
     id,
     x,
     y,
     z,
     contents: [],
+    backgroundColor: 'transparent',
     ...attributes
   }
 }
 
-const generateSquare = (z) => {
-  let floor = {
-    solid: true,
-  }
-  let backgroundColor = "#"+0+randColorValue()+0
-
-  // If we aren't on the bottom floor, have half the floor squares be missing
-  if(z !== 0 && Math.floor(Math.random()*4)>2){
-    floor.solid = false
-    backgroundColor = '#CCF'
-  }
+const generateSquare = (z)=>{
   return {
-    type: cellTypes.SQUARE,
-    floor,
+    type: cellTypes.SQUARE
+  }
+}
+
+const generateHorizontalBoundary = ()=>{
+  return {
+    type: cellTypes.HBOUNDARY
+  }
+}
+
+const generateVerticalBoundary = ()=>{
+  return {
+    type: cellTypes.VBOUNDARY
+  }
+}
+
+const generateCornerBoundary = ()=>{
+  return {
+    type: cellTypes.CORNER
+  }
+}
+
+const generateLevelBoundary = ()=>{
+  let backgroundColor = '#CCF'
+  return {
+    type: cellTypes.LBOUNDARY,
     backgroundColor
-  }
-}
-
-const generateHorizontalBoundary = () => {
-  let backgroundColor = "transparent";
-  return {
-    type: cellTypes.HBOUNDARY,
-    backgroundColor
-  }
-}
-
-const generateVerticalBoundary = () => {
-  let backgroundColor = "transparent";
-  return {
-    type: cellTypes.VBOUNDARY,
-    backgroundColor,
-  }
-}
-
-const generateCornerBoundary = (id, x, y) => {
-  let backgroundColor = "transparent";
-  return {
-    type: cellTypes.CORNER,
-    backgroundColor,
   }
 }

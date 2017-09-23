@@ -21,9 +21,9 @@ const getObjectFromContents = (state, cell)=>{
 const getPosition = (cell)=>{
   let x = Math.floor(cell.x/2) * config.CELL_WIDTH
   let y = Math.floor(cell.y/2) * config.CELL_HEIGHT
-  let z = -1 * config.CELL_DEPTH * cell.z
+  let z = config.CELL_DEPTH * cell.z
 
-  x += 300 * cell.z
+  x += 200 * Math.floor(cell.z / 2 )
 
   if(cell.type === cellTypes.CORNER){
     x = x - 2

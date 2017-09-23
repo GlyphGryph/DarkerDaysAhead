@@ -94,10 +94,10 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       targetY = currentCell.y - distance
       break
     case 8:
-      targetZ = currentCell.z + 1
+      targetZ = currentCell.z + distance
       break;
     case 9:
-      targetZ = currentCell.z - 1
+      targetZ = currentCell.z - distance
       break;
     default:
       targetX = currentCell.x
