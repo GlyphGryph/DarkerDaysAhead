@@ -65,7 +65,7 @@ const generateCell = (id, x, y, z) => {
   // Every other column and row is a "boundary" cell and not a visible square
   let attributes = {}
   if(x%2 !== 0 && y%2 !== 0){
-    attributes = generateSquare()
+    attributes = generateSquare(z)
   }else if(y%2 !== 0){
     attributes = generateVerticalBoundary()
   }else if(x%2 !== 0){
@@ -73,6 +73,7 @@ const generateCell = (id, x, y, z) => {
   }else{
     attributes = generateCornerBoundary()
   }
+
   return {
     id,
     x,
@@ -83,10 +84,20 @@ const generateCell = (id, x, y, z) => {
   }
 }
 
-const generateSquare = () => {
-  let backgroundColor = "#"+0+randColorValue()+0;
+const generateSquare = (z) => {
+  let floor = {
+    solid: true,
+  }
+  let backgroundColor = "#"+0+randColorValue()+0
+
+  // If we aren't on the bottom floor, have half the floor squares be missing
+  if(z !== 0 && Math.floor(Math.random()*4)>2){
+    floor.solid = false
+    backgroundColor = '#CCF'
+  }
   return {
     type: cellTypes.SQUARE,
+    floor,
     backgroundColor
   }
 }
