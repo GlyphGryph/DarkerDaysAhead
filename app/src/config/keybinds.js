@@ -5,7 +5,11 @@ let Keys = {
   S: 's',
   A: 'a',
   D: 'd',
+  Q: 'q',
+  E: 'e',
   R: 'r',
+  PLUS: '+',
+  MINUS: '-',
   UP: 'ArrowUp',
   DOWN: 'ArrowDown',
   LEFT: 'ArrowLeft',
@@ -41,6 +45,10 @@ let Keybinds = [
   [Keys.NUMPAD4, {value: 6, tags: ['MOVE']}],
   [Keys.NUMPAD7, {value: 7, tags: ['MOVE']}],
   [Keys.NUMPAD5, {value: 'WAIT', tags: []}],
+  [Keys.E, {value: 8, tags: ['MOVE']}],
+  [Keys.Q, {value: 9, tags: ['MOVE']}],
+  [Keys.PLUS, {value: 8, tags: ['MOVE']}],
+  [Keys.MINUS, {value: 9, tags: ['MOVE']}]
 ]
 Keybinds = new Map(Keybinds)
 

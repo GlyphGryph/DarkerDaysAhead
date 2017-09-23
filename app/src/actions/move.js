@@ -60,13 +60,12 @@ const completeMove = (creature, targetCell)=>{
 }
 
 const findCellInDirection = (state, currentCell, direction, distance)=>{
-  let targetX = -1
-  let targetY = -1
+  let targetX = currentCell.x
+  let targetY = currentCell.y
   let targetZ = currentCell.z
 
   switch(direction){
     case 0:
-      targetX = currentCell.x
       targetY = currentCell.y - distance
       break
     case 1:
@@ -75,14 +74,12 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       break
     case 2:
       targetX = currentCell.x + distance
-      targetY = currentCell.y
       break
     case 3:
       targetX = currentCell.x + distance
       targetY = currentCell.y + distance
       break
     case 4:
-      targetX = currentCell.x
       targetY = currentCell.y + distance
       break
     case 5:
@@ -91,17 +88,23 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       break
     case 6:
       targetX = currentCell.x - distance
-      targetY = currentCell.y
       break
     case 7:
       targetX = currentCell.x - distance
       targetY = currentCell.y - distance
       break
+    case 8:
+      targetZ = currentCell.z + 1
+      break;
+    case 9:
+      targetZ = currentCell.z - 1
+      break;
     default:
       targetX = currentCell.x
       targetY = currentCell.y
       break
   }
+  console.log('Trying to move to: '+targetX+','+targetY+','+targetZ)
   let cellId = helpers.findCellIdByPosition(
       targetX, 
       targetY,

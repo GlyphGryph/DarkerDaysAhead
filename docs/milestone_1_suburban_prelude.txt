@@ -64,17 +64,22 @@ Tasks:
   ✓- Map only rerenders things that REALLY change.
  - Z-levels
   ✓- multiple levels (3)
-   - For ease of coding, consider storing neighbour-id for cells.
-     - Neighbours include cells next to, above, below, diagonal!
-   - characters can switch between levels with a keypress
-   - Have ladders spawn in the same x/y position on two adjacent levels
-   - Pressing the keypress only works over a "ladder"
-   - Characters can switch between levels by moving horizontally along "stairs"
+  ✓- characters can switch between levels with a keypress (fly mode)
  - Z-levels Part 2
    - There is a difference between spaces with floors and spaces without.
-   - Stepping onto a space without a floor drops the player to the z-level below
+   - Players can only move vertically when there is no "floor" blocking them
+   - Toggle "fly mode" on character, store whether or not character is flying
+   - Non-flying plus no floor drops the player to the z-level below
+   - Have ladders spawn in the same x/y position on two adjacent levels, as walls
+   - Standing next to a ladder allows a player to move up/down as if flying
    - Drops can be chained, allowing player to drop several z-levels
+   - For ease of coding, consider storing neighbour-id for cells.
+     - Neighbours include cells next to, above, below, diagonal!
  - Z-levels Part 3
+   - Break z-levels into "thirds". Characters are 3 levels tall.
+   - Players can move up neighboring z-levels that are only 1 level higher
+   - This is sometimes required to move off ladders
+   - Characters can switch between distance levels by moving horizontally along "stairs"
    - Actually display the z-levels in a final usable form, overlayed and filtered somehow
  - AI improvements: Line of sight
    - Enemies will actually follow across levels if they can see you, otherwise wander randomly
