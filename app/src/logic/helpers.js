@@ -50,6 +50,13 @@ const boundaryCells = (state)=>{
   )
 }
 
+const layerBoundaryCells = (state)=>{
+  return findCellsFromIds(
+    state.cells.idsByType[cellTypes.LBOUNDARY],
+    state
+  )
+}
+
 const edgeSquares = (state)=>{
   return squareCells(state).filter((cell)=>{
     return (
@@ -123,4 +130,5 @@ export default {
   randomEmptyBoundary,
   findDistance,
   squareCells,
+  layerBoundaryCells
 }

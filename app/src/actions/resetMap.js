@@ -1,6 +1,6 @@
 import { actionTypes, cellTypes } from '../types'
 import { spawnCreature } from './createCreature'
-import { spawnTerrain } from './createTerrain'
+import { spawnTerrain, spawnMultipleTerrain } from './createTerrain'
 import helpers from '../logic/helpers'
 
 export const resetMap = ()=>{
@@ -47,6 +47,16 @@ export const resetMap = ()=>{
     )
     dispatch(
       spawnTerrain('WALL', helpers.randomEmptyBoundary(getState()))
+    )
+    let floorCells = helpers.layerBoundaryCells(getState()).filter((cell)=>{
+      return (
+        cell.z === 0 || 
+        ( cell.z === 2 && cell.x > 2 && cell.y > 2) ||
+        ( cell.z === 4 && cell.x < 6)
+      )
+    })
+    dispatch(
+      spawnMultipleTerrain('FLOOR', floorCells)
     )
     dispatch({
       type: actionTypes.CONTROL_CREATURE,

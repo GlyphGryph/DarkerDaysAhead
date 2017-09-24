@@ -13,5 +13,12 @@ export const terrainTemplates = {
   WALL: {
     name: 'WALL',
     backgroundColor: '#F00'
-  }
+  },
+  // ---
+  // LAYER BOUNDARY TERRAIN
+  // ---
+  FLOOR: {
+    name: 'FLOOR',
+    backgroundColor: '#0F0'
+  },
 }

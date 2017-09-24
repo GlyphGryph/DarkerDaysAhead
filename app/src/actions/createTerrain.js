@@ -3,9 +3,17 @@ import { terrainTemplates } from '../templates/terrainTemplates'
 import helpers from '../logic/helpers'
 import { spawnObject } from './objects'
 
-export const spawnTerrain = (template='BOULDER', cell)=> {
+export const spawnTerrain = (template='BOULDER', cell)=>{
   return (dispatch, getState)=>{
     return dispatch(spawnObject(template, cell, createTerrain, actionTypes.CREATE_TERRAIN))
+  }
+}
+
+export const spawnMultipleTerrain = (template, cells)=>{
+  return (dispatch, getState)=>{
+    for(let cell of cells){
+      dispatch(spawnObject(template, cell, createTerrain, actionTypes.CREATE_TERRAIN))
+    }
   }
 }
 
