@@ -1,5 +1,5 @@
 import { actionTypes, cellTypes } from '../types'
-import { spawnCreature } from './createCreature'
+import { spawnCreature } from './creatures'
 import { spawnTerrain, spawnMultipleTerrain } from './createTerrain'
 import helpers from '../logic/helpers'
 

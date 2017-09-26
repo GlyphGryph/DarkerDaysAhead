@@ -1,7 +1,11 @@
 import Keybinds from '../config/keybinds'
 import { resetMap } from './resetMap'
-import { spawnCreature } from './createCreature'
-import { executePlayerAction, spawnAdjacentAlly } from './player'
+import {
+  spawnCreature,
+  toggleFlyMode,
+  spawnAdjacentAlly
+} from './creatures'
+import { executePlayerAction } from './player'
 import { move } from './move'
 import { wait } from './behaviours'
 import helpers from '../logic/helpers'
@@ -22,6 +26,8 @@ export const userInput = (key)=> {
       return dispatch(resetMap())
     }else if(keyAction.value === 'WAIT'){
       return dispatch(executePlayerAction(wait))
+    }else if(keyAction.value === 'TOGGLE_FLY'){
+      return dispatch(toggleFlyMode())
     }else if(keyAction.tags.includes('MOVE')){
       return dispatch(executePlayerAction(move, keyAction.value));
     }else{

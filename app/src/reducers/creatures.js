@@ -32,6 +32,18 @@ const moveCreature = (state = [], action)=>{
   ]
 }
 
+const setIsFlying = (state = [], action)=>{
+  console.log('here')
+  return [
+    ...state.slice(0, action.object.id),
+    {
+      ...state[action.object.id],
+      isFlying: action.value,
+    },
+    ...state.slice(action.object.id+1)
+  ]
+}
+
 const killCreature = (state = [], action)=>{
   return [
     ...state.slice(0, action.object.id),
@@ -49,7 +61,8 @@ const creatures = createReducer([], {
   [actionTypes.UPDATE_CREATURE]: updateCreature,
   [actionTypes.MOVE_OBJECT]: moveCreature,
   [actionTypes.DESTROY_OBJECT]: killCreature,
-  [actionTypes.RESET_MAP]: clearCreatures
+  [actionTypes.RESET_MAP]: clearCreatures,
+  [actionTypes.SET_IS_FLYING]: setIsFlying
 })
 
 export default creatures

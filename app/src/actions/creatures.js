@@ -18,6 +18,7 @@ const createCreature = (template, state, x, y, z)=>{
       id,
       type: objectTypes.CREATURE,
       template,
+      isFlying: false,
       cellId,
       x,
       y
@@ -26,6 +27,44 @@ const createCreature = (template, state, x, y, z)=>{
     return {
       errors: 'Could not create creature. Invalid definition.'
     }
+  }
+}
+
+export const toggleFlyMode = ()=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+
+    let currentCreatureId = state.turnQueue[0]
+    let currentCreature = state.creatures[currentCreatureId]
+    if(currentCreature.controlled){
+      dispatch({
+        type: actionTypes.SET_IS_FLYING,
+        object: {
+          id: currentCreatureId
+        },
+        value: !currentCreature.isFlying
+      })
+    }
+  }
+}
+
+export const spawnAdjacentAlly = ()=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+
+    let sourceCreatureId = state.turnQueue[0]
+    let sourceCreature = state.creatures[sourceCreatureId]
+    if(!sourceCreature.controlled){
+      sourceCreatureId = state.player.controlledCreatures[0]
+      sourceCreature = state.creatures[sourceCreatureId]
+    }
+
+    let [xx, yy] = helpers.randomEmptyNeighbourCoords(
+      sourceCreature.x,
+      sourceCreature.y,
+      state
+    )
+    return dispatch(spawnCreature('PLAYER', xx, yy))
   }
 }
 

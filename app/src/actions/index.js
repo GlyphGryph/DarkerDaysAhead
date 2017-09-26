@@ -1,6 +1,6 @@
 export * from './userInput'
 export * from './move'
-export * from './createCreature' 
+export * from './creatures' 
 export * from './createTerrain' 
 export * from './resetMap'
 export * from './objects'

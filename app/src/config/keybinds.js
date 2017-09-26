@@ -8,6 +8,7 @@ let Keys = {
   Q: 'q',
   E: 'e',
   R: 'r',
+  K: 'k',
   PLUS: '+',
   MINUS: '-',
   UP: 'ArrowUp',
@@ -27,6 +28,7 @@ let Keys = {
 let Keybinds = [
   [Keys.ENTER, {value: 'SELECT', tags: []}],
   [Keys.SPACE, {value: 'CHANGE', tags: []}],
+  [Keys.K, {value: 'TOGGLE_FLY', tags: []}],
   [Keys.R, {value: 'RESET', tags: []}],
   [Keys.W, {value: 0, tags: ['MOVE']}],
   [Keys.UP, {value: 0, tags: ['MOVE']}],
