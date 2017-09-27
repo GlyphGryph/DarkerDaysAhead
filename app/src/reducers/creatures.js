@@ -33,7 +33,6 @@ const moveCreature = (state = [], action)=>{
 }
 
 const setIsFlying = (state = [], action)=>{
-  console.log('here')
   return [
     ...state.slice(0, action.object.id),
     {

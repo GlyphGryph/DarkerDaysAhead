@@ -10,42 +10,67 @@ export const move = (creatureId, direction)=>{
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
-    let currentCell = state.cells.items[creature.cellId]
-    let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
-    let targetCell = findCellInDirection(state, currentCell, direction, 2)
-    
-    if(targetCell === null){
-      return dispatch(sendError(creature.name + ' tried to move out of bounds'))
-    }
-    
+
     // Process if this move can be completed or if it is interrupted
-    if(targetCell.contents.length !== 0){
-      return dispatch(blockMove(creature, targetCell))
-    }else if(crossedBoundary.contents.length !== 0){
-      return dispatch(blockMove(creature, crossedBoundary))
+    let moveResult = checkValidMove(state, creature, direction)
+    console.log(moveResult)
+    if(moveResult.valid){
+      return dispatch(completeMove(creature, moveResult.finalCell))
+    }else if(moveResult.attackInstead){
+      return dispatch(attackCell(creature.id, moveResult.failedCell))
     }else{
-      return dispatch(completeMove(creature, targetCell))
+      return dispatch(blockMove(creature, moveResult.failedCell, moveResult.message))
     }
   }
 }
 
-const blockMove = (creature, blockingCell)=>{
-  return (dispatch, getState)=>{
-    if(blockingCell.type === cellTypes.SQUARE){
-      let blockingObjectId = blockingCell.contents[0].id
-      let blockingObjectType = blockingCell.contents[0].type
-      // If one of these is an enemy and one is player controlled...
-      if(
-        blockingObjectType === objectTypes.CREATURE &&
-        creature.faction !== getState().creatures[blockingObjectId].faction
-      ){
-        return dispatch(attack(creature.id, blockingObjectId))
-      } else {
-        return dispatch(sendError(creature.name + " couldn't move into occupied cell"))
-      }
-    } else {
-      return dispatch(sendError(creature.name + " couldn't move through unpassable barrier"))
+const checkValidMove = (state, creature, direction)=>{
+  let moveResult = { valid: false, attackInstead: false }
+  let currentCell = state.cells.items[creature.cellId]
+  let targetCell = findCellInDirection(state, currentCell, direction, 2)
+  let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
+
+  if(targetCell === null){
+    moveResult.failedCell = null
+    moveResult.message = creature.name + ' tried to move out of bounds'
+  }else if(creature.isFlying && direction === 8){
+    moveResult.failedCell = targetCell
+    moveResult.message = creature.name + ' cannot fly'
+  }else if(isBlocked(crossedBoundary)){
+    moveResult.failedCell = crossedBoundary
+    moveResult.message = creature.name + " couldn't move through unpassable barrier"
+  }else if(isBlocked(targetCell)){
+    moveResult.failedCell = targetCell
+    let blockingObject = targetCell.contents[0]
+    // If a creature tried to move
+    if(
+      blockingObject.type === objectTypes.CREATURE &&
+      creature.faction !== state.creatures[blockingObject.id].faction
+    ){
+      moveResult.attackInstead = true
+    }else{
+      moveResult.message = creature.name + " couldn't move into occupied cell"
     }
+  }else{
+    moveResult.valid = true
+    moveResult.finalCell = targetCell
+  }
+  return moveResult
+}
+
+const isBlocked = (cell)=>{
+  return cell.contents.length > 0
+}
+
+const attackCell = (creature, cell)=>{
+  return (dispatch, getState)=>{
+    return dispatch(attack(creature.id, cell.contents[0].id))
+  }
+}
+
+const blockMove = (creature, blockingCell, message)=>{
+  return (dispatch, getState)=>{
+    return dispatch(sendError(message))
   }
 }
 
@@ -95,10 +120,10 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
       break
     case 8:
       targetZ = currentCell.z + distance
-      break;
+      break
     case 9:
       targetZ = currentCell.z - distance
-      break;
+      break
     default:
       targetX = currentCell.x
       targetY = currentCell.y
