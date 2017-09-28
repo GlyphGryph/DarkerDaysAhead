@@ -17,7 +17,7 @@ export const move = (creatureId, direction)=>{
     }
 
     // Process if this move can be completed or if it is interrupted
-    let moveResult = checkValidMove(state, creature, direction)
+    let moveResult = getMoveResult(state, creature, direction)
     console.log("moveResult:")
     console.log(moveResult)
     if(moveResult.valid){
@@ -33,19 +33,34 @@ export const move = (creatureId, direction)=>{
   }
 }
 
-const checkValidMove = (state, creature, direction)=>{
+const getMoveResult = (state, creature, direction)=>{
   let moveResult = { valid: false, attackInstead: false }
   let currentCell = state.cells.items[creature.cellId]
   let targetCell = findCellInDirection(state, currentCell, direction, 2)
   let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
 
+  // Check the target cell exists
   if(targetCell === null){
     moveResult.failedCell = null
     moveResult.message = creature.name + ' tried to move out of bounds'
-  }else if(!creature.isFlying && direction === directionTypes.UP){
-    moveResult.failedCell = targetCell
-    moveResult.message = creature.name + ' cannot fly'
-  }else if(isBlocked(crossedBoundary)){
+    return moveResult
+  }
+  
+  // Obey gravity, if necessary
+  if(direction == directionTypes.UP){
+    if(canMoveUp(creature, state)){
+      if(isSupported(creature, targetCell, state)){
+        moveResult.message = creature.name + ' moved up a ladder.'
+      }
+    } else {
+      moveResult.failedCell = targetCell
+      moveResult.message = creature.name + ' cannot fly.'
+      return moveResult
+    }
+  }
+
+  // Make sure the path is clear
+  if(isBlocked(crossedBoundary)){
     moveResult.failedCell = crossedBoundary
     moveResult.message = creature.name + " couldn't move through unpassable barrier"
   }else if(isBlocked(targetCell)){
@@ -60,7 +75,7 @@ const checkValidMove = (state, creature, direction)=>{
     }else{
       moveResult.message = creature.name + " couldn't move into occupied cell"
     }
-  }else if(!creature.isFlying && !isSupported(targetCell, state)){
+  }else if(!isSupported(creature, targetCell, state)){
     moveResult.valid = true
     moveResult.finalCell = findGround(targetCell, state)
     moveResult.message = creature.name + " fell down!"
@@ -71,18 +86,62 @@ const checkValidMove = (state, creature, direction)=>{
   return moveResult
 }
 
+
 const isBlocked = (cell)=>{
   return cell.contents.length > 0
 }
 
-const isSupported = (cell, state)=>{
+const isSupported = (creature, cell, state)=>{
   let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
   let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
-  return isBlocked(floorCell) || isBlocked(nextSquare)
+
+  return (
+    creature.isFlying ||
+    isNearClimbable(cell, state) ||
+    isGround(cell, state) ||
+    isNearClimbable(nextSquare, state)
+  )
+}
+
+const isGround = (cell, state)=>{
+  let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
+  let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+
+  return (
+    isBlocked(floorCell) ||
+    isBlocked(nextSquare)
+  )
+}
+
+const canMoveUp = (creature, state)=>{
+  let cell = state.cells.items[creature.cellId]
+  return (creature.isFlying || isNearClimbable(cell, state))
+}
+
+const isNearClimbable = (cell, state)=>{
+  return !!nearbyTerrain(cell, state).find((terrain)=>{
+    return terrain.climbable
+  })
+}
+
+const nearbyTerrain = (cell, state)=>{
+  let nearbyCells = Object.values(cell.neighbours).map((cellId)=>{
+    return state.cells.items[cellId]
+  })
+  let nearbyTerrain = nearbyCells.map((cell)=>{
+    return cell.contents.filter((content)=>{
+      return content.type == objectTypes.TERRAIN
+    }).map((terrainRef)=>{
+      return state.terrain[terrainRef.id]
+    })
+  }).reduce((a,b)=>{
+    return a.concat(b)
+  }, [])
+  return nearbyTerrain
 }
 
 const findGround = (cell, state)=>{
-  if(cell === undefined || isSupported(cell, state)){
+  if(cell === undefined || isGround(cell, state)){
     return cell
   } else {
     let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]

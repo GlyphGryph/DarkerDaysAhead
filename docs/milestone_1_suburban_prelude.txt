@@ -65,7 +65,7 @@ Tasks:
 ✓- Z-levels
   ✓- multiple levels (3)
   ✓- characters can switch between levels with a keypress (fly mode)
- - Z-levels Part 2
+✓- Z-levels Part 2
   ✓- There is a difference between spaces with floors and spaces without.
   ✓- Players can only move vertically when there is no "floor" blocking them
   ✓- Toggle "fly mode" on character, store whether or not character is flying
@@ -73,7 +73,7 @@ Tasks:
   ✓- Non-flying plus no floor drops the player to the z-level below
   ✓- Non-flying plus no floor with an object filling the space below prevents dropping
   ✓- Have ladders spawn in the same x/y position on two adjacent levels, as walls
-   - Standing next to a ladder allows a player to move up/down as if flying
+  ✓- Standing next to a ladder allows a player to move up/down as if flying
   ✓- Drops can be chained, allowing player to drop several z-levels
   ✓- For ease of coding, consider storing neighbour-id for cells.
     ✓- Neighbours include cells next to, above, below, diagonal!

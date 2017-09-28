@@ -16,7 +16,8 @@ export const terrainTemplates = {
   },
   LADDER: {
     name: 'LADDER',
-    backgroundColor: '#FF0'
+    backgroundColor: '#FF0',
+    climbable: true
   },
   // ---
   // LAYER BOUNDARY TERRAIN

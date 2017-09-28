@@ -23,13 +23,14 @@ const createTerrain = (template, state, x, y, z)=>{
   let terrainTemplate = terrainTemplates[template]
   if(terrainTemplate){
     return {
-      ...terrainTemplate,
       id,
       type: objectTypes.TERRAIN,
       template,
       cellId,
       x,
-      y
+      y,
+      climbable: false,
+      ...terrainTemplate
     }
   }else{
     return {
