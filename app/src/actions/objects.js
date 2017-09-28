@@ -12,9 +12,6 @@ export const destroyObject = (object)=>{
 export const spawnObject = (template, cell, createFunction, actionType)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    console.log('spawning object:')
-    console.log(template)
-    console.log(cell)
     if(!cell){
       dispatch(sendError("Could not create "+template+". Location out of bounds."))
     }else if(helpers.cellIsBlocked(cell)){

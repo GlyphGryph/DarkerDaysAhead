@@ -46,7 +46,7 @@ const outputMap = ()=>{
     let xx = cell.x
     let yy = cell.y
     let zz = cell.z
-    cell.neighbours = {
+    let defaultNeighbours = {
       [directionTypes.NORTH]: cellsByPosition[xx+','+(yy-1)+','+zz],
       [directionTypes.NORTHEAST]: cellsByPosition[(xx+1)+','+(yy-1)+','+zz],
       [directionTypes.EAST]: cellsByPosition[(xx+1)+','+yy+','+zz],
@@ -58,11 +58,16 @@ const outputMap = ()=>{
       [directionTypes.UP]: cellsByPosition[xx+','+yy+','+(zz+1)],
       [directionTypes.DOWN]: cellsByPosition[xx+','+yy+','+(zz-1)]
     }
+    cell.neighbours = Object.keys(defaultNeighbours).reduce((result, key)=>{
+      // Remove any entries that didn't find a cell in that position
+      if(defaultNeighbours[key] !== null){
+        result[key] = defaultNeighbours[key]
+      }
+      return result
+    }, {})
     return cell
   })
 
-  console.log('outputting map!')
-  console.log(buildPlan)
   return buildPlan
 }
 
@@ -101,9 +106,13 @@ const generateCell = (id, x, y, z)=>{
       attributes = generateCornerBoundary()
     }
   }else{
-    if(x%2 !== 0 && y%2 !== 0){
-      attributes = generateLevelBoundary()
-    }
+    console.log('Uh...')
+    console.log("id: "+id+", c: "+x+','+y+','+z)
+    attributes = generateLevelBoundary()
+  }
+  if(attributes.type === undefined){
+    console.log('FUCK!')
+    console.log("id: "+id+", c: "+x+','+y+','+z)
   }
   return {
     id,

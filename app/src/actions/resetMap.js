@@ -1,8 +1,4 @@
-import {
-  actionTypes,
-  cellTypes,
-  directionTypes
-} from '../types'
+import { actionTypes } from '../types'
 import { spawnCreature } from './creatures'
 import { spawnTerrain, spawnMultipleTerrain } from './createTerrain'
 import helpers from '../logic/helpers'
@@ -12,14 +8,9 @@ export const resetMap = ()=>{
   return (dispatch, getState)=>{
     let buildPlan = mapBuilder.outputMap()
     let state = getState()
-    let width = buildPlan
-    let height = helpers.cellsHeight(state.view)
-    let depth = helpers.cellsDepth(state.view)
     // Cells are built from left to right, then top to bottom
     // Important for quick access "findCellId" logic to keep this in mind
     let cells = buildPlan.cells
-    let cellsByPosition = {}
-    let id = 0
 
     dispatch({
       type: actionTypes.RESET_MAP,
@@ -34,7 +25,6 @@ export const resetMap = ()=>{
     let terrainBatches = {}
     state = getState()
     for(let objectDefinition of buildPlan.terrain){
-      console.log('building '+objectDefinition.key+' at '+objectDefinition.x+','+objectDefinition.y)
       let targetCellId = helpers.findCellIdByPosition(
         objectDefinition.x,
         objectDefinition.y,
@@ -47,9 +37,6 @@ export const resetMap = ()=>{
 
 
     for(let [terrainBatchKey, terrainBatchCells] of Object.entries(terrainBatches)){
-      console.log('spawned floor?')
-      console.log(terrainBatchKey)
-      console.log(terrainBatchCells)
       dispatch(spawnMultipleTerrain(terrainBatchKey, terrainBatchCells))
     }
 

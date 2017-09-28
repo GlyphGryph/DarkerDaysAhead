@@ -129,11 +129,15 @@ const nearbyTerrain = (cell, state)=>{
     return state.cells.items[cellId]
   })
   let nearbyTerrain = nearbyCells.map((cell)=>{
-    return cell.contents.filter((content)=>{
-      return content.type === objectTypes.TERRAIN
-    }).map((terrainRef)=>{
-      return state.terrain[terrainRef.id]
-    })
+    if(cell){
+      return cell.contents.filter((content)=>{
+        return content.type === objectTypes.TERRAIN
+      }).map((terrainRef)=>{
+        return state.terrain[terrainRef.id]
+      })
+    } else {
+      return []
+    }
   }).reduce((a,b)=>{
     return a.concat(b)
   }, [])

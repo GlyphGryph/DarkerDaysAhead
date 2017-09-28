@@ -13,11 +13,11 @@ export default [
   { layer: 1,
     type: layerTypes.PRIMARY,
     body: 
-    [ "  =  ",
-      "  =  ",
-      "  =  ",
+    [ "===  ",
+      "= =  ",
+      "= =  ",
       "     ",
       "     ",
     ]
-  }
+  },
 ]
