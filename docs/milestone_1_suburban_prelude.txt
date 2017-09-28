@@ -80,6 +80,7 @@ Tasks:
  - Z-levels Part 3
    - Characters can "jump" several squares to clear holes and gaps
    - Actually display the z-levels in a final usable form, overlayed and filtered somehow
+ - BUGFIX: Figure out why creatures are crashing the app
  - Map Generation - replace random placement with hardcoded "map" via config file
  - Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
  - AI improvements: Line of sight
