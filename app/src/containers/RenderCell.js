@@ -24,8 +24,6 @@ const getPosition = (cell)=>{
   let y = Math.floor(cell.y/2) * config.CELL_HEIGHT
   let z = config.CELL_DEPTH * cell.z
 
-  x += 200 * Math.floor(cell.z / 2 )
-
   if(cell.type === cellTypes.CORNER){
     x = x - 2
     y = y - 2

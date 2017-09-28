@@ -21,7 +21,8 @@ const createCreature = (template, state, x, y, z)=>{
       isFlying: false,
       cellId,
       x,
-      y
+      y,
+      z
     }
   }else{
     return {
@@ -59,12 +60,13 @@ export const spawnAdjacentAlly = ()=>{
       sourceCreature = state.creatures[sourceCreatureId]
     }
 
-    let [xx, yy] = helpers.randomEmptyNeighbourCoords(
+    let [xx, yy, zz] = helpers.randomEmptyNeighbourCoords(
       sourceCreature.x,
       sourceCreature.y,
+      sourceCreature.z,
       state
     )
-    return dispatch(spawnCreature('PLAYER', xx, yy))
+    return dispatch(spawnCreature('PLAYER', xx, yy, zz))
   }
 }
 

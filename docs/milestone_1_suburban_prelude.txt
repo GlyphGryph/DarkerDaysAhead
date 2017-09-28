@@ -77,10 +77,10 @@ Tasks:
   ✓- Drops can be chained, allowing player to drop several z-levels
   ✓- For ease of coding, consider storing neighbour-id for cells.
     ✓- Neighbours include cells next to, above, below, diagonal!
- - Map Generation - replace random placement with hardcoded "map" via config file
  - Z-levels Part 3
    - Characters can "jump" several squares to clear holes and gaps
    - Actually display the z-levels in a final usable form, overlayed and filtered somehow
+ - Map Generation - replace random placement with hardcoded "map" via config file
  - Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
  - AI improvements: Line of sight
    - Enemies will actually follow across levels if they can see you, otherwise wander randomly

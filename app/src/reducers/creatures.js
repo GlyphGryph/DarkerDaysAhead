@@ -26,7 +26,8 @@ const moveCreature = (state = [], action)=>{
       ...state[action.object.id],
       cellId: action.targetCell.id,
       x: action.targetCell.x,
-      y: action.targetCell.y
+      y: action.targetCell.y,
+      z: action.targetCell.z
     },
     ...state.slice(action.object.id+1)
   ]

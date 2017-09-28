@@ -17,6 +17,7 @@ export const processNextTurn = ()=>{
         dispatch(dropFromQueue())
       }else if(creature.controlled){
         // If creature is controlled, stop processing and wait for user input
+        dispatch({type: actionTypes.SET_CURRENT_CREATURE, id: creature.id})
         exit = true
       }else{
         // Otherwise, creature takes its turn and we repeat this action

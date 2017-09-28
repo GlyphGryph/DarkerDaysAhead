@@ -4,7 +4,8 @@ import { actionTypes } from '../types'
 const defaultState = {
   items: {},
   idList: [],
-  idByType: {},
+  idsByType: {},
+  idsByLayer: {},
   idByPosition: {}
 }
 
@@ -20,6 +21,11 @@ const recreateCells = (state = defaultState, action)=>{
     idsByType: action.cells.reduce((result, cell)=>{
       result[cell.type] = result[cell.type] || []
       result[cell.type].push(cell.id)
+      return result
+    }, {}),
+    idsByLayer: action.cells.reduce((result, cell)=>{
+      result[cell.z] = result[cell.z] || []
+      result[cell.z].push(cell.id)
       return result
     }, {}),
     idByPosition: action.cells.reduce((result, cell)=>{

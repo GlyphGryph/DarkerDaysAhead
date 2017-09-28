@@ -47,7 +47,7 @@ const getMoveResult = (state, creature, direction)=>{
   }
   
   // Obey gravity, if necessary
-  if(direction == directionTypes.UP){
+  if(direction === directionTypes.UP){
     if(canMoveUp(creature, state)){
       if(isSupported(creature, targetCell, state)){
         moveResult.message = creature.name + ' moved up a ladder.'
@@ -130,7 +130,7 @@ const nearbyTerrain = (cell, state)=>{
   })
   let nearbyTerrain = nearbyCells.map((cell)=>{
     return cell.contents.filter((content)=>{
-      return content.type == objectTypes.TERRAIN
+      return content.type === objectTypes.TERRAIN
     }).map((terrainRef)=>{
       return state.terrain[terrainRef.id]
     })
