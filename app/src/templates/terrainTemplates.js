@@ -3,7 +3,7 @@ export const terrainTemplates = {
   // SQUARE TERRAIN
   // ---
   BOULDER: {
-    name: 'BOULDER',
+    key: 'BOULDER',
     icon: '0',
     color: '#999'
   },
@@ -11,11 +11,11 @@ export const terrainTemplates = {
   // BOUNDARY TERRAIN
   // ---
   WALL: {
-    name: 'WALL',
+    key: 'WALL',
     backgroundColor: '#F00'
   },
   LADDER: {
-    name: 'LADDER',
+    key: 'LADDER',
     backgroundColor: '#FF0',
     climbable: true
   },
@@ -23,7 +23,7 @@ export const terrainTemplates = {
   // LAYER BOUNDARY TERRAIN
   // ---
   FLOOR: {
-    name: 'FLOOR',
+    key: 'FLOOR',
     backgroundColor: '#0F0'
   },
 }

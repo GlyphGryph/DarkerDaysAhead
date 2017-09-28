@@ -1,3 +1,4 @@
+import { factionTypes } from '../types'
 export const creatureTemplates = {
   PLAYER: {
     name: 'Player',

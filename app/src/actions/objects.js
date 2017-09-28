@@ -12,12 +12,14 @@ export const destroyObject = (object)=>{
 export const spawnObject = (template, cell, createFunction, actionType)=>{
   return (dispatch, getState)=>{
     let state = getState()
+    console.log('spawning object:')
+    console.log(template)
+    console.log(cell)
     if(!cell){
       dispatch(sendError("Could not create "+template+". Location out of bounds."))
     }else if(helpers.cellIsBlocked(cell)){
       dispatch(sendError("Could not create "+template+". Cell is blocked."))
     }else{
-      console.log('spawning '+template+' at '+cell.x+','+cell.y+','+cell.z)
       let object = createFunction(template, state, cell.x, cell.y, cell.z)
       if(object.errors){
         dispatch(sendError(object.errors))
