@@ -18,6 +18,7 @@ const getObjectFromContents = (state, cell)=>{
 
 // TODO: This should probably all be calculated and saved when the cell is created
 // It will not actually change in the process of play, not yet anyway
+// On the other hand, it certainly will *eventually*...
 const getPosition = (cell)=>{
   let x = Math.floor(cell.x/2) * config.CELL_WIDTH
   let y = Math.floor(cell.y/2) * config.CELL_HEIGHT

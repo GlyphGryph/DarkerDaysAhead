@@ -85,6 +85,15 @@ export const resetMap = ()=>{
     dispatch(
       spawnMultipleTerrain('FLOOR', floorCells)
     )
+    state = getState()
+    dispatch(
+      spawnMultipleTerrain('LADDER', [
+        state.cells.items[helpers.findCellIdByPosition(2, 3, 1, state)],
+        state.cells.items[helpers.findCellIdByPosition(6, 9, 3, state)],
+        state.cells.items[helpers.findCellIdByPosition(6, 1, 1, state)],
+        state.cells.items[helpers.findCellIdByPosition(6, 1, 3, state)]
+      ])
+    )
     dispatch({
       type: actionTypes.CONTROL_CREATURE,
       id: 0 // The creature previously created will be the first on a blank map

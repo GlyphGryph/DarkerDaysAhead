@@ -2,6 +2,7 @@ import { cellTypes } from '../types'
 const findCellIdByPosition = (xx, yy, zz, state)=>{
   // Dig through the byPosition structure, if ever encountering
   // an invalid position, return null
+  console.log(state)
   let xxCells = state.cells.idByPosition[xx]
   if(xxCells === undefined){ return null }
   let yyCells = xxCells[yy]

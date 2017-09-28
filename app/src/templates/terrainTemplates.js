@@ -14,6 +14,10 @@ export const terrainTemplates = {
     name: 'WALL',
     backgroundColor: '#F00'
   },
+  LADDER: {
+    name: 'LADDER',
+    backgroundColor: '#FF0'
+  },
   // ---
   // LAYER BOUNDARY TERRAIN
   // ---

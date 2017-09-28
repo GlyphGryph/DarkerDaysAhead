@@ -72,7 +72,7 @@ Tasks:
   ✓- Player can not move "up" while not flying
   ✓- Non-flying plus no floor drops the player to the z-level below
   ✓- Non-flying plus no floor with an object filling the space below prevents dropping
-   - Have ladders spawn in the same x/y position on two adjacent levels, as walls
+  ✓- Have ladders spawn in the same x/y position on two adjacent levels, as walls
    - Standing next to a ladder allows a player to move up/down as if flying
   ✓- Drops can be chained, allowing player to drop several z-levels
   ✓- For ease of coding, consider storing neighbour-id for cells.
