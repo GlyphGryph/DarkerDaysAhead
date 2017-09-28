@@ -79,10 +79,6 @@ Tasks:
     ✓- Neighbours include cells next to, above, below, diagonal!
  - Map Generation - replace random placement with hardcoded "map" via config file
  - Z-levels Part 3
-   - Break z-levels into "thirds". Characters are 3 levels tall.
-   - Players can move up neighboring z-levels that are only 1 level higher
-   - This is sometimes required to move off ladders
-   - Characters can switch between distance levels by moving horizontally along "stairs"
    - Characters can "jump" several squares to clear holes and gaps
    - Actually display the z-levels in a final usable form, overlayed and filtered somehow
  - Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
@@ -92,12 +88,13 @@ Tasks:
    - Blocked by walls
    - Enemies have "hunting patterns" that make them explore better than a random walk
  - Status effects (crippled)
-   - Enemies falling through floor holes are crippled
+   - Falling characters are crippled
  - Crippled enemies skip their next several turns
  - If falling 2 levels, they are killed instead.
  - Add "soft terrain.
    - If falling onto soft terrain, damage reduced by one level
           (killed -> crippled, crippled -> unhurt)
+   - Living enemies count as soft terrain, and are killed if landed on
  - Enemies leave corpses, which count as soft terrain
  - Performance improved for map rendering 3
     - Map only renders anything at beginning of players turn
@@ -113,6 +110,11 @@ Tasks:
    - Have to be "covered" or behind furniture/windows or otherwise obscured
    - Enemies breaking open doors move into the space on the other side, fall through hole
    - Some enemies "charge" in which case doors can be opened and they will still fall in
+ - Z-levels Part 4
+   - Break z-levels into "thirds". Characters are 3 levels tall.
+   - Players can move up neighboring z-levels that are only 1 level higher
+   - Characters can switch between distance levels by moving horizontally along "stairs"
+   - Change how ladders work so they support "feet"
  - Player can make their own holes in the floor with tools.
  - Move creature definitions into their own area
  - Allow support for an additional creature type, with its own different AI behaviour
