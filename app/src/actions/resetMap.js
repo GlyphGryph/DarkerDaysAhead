@@ -1,4 +1,8 @@
-import { actionTypes, cellTypes } from '../types'
+import {
+  actionTypes,
+  cellTypes,
+  directionTypes
+} from '../types'
 import { spawnCreature } from './creatures'
 import { spawnTerrain, spawnMultipleTerrain } from './createTerrain'
 import helpers from '../logic/helpers'
@@ -12,15 +16,38 @@ export const resetMap = ()=>{
     // Cells are built from left to right, then top to bottom
     // Important for quick access "findCellId" logic to keep this in mind
     let cells = []
+    let cellsByPosition = {}
     let id = 0
     for (let yy = 0; yy < width; yy++){
       for (let xx = 0; xx < height; xx++){
         for (let zz = 0; zz < depth; zz++){
-          cells.push(generateCell(id, xx, yy, zz))
+          let cell = generateCell(id, xx, yy, zz)
+          cellsByPosition[xx+','+yy+','+zz] = cell.id
+          cells.push(cell)
           id++
         }
       }
     }
+
+    // For each cell, add it's neighbours for easy reference later
+    cells = cells.map((cell)=>{
+      let xx = cell.x
+      let yy = cell.y
+      let zz = cell.z
+      cell.neighbours = {
+        [directionTypes.NORTH]: cellsByPosition[xx+','+(yy-1)+','+zz],
+        [directionTypes.NORTHEAST]: cellsByPosition[(xx+1)+','+(yy-1)+','+zz],
+        [directionTypes.EAST]: cellsByPosition[(xx+1)+','+yy+','+zz],
+        [directionTypes.SOUTHEAST]: cellsByPosition[(xx+1)+','+(yy+1)+','+zz],
+        [directionTypes.SOUTH]: cellsByPosition[xx+','+(yy+1)+','+zz],
+        [directionTypes.SOUTHWEST]: cellsByPosition[(xx-1)+','+(yy+1)+','+zz],
+        [directionTypes.WEST]: cellsByPosition[(xx-1)+','+yy+','+zz],
+        [directionTypes.NORTHWEST]: cellsByPosition[(xx-1)+','+(yy-1)+','+zz],
+        [directionTypes.UP]: cellsByPosition[xx+','+yy+','+(zz+1)],
+        [directionTypes.DOWN]: cellsByPosition[xx+','+yy+','+(zz-1)]
+      }
+      return cell
+    })
 
     dispatch({
       type: actionTypes.RESET_MAP,

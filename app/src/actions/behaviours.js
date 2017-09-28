@@ -1,6 +1,6 @@
 import { move } from './move'
 import helpers from '../logic/helpers'
-import { factionTypes } from '../types'
+import { factionTypes, directionTypes } from '../types'
 
 export const wait = (id)=>{
   return (dispatch, getState)=>{
@@ -36,24 +36,24 @@ const moveTowardsFaction = (id, faction)=>{
     let direction
     if(closestCreature.x > actor.x){
       if(closestCreature.y > actor.y){
-        direction = 3
+        direction = directionTypes.SOUTHEAST
       }else if(closestCreature.y < actor.y){
-        direction = 1
+        direction = directionTypes.NORTHEAST
       }else{
-        direction = 2
+        direction = directionTypes.EAST
       }
     }else if(closestCreature.x < actor.x){
        if(closestCreature.y > actor.y){
-        direction = 5
+        direction = directionTypes.SOUTHWEST
       }else if(closestCreature.y < actor.y){
-        direction = 7
+        direction = directionTypes.NORTHWEST
       }else{
-        direction = 6
+        direction = directionTypes.WEST
       }     
     }else if(closestCreature.y > actor.y){
-      direction = 4
+      direction = directionTypes.SOUTH
     }else{
-      direction = 0
+      direction = directionTypes.NORTH
     }
 
     return dispatch(move(actor.id, direction))

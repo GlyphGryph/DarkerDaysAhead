@@ -70,13 +70,13 @@ Tasks:
   ✓- Players can only move vertically when there is no "floor" blocking them
   ✓- Toggle "fly mode" on character, store whether or not character is flying
   ✓- Player can not move "up" while not flying
-   - Non-flying plus no floor drops the player to the z-level below
+  ✓- Non-flying plus no floor drops the player to the z-level below
+  ✓- Non-flying plus no floor with an object filling the space below prevents dropping
    - Have ladders spawn in the same x/y position on two adjacent levels, as walls
    - Standing next to a ladder allows a player to move up/down as if flying
-   - Drops can be chained, allowing player to drop several z-levels
-   - Drops each take a "turn", but insert the creature next in the queue
-   - For ease of coding, consider storing neighbour-id for cells.
-     - Neighbours include cells next to, above, below, diagonal!
+  ✓- Drops can be chained, allowing player to drop several z-levels
+  ✓- For ease of coding, consider storing neighbour-id for cells.
+    ✓- Neighbours include cells next to, above, below, diagonal!
  - Z-levels Part 3
    - Break z-levels into "thirds". Characters are 3 levels tall.
    - Players can move up neighboring z-levels that are only 1 level higher
@@ -84,6 +84,7 @@ Tasks:
    - Characters can switch between distance levels by moving horizontally along "stairs"
    - Characters can "jump" several squares to clear holes and gaps
    - Actually display the z-levels in a final usable form, overlayed and filtered somehow
+ - Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
  - AI improvements: Line of sight
    - Enemies will actually follow across levels if they can see you, otherwise wander randomly
    - Only works on same z-levels

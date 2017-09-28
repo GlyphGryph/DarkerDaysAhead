@@ -1,3 +1,5 @@
+import { directionTypes } from '../types'
+
 let Keys = {
   ENTER: 'Enter',
   SPACE: ' ',
@@ -30,27 +32,27 @@ let Keybinds = [
   [Keys.SPACE, {value: 'CHANGE', tags: []}],
   [Keys.K, {value: 'TOGGLE_FLY', tags: []}],
   [Keys.R, {value: 'RESET', tags: []}],
-  [Keys.W, {value: 0, tags: ['MOVE']}],
-  [Keys.UP, {value: 0, tags: ['MOVE']}],
-  [Keys.NUMPAD8, {value: 0, tags: ['MOVE']}],
-  [Keys.NUMPAD9, {value: 1, tags: ['MOVE']}],
-  [Keys.D, {value: 2, tags: ['MOVE']}],
-  [Keys.RIGHT, {value: 2, tags: ['MOVE']}],
-  [Keys.NUMPAD6, {value: 2, tags: ['MOVE']}],
-  [Keys.NUMPAD3, {value: 3, tags: ['MOVE']}],
-  [Keys.S, {value: 4, tags: ['MOVE']}],
-  [Keys.DOWN, {value: 4, tags: ['MOVE']}],
-  [Keys.NUMPAD2, {value: 4, tags: ['MOVE']}],
-  [Keys.NUMPAD1, {value: 5, tags: ['MOVE']}],
-  [Keys.A, {value: 6, tags: ['MOVE']}],
-  [Keys.LEFT, {value: 6, tags: ['MOVE']}],
-  [Keys.NUMPAD4, {value: 6, tags: ['MOVE']}],
-  [Keys.NUMPAD7, {value: 7, tags: ['MOVE']}],
+  [Keys.W, {value: directionTypes.NORTH, tags: ['MOVE']}],
+  [Keys.UP, {value: directionTypes.NORTH, tags: ['MOVE']}],
+  [Keys.NUMPAD8, {value: directionTypes.NORTH, tags: ['MOVE']}],
+  [Keys.NUMPAD9, {value: directionTypes.NORTHEAST, tags: ['MOVE']}],
+  [Keys.D, {value: directionTypes.EAST, tags: ['MOVE']}],
+  [Keys.RIGHT, {value: directionTypes.EAST, tags: ['MOVE']}],
+  [Keys.NUMPAD6, {value: directionTypes.EAST, tags: ['MOVE']}],
+  [Keys.NUMPAD3, {value: directionTypes.SOUTHEAST, tags: ['MOVE']}],
+  [Keys.S, {value: directionTypes.SOUTH, tags: ['MOVE']}],
+  [Keys.DOWN, {value: directionTypes.SOUTH, tags: ['MOVE']}],
+  [Keys.NUMPAD2, {value: directionTypes.SOUTH, tags: ['MOVE']}],
+  [Keys.NUMPAD1, {value: directionTypes.SOUTHWEST, tags: ['MOVE']}],
+  [Keys.A, {value: directionTypes.WEST, tags: ['MOVE']}],
+  [Keys.LEFT, {value: directionTypes.WEST, tags: ['MOVE']}],
+  [Keys.NUMPAD4, {value: directionTypes.WEST, tags: ['MOVE']}],
+  [Keys.NUMPAD7, {value: directionTypes.NORTHWEST, tags: ['MOVE']}],
   [Keys.NUMPAD5, {value: 'WAIT', tags: []}],
-  [Keys.E, {value: 8, tags: ['MOVE']}],
-  [Keys.Q, {value: 9, tags: ['MOVE']}],
-  [Keys.PLUS, {value: 8, tags: ['MOVE']}],
-  [Keys.MINUS, {value: 9, tags: ['MOVE']}]
+  [Keys.E, {value: directionTypes.UP, tags: ['MOVE']}],
+  [Keys.Q, {value: directionTypes.DOWN, tags: ['MOVE']}],
+  [Keys.PLUS, {value: directionTypes.UP, tags: ['MOVE']}],
+  [Keys.MINUS, {value: directionTypes.DOWN, tags: ['MOVE']}]
 ]
 Keybinds = new Map(Keybinds)
 

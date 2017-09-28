@@ -1,4 +1,9 @@
-import { actionTypes, cellTypes, objectTypes } from '../types'
+import {
+  actionTypes,
+  cellTypes,
+  objectTypes,
+  directionTypes,
+} from '../types'
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
@@ -13,8 +18,12 @@ export const move = (creatureId, direction)=>{
 
     // Process if this move can be completed or if it is interrupted
     let moveResult = checkValidMove(state, creature, direction)
+    console.log("moveResult:")
     console.log(moveResult)
     if(moveResult.valid){
+      if(moveResult.message){
+        dispatch(sendError(moveResult.message))
+      }
       return dispatch(completeMove(creature, moveResult.finalCell))
     }else if(moveResult.attackInstead){
       return dispatch(attackCell(creature.id, moveResult.failedCell))
@@ -33,7 +42,7 @@ const checkValidMove = (state, creature, direction)=>{
   if(targetCell === null){
     moveResult.failedCell = null
     moveResult.message = creature.name + ' tried to move out of bounds'
-  }else if(creature.isFlying && direction === 8){
+  }else if(!creature.isFlying && direction === directionTypes.UP){
     moveResult.failedCell = targetCell
     moveResult.message = creature.name + ' cannot fly'
   }else if(isBlocked(crossedBoundary)){
@@ -42,7 +51,7 @@ const checkValidMove = (state, creature, direction)=>{
   }else if(isBlocked(targetCell)){
     moveResult.failedCell = targetCell
     let blockingObject = targetCell.contents[0]
-    // If a creature tried to move
+    // If a creature tried to move onto a creature...
     if(
       blockingObject.type === objectTypes.CREATURE &&
       creature.faction !== state.creatures[blockingObject.id].faction
@@ -51,6 +60,10 @@ const checkValidMove = (state, creature, direction)=>{
     }else{
       moveResult.message = creature.name + " couldn't move into occupied cell"
     }
+  }else if(!creature.isFlying && !isSupported(targetCell, state)){
+    moveResult.valid = true
+    moveResult.finalCell = findGround(targetCell, state)
+    moveResult.message = creature.name + " fell down!"
   }else{
     moveResult.valid = true
     moveResult.finalCell = targetCell
@@ -60,6 +73,22 @@ const checkValidMove = (state, creature, direction)=>{
 
 const isBlocked = (cell)=>{
   return cell.contents.length > 0
+}
+
+const isSupported = (cell, state)=>{
+  let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
+  let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+  return isBlocked(floorCell) || isBlocked(nextSquare)
+}
+
+const findGround = (cell, state)=>{
+  if(cell === undefined || isSupported(cell, state)){
+    return cell
+  } else {
+    let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
+    let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+    return findGround(nextSquare, state)
+  }
 }
 
 const attackCell = (creature, cell)=>{
@@ -90,38 +119,38 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
   let targetZ = currentCell.z
 
   switch(direction){
-    case 0:
+    case directionTypes.NORTH:
       targetY = currentCell.y - distance
       break
-    case 1:
+    case directionTypes.NORTHEAST:
       targetX = currentCell.x + distance
       targetY = currentCell.y - distance
       break
-    case 2:
+    case directionTypes.EAST:
       targetX = currentCell.x + distance
       break
-    case 3:
+    case directionTypes.SOUTHEAST:
       targetX = currentCell.x + distance
       targetY = currentCell.y + distance
       break
-    case 4:
+    case directionTypes.SOUTH:
       targetY = currentCell.y + distance
       break
-    case 5:
+    case directionTypes.SOUTHWEST:
       targetX = currentCell.x - distance
       targetY = currentCell.y + distance
       break
-    case 6:
+    case directionTypes.WEST:
       targetX = currentCell.x - distance
       break
-    case 7:
+    case directionTypes.NORTHWEST:
       targetX = currentCell.x - distance
       targetY = currentCell.y - distance
       break
-    case 8:
+    case directionTypes.UP:
       targetZ = currentCell.z + distance
       break
-    case 9:
+    case directionTypes.DOWN:
       targetZ = currentCell.z - distance
       break
     default:
