@@ -77,6 +77,7 @@ Tasks:
   ✓- Drops can be chained, allowing player to drop several z-levels
   ✓- For ease of coding, consider storing neighbour-id for cells.
     ✓- Neighbours include cells next to, above, below, diagonal!
+ - Map Generation - replace random placement with hardcoded "map" via config file
  - Z-levels Part 3
    - Break z-levels into "thirds". Characters are 3 levels tall.
    - Players can move up neighboring z-levels that are only 1 level higher
