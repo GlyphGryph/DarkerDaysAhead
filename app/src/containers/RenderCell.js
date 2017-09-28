@@ -20,6 +20,8 @@ const getObjectFromContents = (state, cell)=>{
 // It will not actually change in the process of play, not yet anyway
 // On the other hand, it certainly will *eventually*...
 const getPosition = (cell)=>{
+  // By default, assuming we are working with
+  // a square or a floor
   let x = Math.floor(cell.x/2) * config.CELL_WIDTH
   let y = Math.floor(cell.y/2) * config.CELL_HEIGHT
   let z = config.CELL_DEPTH * cell.z
@@ -39,6 +41,8 @@ const getPosition = (cell)=>{
 }
 
 const getDimensions = (cell)=>{
+  // By default, assuming we are working with
+  // a square or a floor
   let x = config.CELL_WIDTH
   let y = config.CELL_HEIGHT
 

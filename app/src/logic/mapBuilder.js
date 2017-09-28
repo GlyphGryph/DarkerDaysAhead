@@ -5,7 +5,7 @@ import {
 } from '../types'
 import { terrainTemplates } from '../templates'
 
-import blueprint from '../config/blueprints/testMap1'
+import blueprint from '../config/blueprints/testMap2'
 
 const outputMap = ()=>{
   // Build a series of cells and objects to place in them based on a blueprint
@@ -25,11 +25,16 @@ const outputMap = ()=>{
       let xx = 0
       for(let symbol of row){
         let cell = generateCell(cellId, xx, yy, zz)
-        buildPlan.cells.push(cell)
-        cellsByPosition[xx+','+yy+','+zz] = cell.id
-        let object = generateObject(symbol, xx, yy, zz)
-        if(object){
-          buildPlan.terrain.push(object)
+        // Not all cells will be built
+        // Right now, we ignore floor cells outside of squares
+        // There are no wall-floors and corner-floors
+        if(cell){
+          buildPlan.cells.push(cell)
+          cellsByPosition[xx+','+yy+','+zz] = cell.id
+          let object = generateObject(symbol, xx, yy, zz)
+          if(object){
+            buildPlan.terrain.push(object)
+          }
         }
         cellId++
         xx++
@@ -106,13 +111,13 @@ const generateCell = (id, x, y, z)=>{
       attributes = generateCornerBoundary()
     }
   }else{
-    console.log('Uh...')
-    console.log("id: "+id+", c: "+x+','+y+','+z)
-    attributes = generateLevelBoundary()
-  }
-  if(attributes.type === undefined){
-    console.log('FUCK!')
-    console.log("id: "+id+", c: "+x+','+y+','+z)
+    if(y%2 === 1 && x%2 === 1){
+      attributes = generateLevelBoundary()
+    }else{
+      // This is a class of cell, like wall-floors and corner-floors
+      // that we do not currently bother to track
+      return null
+    }
   }
   return {
     id,
