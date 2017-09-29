@@ -5,6 +5,9 @@ const Errors = ({errors}) => (
   <ul
     style={{
       color: 'red',
+      position: 'absolute',
+      right: '0px',
+      top: '0px',
       zIndex: 1
     }}
   >

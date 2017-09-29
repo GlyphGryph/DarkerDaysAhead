@@ -7,14 +7,17 @@ const startingLayer = (state)=>{
 }
 
 const endingLayer = (state)=>{
-  return state.creatures[state.player.currentCreature].z
+  let creature = state.creatures[state.player.currentCreature]
+  if(creature){
+    return creature.z
+  } else {
+    return 1
+  }
 }
 
 const visibleCellIds = (state)=>{
   let currentLayer = state.cells.idsByLayer[endingLayer(state)]
   let currentFloor = state.cells.idsByLayer[endingLayer(state)-1]
-  console.log(currentLayer)
-  console.log(currentFloor)
   return currentLayer.concat(currentFloor)
 }
 

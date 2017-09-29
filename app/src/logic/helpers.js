@@ -22,14 +22,14 @@ const cellIsBlocked = (cell)=>{
 }
 
 const cellsWidth = (view)=>{
-  return view.width * 2 + 1
+  return view.width
 }
 const cellsHeight = (view)=>{
-  return view.height * 2 + 1
+  return view.height
 }
 
 const cellsDepth = (view)=>{
-  return view.depth * 2 + 1
+  return view.depth
 }
 
 const squareCells = (state)=>{
@@ -70,14 +70,14 @@ const edgeSquares = (state)=>{
 
 const neighbourSquares = (xx, yy, zz, state)=>{
   return [
-    state.cells.items[findCellIdByPosition(xx, yy-2, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx+2, yy-2, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx+2, yy, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx+2, yy+2, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx, yy+2, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx-2, yy+2, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx-2, yy, zz, state.view)],
-    state.cells.items[findCellIdByPosition(xx-2, yy-2, zz, state.view)],
+    state.cells.items[findCellIdByPosition(xx, yy-2, zz, state)],
+    state.cells.items[findCellIdByPosition(xx+2, yy-2, zz, state)],
+    state.cells.items[findCellIdByPosition(xx+2, yy, zz, state)],
+    state.cells.items[findCellIdByPosition(xx+2, yy+2, zz, state)],
+    state.cells.items[findCellIdByPosition(xx, yy+2, zz, state)],
+    state.cells.items[findCellIdByPosition(xx-2, yy+2, zz, state)],
+    state.cells.items[findCellIdByPosition(xx-2, yy, zz, state)],
+    state.cells.items[findCellIdByPosition(xx-2, yy-2, zz, state)],
   ]
 }
 

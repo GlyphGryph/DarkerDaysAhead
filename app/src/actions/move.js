@@ -18,15 +18,13 @@ export const move = (creatureId, direction)=>{
 
     // Process if this move can be completed or if it is interrupted
     let moveResult = getMoveResult(state, creature, direction)
-    console.log("moveResult:")
-    console.log(moveResult)
     if(moveResult.valid){
       if(moveResult.message){
         dispatch(sendError(moveResult.message))
       }
       return dispatch(completeMove(creature, moveResult.finalCell))
     }else if(moveResult.attackInstead){
-      return dispatch(attackCell(creature.id, moveResult.failedCell))
+      return dispatch(attackCell(creature, moveResult.failedCell))
     }else{
       return dispatch(blockMove(creature, moveResult.failedCell, moveResult.message))
     }
@@ -156,6 +154,7 @@ const findGround = (cell, state)=>{
 
 const attackCell = (creature, cell)=>{
   return (dispatch, getState)=>{
+    dispatch(sendError(creature.name + ' killed something!'))
     return dispatch(attack(creature.id, cell.contents[0].id))
   }
 }

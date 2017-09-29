@@ -25,7 +25,10 @@ const loseControl = (state = [], action)=>{
     ...state,
     controlledCreatures: state.controlledCreatures.filter((id)=>{
       return id !== action.object.id
-    })
+    }),
+    currentCreature: state.controlledCreatures.find((id)=>{
+      return id !== action.object.id
+    }),
   }
 }
 

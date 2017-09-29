@@ -60,13 +60,13 @@ export const spawnAdjacentAlly = ()=>{
       sourceCreature = state.creatures[sourceCreatureId]
     }
 
-    let [xx, yy, zz] = helpers.randomEmptyNeighbourCoords(
+    let cell = helpers.randomEmptyNeighbourSquare(
       sourceCreature.x,
       sourceCreature.y,
       sourceCreature.z,
       state
     )
-    return dispatch(spawnCreature('PLAYER', xx, yy, zz))
+    return dispatch(spawnCreature('PLAYER', cell))
   }
 }
 
