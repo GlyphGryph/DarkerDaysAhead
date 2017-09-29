@@ -89,6 +89,8 @@ const generateObject = (key, x, y, z)=>{
     object.key = terrainTemplates.WALL.key
   }else if(key === 'E'){
     object.key = terrainTemplates.LADDER.key
+  }else if(key === 'O'){
+    object.key = terrainTemplates.BOULDER.key
   }else{
     return null
   }
