@@ -7,6 +7,7 @@ import {
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
+import { destroyObject } from './objects'
 
 export const move = (creatureId, direction)=>{
   return (dispatch, getState)=>{
@@ -77,6 +78,11 @@ const getMoveResult = (state, creature, direction)=>{
     moveResult.valid = true
     moveResult.finalCell = findGround(targetCell, state)
     moveResult.message = creature.name + " fell down!"
+    if(!moveResult.finalCell){
+      moveResult.valid = false
+      moveResult.message = creature.name + " fell into a bottomless pit!"
+      dispatch(destroyObject(creature))
+    }
   }else{
     moveResult.valid = true
     moveResult.finalCell = targetCell

@@ -9,7 +9,7 @@ const controlCreature = (state = {}, action)=>{
   if(action.object.controlled){
     return {
       ...state,
-      currentCreature: (state.currentCreature || action.object.id),
+      currentCreatureId: (state.currentCreatureId || action.object.id),
       controlledCreatures: [
         ...state.controlledCreatures,
         action.object.id
