@@ -1,6 +1,6 @@
 import { layerTypes } from '../../types'
 export default [
-  { layer: 0,
+  { id: 0,
     type: layerTypes.FLOOR,
     body: 
     [ "                                     ",
@@ -22,7 +22,7 @@ export default [
       "                                     "
     ]
   },
-  { layer: 1,
+  { id: 1,
     type: layerTypes.PRIMARY,
     body: 
     [ "=====================================",
@@ -31,11 +31,11 @@ export default [
       "= =     E                           =",
       "= =     =           ===========     =",
       "= =     =           =         =     =",
-      "= =     =           =         =     =",
       "=                   =         =     =",
       "=                   =         =     =",
+      "=                             =     =",
       "=                           E =     =",
-      "=                   ===========     =",
+      "=                    ==========     =",
       "=                                   =",
       "=                                   =",
       "=    O                              =",
@@ -44,7 +44,7 @@ export default [
       "====================================="
     ]
   },
-  { layer: 2,
+  { id: 2,
     type: layerTypes.PRIMARY,
     body: 
     [ "                                     ",
@@ -66,14 +66,14 @@ export default [
       "                                     "
     ]
   },
-  { layer: 2,
+  { id: 3,
     type: layerTypes.PRIMARY,
     body: 
     [ "                                     ",
       "                                     ",
       "                                     ",
       "                                     ",
-      "                    ===========      ",
+      "                     ==========      ",
       "                              =      ",
       "         ============         =      ",
       "                    =         =      ",
@@ -87,7 +87,8 @@ export default [
       "                                     ",
       "                                     "
     ]
-  },  { layer: 4,
+  },
+  { id: 4,
     type: layerTypes.PRIMARY,
     body: 
     [ "                                     ",

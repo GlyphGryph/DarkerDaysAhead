@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-create-reducer'
 
 const defaultState = {
-  currentCreature: null,
+  currentCreatureId: null,
   controlledCreatures: []
 }
 
@@ -26,7 +26,7 @@ const loseControl = (state = [], action)=>{
     controlledCreatures: state.controlledCreatures.filter((id)=>{
       return id !== action.object.id
     }),
-    currentCreature: state.controlledCreatures.find((id)=>{
+    currentCreatureId: state.controlledCreatures.find((id)=>{
       return id !== action.object.id
     }),
   }
@@ -39,7 +39,7 @@ const resetPlayer = (state = {}, action)=>{
 const setCurrentCreature = (state = {}, action)=>{
   return {
     ...state,
-    currentCreature: action.id
+    currentCreatureId: action.id
   }
 }
 

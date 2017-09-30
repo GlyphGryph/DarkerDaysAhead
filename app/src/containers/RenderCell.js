@@ -2,6 +2,9 @@ import { connect } from 'react-redux'
 import { objectTypes, cellTypes } from '../types'
 import Cell from '../components/Cell'
 import config from '../config/config'
+import { layerSelectors } from '../selectors'
+
+let emptyFloorColor = '#CCF'
 
 const getObjectFromContents = (state, cell)=>{
   let content = cell.contents[0]
@@ -60,13 +63,15 @@ const getDimensions = (cell)=>{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let cell = state.cells.items[ownProps.id]
+  let cell = state.cells.byId[ownProps.id]
+  let currentLayerId = layerSelectors.getCurrentLayerId(state)
+  let floorLayerId = currentLayerId - 1
   let content = getObjectFromContents(state, cell)
   let position = getPosition(cell)
   let dimensions = getDimensions(cell)
-
-  let backgroundColor = cell.backgroundColor
-
+  
+  let backgroundColor = 'transparent'
+  let opacity = 1
   let text = ''
   let color = '#000'
   let active = false
@@ -83,6 +88,11 @@ const mapStateToProps = (state, ownProps) => {
     if(content.type === objectTypes.CREATURE){
       active = content.controlled && content.id === state.turnQueue[0]
     }
+  }else if(cell.z == floorLayerId){
+    // If a floor cell has no contents
+    // set it to default background color at opacity 0.5
+    backgroundColor = emptyFloorColor
+    opacity = 0.8
   }
 
   return {
@@ -90,6 +100,7 @@ const mapStateToProps = (state, ownProps) => {
     text,
     color,
     backgroundColor,
+    opacity,
     active,
     width: dimensions.x,
     height: dimensions.y,

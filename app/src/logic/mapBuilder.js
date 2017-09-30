@@ -20,6 +20,7 @@ const outputMap = ()=>{
   let cellId = 0
   let zz = 0
   for(let layer of blueprint){
+    zz = layer.id
     let yy = 0
     for(let row of layer.body){
       let xx = 0
@@ -43,7 +44,6 @@ const outputMap = ()=>{
       buildPlan.width = Math.max(buildPlan.width, row.length)
     }
     buildPlan.height = Math.max(buildPlan.width, layer.body.length)
-    zz++
   }
 
   // For each cell, add it's neighbours for easy reference later

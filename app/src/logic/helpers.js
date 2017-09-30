@@ -13,7 +13,7 @@ const findCellIdByPosition = (xx, yy, zz, state)=>{
 
 const findCellsFromIds = (ids, state)=>{
   return ids.map((cellid)=>{
-    return state.cells.items[cellid]
+    return state.cells.byId[cellid]
   })
 }
 
@@ -70,14 +70,14 @@ const edgeSquares = (state)=>{
 
 const neighbourSquares = (xx, yy, zz, state)=>{
   return [
-    state.cells.items[findCellIdByPosition(xx, yy-2, zz, state)],
-    state.cells.items[findCellIdByPosition(xx+2, yy-2, zz, state)],
-    state.cells.items[findCellIdByPosition(xx+2, yy, zz, state)],
-    state.cells.items[findCellIdByPosition(xx+2, yy+2, zz, state)],
-    state.cells.items[findCellIdByPosition(xx, yy+2, zz, state)],
-    state.cells.items[findCellIdByPosition(xx-2, yy+2, zz, state)],
-    state.cells.items[findCellIdByPosition(xx-2, yy, zz, state)],
-    state.cells.items[findCellIdByPosition(xx-2, yy-2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx, yy-2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx+2, yy-2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx+2, yy, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx+2, yy+2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx, yy+2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx-2, yy+2, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx-2, yy, zz, state)],
+    state.cells.byId[findCellIdByPosition(xx-2, yy-2, zz, state)],
   ]
 }
 

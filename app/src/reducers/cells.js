@@ -2,16 +2,15 @@ import { createReducer } from 'redux-create-reducer'
 import { actionTypes } from '../types'
 
 const defaultState = {
-  items: {},
+  byId: {},
   idList: [],
   idsByType: {},
-  idsByLayer: {},
   idByPosition: {}
 }
 
 const recreateCells = (state = defaultState, action)=>{
   return {
-    items: action.cells.reduce((result, cell)=>{
+    byId: action.cells.reduce((result, cell)=>{
       result[cell.id] = cell
       return result
     }, {}),
@@ -21,11 +20,6 @@ const recreateCells = (state = defaultState, action)=>{
     idsByType: action.cells.reduce((result, cell)=>{
       result[cell.type] = result[cell.type] || []
       result[cell.type].push(cell.id)
-      return result
-    }, {}),
-    idsByLayer: action.cells.reduce((result, cell)=>{
-      result[cell.z] = result[cell.z] || []
-      result[cell.z].push(cell.id)
       return result
     }, {}),
     idByPosition: action.cells.reduce((result, cell)=>{
@@ -39,7 +33,7 @@ const recreateCells = (state = defaultState, action)=>{
 
 const addToCell = (state, action)=>{
   let cell = {
-    ...state.items[action.targetCell.id],
+    ...state.byId[action.targetCell.id],
     contents: [{
       type: action.object.type,
       id: action.object.id
@@ -48,8 +42,8 @@ const addToCell = (state, action)=>{
 
   return {
     ...state,
-    items: {
-      ...state.items,
+    byId: {
+      ...state.byId,
       [cell.id]: cell,
     }
   }
@@ -57,13 +51,13 @@ const addToCell = (state, action)=>{
 
 const removeFromCell = (state, action)=>{
   let cell = {
-    ...state.items[action.object.cellId],
+    ...state.byId[action.object.cellId],
     contents: []
   }
   return {
     ...state,
-    items: {
-      ...state.items,
+    byId: {
+      ...state.byId,
       [cell.id]: cell,
     }
   }

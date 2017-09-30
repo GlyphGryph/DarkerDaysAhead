@@ -32,7 +32,7 @@ export const resetMap = ()=>{
         state
       )
       terrainBatches[objectDefinition.key] = terrainBatches[objectDefinition.key] || []
-      terrainBatches[objectDefinition.key].push(state.cells.items[targetCellId])
+      terrainBatches[objectDefinition.key].push(state.cells.byId[targetCellId])
     }
 
 

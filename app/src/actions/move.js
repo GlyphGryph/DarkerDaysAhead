@@ -33,7 +33,7 @@ export const move = (creatureId, direction)=>{
 
 const getMoveResult = (state, creature, direction)=>{
   let moveResult = { valid: false, attackInstead: false }
-  let currentCell = state.cells.items[creature.cellId]
+  let currentCell = state.cells.byId[creature.cellId]
   let targetCell = findCellInDirection(state, currentCell, direction, 2)
   let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
 
@@ -90,8 +90,8 @@ const isBlocked = (cell)=>{
 }
 
 const isSupported = (creature, cell, state)=>{
-  let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
-  let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+  let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
+  let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
 
   return (
     creature.isFlying ||
@@ -102,8 +102,8 @@ const isSupported = (creature, cell, state)=>{
 }
 
 const isGround = (cell, state)=>{
-  let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
-  let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+  let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
+  let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
 
   return (
     isBlocked(floorCell) ||
@@ -112,7 +112,7 @@ const isGround = (cell, state)=>{
 }
 
 const canMoveUp = (creature, state)=>{
-  let cell = state.cells.items[creature.cellId]
+  let cell = state.cells.byId[creature.cellId]
   return (creature.isFlying || isNearClimbable(cell, state))
 }
 
@@ -124,7 +124,7 @@ const isNearClimbable = (cell, state)=>{
 
 const nearbyTerrain = (cell, state)=>{
   let nearbyCells = Object.values(cell.neighbours).map((cellId)=>{
-    return state.cells.items[cellId]
+    return state.cells.byId[cellId]
   })
   let nearbyTerrain = nearbyCells.map((cell)=>{
     if(cell){
@@ -146,8 +146,8 @@ const findGround = (cell, state)=>{
   if(cell === undefined || isGround(cell, state)){
     return cell
   } else {
-    let floorCell = state.cells.items[cell.neighbours[directionTypes.DOWN]]
-    let nextSquare = state.cells.items[floorCell.neighbours[directionTypes.DOWN]]
+    let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
+    let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
     return findGround(nextSquare, state)
   }
 }
@@ -230,5 +230,5 @@ const findCellInDirection = (state, currentCell, direction, distance)=>{
   if(!cellId){
     return null
   }
-  return state.cells.items[cellId]
+  return state.cells.byId[cellId]
 }

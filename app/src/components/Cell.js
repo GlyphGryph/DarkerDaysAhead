@@ -8,6 +8,7 @@ const getClassName = (active)=>{
 const Cell = ( {
   color,
   backgroundColor,
+  opacity,
   active,
   text,
   width,
@@ -27,7 +28,8 @@ const Cell = ( {
       textAlign: 'center',
       zIndex,
       color,
-      backgroundColor
+      backgroundColor,
+      opacity
     }}
   > 
     { text }
@@ -37,6 +39,7 @@ const Cell = ( {
 Cell.propTypes = {
   color: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string.isRequired,
+  opacity: PropTypes.number.isRequired,
   active: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,

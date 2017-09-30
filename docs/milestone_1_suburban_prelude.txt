@@ -81,9 +81,9 @@ Tasks:
     ✓- Basic walls and floors
     ✓- Boulders and ladders
     ✓- A few preset maps for various testing purposes
- - Z-levels Part 3
+✓- Z-levels Part 3
    - Characters can "jump" several squares to clear holes and gaps
-   - Actually display the z-levels in a final usable form, overlayed and filtered somehow
+  ✓- Actually display the z-levels in a final usable form, overlayed and filtered somehow
  - BUGFIX: Figure out why creatures are crashing the app
  - Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
  - AI improvements: Line of sight

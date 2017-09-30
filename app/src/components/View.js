@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import RenderCell from '../containers/RenderCell'
+import Layer from './Layer'
 
-const View = ({cellIds, width, height}) => (
+const View = ({layers, width, height}) => (
   <div
     id='view' 
     style={{
@@ -10,14 +10,14 @@ const View = ({cellIds, width, height}) => (
       width: ''+width+'px'
     }}
   >
-    {cellIds.map((id)=>(
-      <RenderCell key={id} id={id} />
+    {layers.map((layer)=>(
+      <Layer key={layer.id} cellIds={layer.cellIds} />
     ))}
   </div>
 )
 
 View.propTypes = {
-  cellIds: PropTypes.array.isRequired,
+  layers: PropTypes.array.isRequired,
   width: PropTypes.number,
   height: PropTypes.number
 }
