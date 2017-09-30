@@ -7,6 +7,12 @@ export const terrainTemplates = {
     icon: '0',
     color: '#999'
   },
+  TREE: {
+    key: 'TREE',
+    icon: '⌘',
+    color: '#C90',
+    backgroundColor:'#963'
+  },
   // ---
   // BOUNDARY TERRAIN
   // ---
@@ -22,8 +28,24 @@ export const terrainTemplates = {
   // ---
   // LAYER BOUNDARY TERRAIN
   // ---
-  FLOOR: {
-    key: 'FLOOR',
+  GRASS: {
+    key: 'GRASS',
+    icon: ',',
+    color: '#0C0',
     backgroundColor: '#0F0'
+  },
+  METAL_FLOOR: {
+    key: 'METAL_FLOOR',
+    backgroundColor: '#99F'
+  },
+  METAL_ROOF: {
+    key: 'METAL_ROOF',
+    icon: '||',
+    color: '#AAF',
+    backgroundColor: '#99F'
+  },
+  WOOD_FLOOR: {
+    key: 'WOOD_FLOOR',
+    backgroundColor: '#963'
   },
 }

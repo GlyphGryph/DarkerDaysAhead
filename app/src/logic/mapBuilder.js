@@ -1,11 +1,12 @@
 import {
   cellTypes,
   objectTypes,
+  layerTypes,
   directionTypes
 } from '../types'
 import { terrainTemplates } from '../templates'
 
-import blueprint from '../config/blueprints/testMap2'
+import blueprint from '../config/blueprints/testMap3'
 
 const outputMap = ()=>{
   // Build a series of cells and objects to place in them based on a blueprint
@@ -32,7 +33,7 @@ const outputMap = ()=>{
         if(cell){
           buildPlan.cells.push(cell)
           cellsByPosition[xx+','+yy+','+zz] = cell.id
-          let object = generateObject(symbol, xx, yy, zz)
+          let object = generateObject(symbol, layer.type, xx, yy, zz)
           if(object){
             buildPlan.terrain.push(object)
           }
@@ -76,21 +77,40 @@ const outputMap = ()=>{
   return buildPlan
 }
 
-const generateObject = (key, x, y, z)=>{
+const generateObject = (key, layerType, x, y, z)=>{
   let object = {
     x,
     y,
     z,
     type: objectTypes.TERRAIN
   }
-  if(key === 'X'){
-    object.key = terrainTemplates.FLOOR.key
-  }else if(key === '='){
-    object.key = terrainTemplates.WALL.key
-  }else if(key === 'E'){
-    object.key = terrainTemplates.LADDER.key
-  }else if(key === 'O'){
-    object.key = terrainTemplates.BOULDER.key
+  
+  // BOUNDARY CELL TERRAIN
+  if(layerType === layerTypes.FLOOR){
+    if(key === 'X'){
+      object.key = terrainTemplates.GRASS.key
+    }else if(key === 'M'){
+      object.key = terrainTemplates.METAL_FLOOR.key
+    }else if(key === 'R'){
+      object.key = terrainTemplates.METAL_ROOF.key
+    }else if(key === 'T'){
+      object.key = terrainTemplates.WOOD_FLOOR.key
+    }else{
+      return null
+    }
+  // PRIMARY CELL TERRAIN
+  }else if(layerType === layerTypes.PRIMARY){
+    if(key === '='){
+      object.key = terrainTemplates.WALL.key
+    }else if(key === 'E'){
+      object.key = terrainTemplates.LADDER.key
+    }else if(key === 'O'){
+      object.key = terrainTemplates.BOULDER.key
+    }else if(key === 'T'){
+      object.key = terrainTemplates.TREE.key
+    }else{
+      return null
+    }
   }else{
     return null
   }
@@ -129,7 +149,6 @@ const generateCell = (id, x, y, z)=>{
     y,
     z,
     contents: [],
-    backgroundColor: 'transparent',
     ...attributes
   }
 }
@@ -159,10 +178,8 @@ const generateCornerBoundary = ()=>{
 }
 
 const generateLevelBoundary = ()=>{
-  let backgroundColor = '#CCF'
   return {
-    type: cellTypes.LBOUNDARY,
-    backgroundColor
+    type: cellTypes.LBOUNDARY
   }
 }
 

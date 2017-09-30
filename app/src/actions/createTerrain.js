@@ -34,7 +34,7 @@ const createTerrain = (template, state, x, y, z)=>{
     }
   }else{
     return {
-      errors: 'Could not create terrain. Invalid definition.'
+      errors: 'Could not create terrain '+template+'. Invalid definition.'
     }
   }
 }
