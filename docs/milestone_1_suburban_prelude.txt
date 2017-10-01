@@ -87,11 +87,15 @@ Tasks:
 ✓- BUGFIX: Start layer-centered on player
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
  - Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
-   - Most likely solution will need to be modifying shouldComponentUpdate
-   - Might also consider having a mirror state that you can make changes to
-   - Then copy mirror state to regular state
-      https://gist.github.com/Aldredcz/e89874d468655f21be2a
-      https://twitter.com/dan_abramov/status/656074974533459968?lang=en
+   - Build redux-duality, a library that maintains a separate "data" and "display" store!
+ - Allow player to 'look' around them
+   - Add look key
+   - Add target over player's current location (probably not as a normal cell content!)
+   - Allow moving target on same layer (skip empty boundary cells)
+   - Allow moving target between layers (skip floor layers)
+   - Display the description of the contents in cell
+   - Also display the description of the floor below squares 
+   - Display 'empty space' if there isn't one
  - AI improvements: Line of sight
    - Enemies will actually follow across levels if they can see you, otherwise wander randomly
    - Only works on same z-levels
