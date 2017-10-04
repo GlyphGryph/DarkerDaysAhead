@@ -81,13 +81,12 @@ Tasks:
     ✓- Basic walls and floors
     ✓- Boulders and ladders
     ✓- A few preset maps for various testing purposes
-✓- Z-levels Part 3
+ - Z-levels Part 3
    - Characters can "jump" several squares to clear holes and gaps
   ✓- Actually display the z-levels in a final usable form, overlayed and filtered somehow
 ✓- BUGFIX: Start layer-centered on player
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
- - Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
-   - Build redux-duality, a library that maintains a separate "data" and "display" store!
+✓- Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
  - Allow player to 'look' around them
    - Add look key
    - Add target over player's current location (probably not as a normal cell content!)
@@ -96,11 +95,13 @@ Tasks:
    - Display the description of the contents in cell
    - Also display the description of the floor below squares 
    - Display 'empty space' if there isn't one
- - AI improvements: Line of sight
-   - Enemies will actually follow across levels if they can see you, otherwise wander randomly
-   - Only works on same z-levels
-   - Blocked by walls
-   - Enemies have "hunting patterns" that make them explore better than a random walk
+ - AI improvements: Hunting
+   - AI's no longer naively try to walk through walls to get to player
+   - Basic pathing
+ - Stagger speed
+   - Rather than simply going to the end of the queue, actions take speed
+   - Jumping takes more time than walking
+   - Enemies move slower than players
  - Status effects (crippled)
    - Falling characters are crippled
  - Crippled enemies skip their next several turns
