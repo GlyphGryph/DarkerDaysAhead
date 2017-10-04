@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { actionTypes } from '../types'
 import view from './view'
 import cells from './cells'
 import layers from './layers'
@@ -8,8 +9,9 @@ import turnQueue from './turnQueue'
 import moment from './moment'
 import player from './player'
 import terrain from './terrain'
+import storeType from './storeType'
 
-export default combineReducers({
+export const rootDataReducer = combineReducers({
   view,
   cells,
   layers,
@@ -18,5 +20,15 @@ export default combineReducers({
   turnQueue,
   moment,
   player,
-  terrain
+  terrain,
+  storeType
 })
+
+export const rootDisplayReducer = (state = {}, action)=>{
+  if(action.type === actionTypes.LOAD_DISPLAY){
+    return {
+      ...action.dataStoreState,
+      storeType: 'displayStore'
+    }
+  }
+}

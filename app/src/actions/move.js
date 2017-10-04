@@ -24,6 +24,8 @@ export const move = (creatureId, direction)=>{
         dispatch(sendError(moveResult.message))
       }
       return dispatch(completeMove(creature, moveResult.finalCell))
+    }else if(moveResult.killCreature){
+      return dispatch(destroyObject(creature))
     }else if(moveResult.attackInstead){
       return dispatch(attackCell(creature, moveResult.failedCell))
     }else{
@@ -33,7 +35,7 @@ export const move = (creatureId, direction)=>{
 }
 
 const getMoveResult = (state, creature, direction)=>{
-  let moveResult = { valid: false, attackInstead: false }
+  let moveResult = { valid: false, attackInstead: false, killCreature: false }
   let currentCell = state.cells.byId[creature.cellId]
   let targetCell = findCellInDirection(state, currentCell, direction, 2)
   let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
@@ -80,8 +82,8 @@ const getMoveResult = (state, creature, direction)=>{
     moveResult.message = creature.name + " fell down!"
     if(!moveResult.finalCell){
       moveResult.valid = false
+      moveResult.killCreature = true
       moveResult.message = creature.name + " fell into a bottomless pit!"
-      dispatch(destroyObject(creature))
     }
   }else{
     moveResult.valid = true

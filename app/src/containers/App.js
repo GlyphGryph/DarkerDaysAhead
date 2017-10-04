@@ -11,7 +11,7 @@ class App extends React.Component{
   }
 
   handleKeyPress(event) {
-    this.props.keyPressed(event.key)
+    this.props.dataStore.dispatch(userInput(event.key))
   }
 
   componentDidMount() {

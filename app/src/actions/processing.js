@@ -1,5 +1,6 @@
 import { actionTypes } from '../types'
 import { executeBehaviourFor } from './behaviours'
+import { loadDisplay } from './loadDisplay'
 
 export const processNextTurn = ()=>{
   return (dispatch, getState)=>{
@@ -25,6 +26,7 @@ export const processNextTurn = ()=>{
         dispatch(advanceQueue())
       }
     }
+    window.displayStore.dispatch(loadDisplay(getState()))
     return Promise.resolve()
   }
 }

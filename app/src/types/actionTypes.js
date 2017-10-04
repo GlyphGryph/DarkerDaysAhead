@@ -1,4 +1,8 @@
 export const actionTypes = {
+  //DisplayStore types
+  LOAD_DISPLAY: 'LOAD_DISPLAY',
+
+  //DataStore types
   CREATE_ERROR: 'CREATE_ERROR',
   RESET_MAP: 'RESET_MAP',
 
