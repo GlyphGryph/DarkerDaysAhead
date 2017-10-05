@@ -19,6 +19,7 @@ const createCreature = (template, state, x, y, z)=>{
       type: objectTypes.CREATURE,
       template,
       isFlying: false,
+      isJumping: false,
       cellId,
       x,
       y,
@@ -38,12 +39,30 @@ export const toggleFlyMode = ()=>{
     let currentCreatureId = state.turnQueue[0]
     let currentCreature = state.creatures[currentCreatureId]
     if(currentCreature.controlled){
-      dispatch({
+      return dispatch({
         type: actionTypes.SET_IS_FLYING,
         object: {
           id: currentCreatureId
         },
         value: !currentCreature.isFlying
+      })
+    }
+  }
+}
+
+export const setJumpMode = (value)=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+
+    let currentCreatureId = state.turnQueue[0]
+    let currentCreature = state.creatures[currentCreatureId]
+    if(currentCreature.controlled){
+      return dispatch({
+        type: actionTypes.SET_IS_JUMPING,
+        object: {
+          id: currentCreatureId
+        },
+        value
       })
     }
   }

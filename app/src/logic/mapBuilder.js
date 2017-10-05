@@ -44,7 +44,7 @@ const outputMap = ()=>{
       yy++
       buildPlan.width = Math.max(buildPlan.width, row.length)
     }
-    buildPlan.height = Math.max(buildPlan.width, layer.body.length)
+    buildPlan.height = Math.max(buildPlan.height, layer.body.length)
   }
 
   // For each cell, add it's neighbours for easy reference later

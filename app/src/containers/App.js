@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RenderView from '../containers/RenderView'
+import ViewContainer from '../containers/ViewContainer'
+import StatusContainer from '../containers/StatusContainer'
 import CurrentErrors from '../containers/CurrentErrors'
 import { userInput } from '../actions'
 
@@ -25,7 +26,8 @@ class App extends React.Component{
   render(){
     return (
       <div>
-        <RenderView />
+        <ViewContainer />
+        <StatusContainer />
         <CurrentErrors />
       </div>
     )

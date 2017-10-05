@@ -3,9 +3,13 @@ import { resetMap } from './resetMap'
 import {
   spawnCreature,
   toggleFlyMode,
+  setJumpMode,
   spawnAdjacentAlly
 } from './creatures'
-import { executePlayerAction } from './player'
+import {
+  executePlayerAction,
+  enterJumpMode
+} from './player'
 import { move } from './move'
 import { wait } from './behaviours'
 import { loadDisplay } from './loadDisplay'
@@ -30,6 +34,8 @@ export const userInput = (key)=> {
       dispatch(resetMap())
     }else if(keyAction.value === 'TOGGLE_FLY'){
       dispatch(toggleFlyMode())
+    }else if(keyAction.value === 'JUMP_MODE'){
+      dispatch(setJumpMode(true))
     }else if(keyAction.value === 'WAIT'){
       shouldUpdateDisplay = false
       dispatch(executePlayerAction(wait))

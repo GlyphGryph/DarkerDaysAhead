@@ -57,6 +57,8 @@ const getVisibleCellIds = createSelector(
   }
 )
 
+// EXPORTS
+
 export const layerSelectors = {
   getCurrentLayerId,
   getVisibleLayerIds,
@@ -65,4 +67,8 @@ export const layerSelectors = {
 
 export const cellSelectors = {
   getVisibleCellIds
+}
+
+export const creatureSelectors = {
+  getCurrentCreature
 }

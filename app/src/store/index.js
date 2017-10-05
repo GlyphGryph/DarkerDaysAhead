@@ -8,7 +8,10 @@ const defaultState = {
   view: {
     width: config.VIEW_WIDTH,
     height: config.VIEW_HEIGHT,
-    depth: config.VIEW_DEPTH
+    depth: config.VIEW_DEPTH,
+    cellWidth: config.CELL_WIDTH,
+    cellHeight: config.CELL_HEIGHT,
+    cellDepth: config.CELL_DEPTH
   },
   player: {},
   cells: [],

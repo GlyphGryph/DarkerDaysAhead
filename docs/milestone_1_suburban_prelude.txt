@@ -87,6 +87,8 @@ Tasks:
 ✓- BUGFIX: Start layer-centered on player
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
 ✓- Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
+ - Clean up warnings
+ - Consider storing cell visual data, like positions, in cells for now to improve performance
  - Allow player to 'look' around them
    - Add look key
    - Add target over player's current location (probably not as a normal cell content!)
@@ -95,12 +97,20 @@ Tasks:
    - Display the description of the contents in cell
    - Also display the description of the floor below squares 
    - Display 'empty space' if there isn't one
+ - Improve jump mode
+   - Allow for "running jumps" by "looking around" in jump mode.
+   - A standing jump skips one space
+   - A short running jump moves one square along the ground and covers two spaces
+   - A long jump moves two squares along the ground and covers three spaces
+   - The cursor selects the square the player wants to initiate the jump on
+   - An icon indicates where they will land
  - AI improvements: Hunting
    - AI's no longer naively try to walk through walls to get to player
    - Basic pathing
  - Stagger speed
    - Rather than simply going to the end of the queue, actions take speed
    - Jumping takes more time than walking
+   - Longer jumps take time for each and every square moved
    - Enemies move slower than players
  - Status effects (crippled)
    - Falling characters are crippled

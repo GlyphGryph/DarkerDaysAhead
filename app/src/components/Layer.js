@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import RenderCell from '../containers/RenderCell'
+import CellContainer from '../containers/CellContainer'
 
 const Layer = ({cellIds}) => (
   <div
@@ -11,7 +11,7 @@ const Layer = ({cellIds}) => (
     }}
   >
     {cellIds.map((id)=>(
-      <RenderCell key={id} id={id} />
+      <CellContainer key={id} id={id} />
     ))}
   </div>
 )

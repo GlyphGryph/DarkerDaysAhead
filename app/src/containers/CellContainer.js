@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { objectTypes, cellTypes } from '../types'
 import Cell from '../components/Cell'
-import config from '../config/config'
 import { layerSelectors } from '../selectors'
 
 let emptyFloorColor = '#CCF'
@@ -19,15 +18,12 @@ const getObjectFromContents = (state, cell)=>{
 }
 
 
-// TODO: This should probably all be calculated and saved when the cell is created
-// It will not actually change in the process of play, not yet anyway
-// On the other hand, it certainly will *eventually*...
-const getPosition = (cell)=>{
+const getPosition = (state, cell)=>{
   // By default, assuming we are working with
   // a square or a floor
-  let x = Math.floor(cell.x/2) * config.CELL_WIDTH
-  let y = Math.floor(cell.y/2) * config.CELL_HEIGHT
-  let z = config.CELL_DEPTH * cell.z
+  let x = Math.floor(cell.x/2) * state.view.cellWidth
+  let y = Math.floor(cell.y/2) * state.view.cellHeight
+  let z = cell.z * state.view.cellDepth
 
   if(cell.type === cellTypes.CORNER){
     x = x - 2
@@ -43,11 +39,11 @@ const getPosition = (cell)=>{
   return {x, y, z}
 }
 
-const getDimensions = (cell)=>{
+const getDimensions = (state, cell)=>{
   // By default, assuming we are working with
   // a square or a floor
-  let x = config.CELL_WIDTH
-  let y = config.CELL_HEIGHT
+  let x = state.view.cellWidth
+  let y = state.view.cellHeight
 
   if(cell.type === cellTypes.CORNER){
     x = 4
@@ -67,8 +63,8 @@ const mapStateToProps = (state, ownProps) => {
   let currentLayerId = layerSelectors.getCurrentLayerId(state)
   let floorLayerId = currentLayerId - 1
   let content = getObjectFromContents(state, cell)
-  let position = getPosition(cell)
-  let dimensions = getDimensions(cell)
+  let position = getPosition(state, cell)
+  let dimensions = getDimensions(state, cell)
   
   let backgroundColor = 'transparent'
   let opacity = 1
@@ -110,8 +106,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const RenderCell = connect(
+const CellContainer = connect(
   mapStateToProps
 )(Cell)
 
-export default RenderCell
+export default CellContainer

@@ -1,14 +1,13 @@
 import { connect } from 'react-redux'
 import View from '../components/View'
-import config from '../config/config'
 import { layerSelectors } from '../selectors'
 
 const visibleWidth = (state)=>{
-  return (state.view.width-1)/2 * config.CELL_WIDTH
+  return (state.view.width-1)/2 * state.view.cellWidth
 }
 
 const visibleHeight = (state)=>{
-  return (state.view.height-1)/2 * config.CELL_HEIGHT
+  return (state.view.height-1)/2 * state.view.cellHeight
 }
 
 const mapStateToProps = (state)=>{
@@ -19,8 +18,8 @@ const mapStateToProps = (state)=>{
   }
 }
 
-const RenderView = connect(
+const ViewContainer = connect(
   mapStateToProps
 )(View)
 
-export default RenderView
+export default ViewContainer
