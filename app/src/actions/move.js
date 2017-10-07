@@ -7,7 +7,7 @@ import {
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
-import { destroyObject } from './objects'
+import { destroyObject, teleportObject } from './objects'
 import { setJumpMode } from './creatures'
 
 export const move = (creatureId, direction)=>{
@@ -57,7 +57,11 @@ const moveTowardsCell = (creature, targetCell)=>{
     let steps = getPath(getState, currentCell, targetCell)
     for(let step of steps){
       if(isValidStep(step.nextBoundary, step.nextSquare)){
-        dispatch(takeStep(creature, step.nextBoundary, step.nextSquare))
+        dispatch(takeStep(
+          state.creatures[creature.id],
+          state.cells.byId[step.nextBoundary.id],
+          state.cells.byId[step.nextSquare.id]
+        ))
       }else{
         console.log('invalid next step')
         break
@@ -144,7 +148,7 @@ const getPath = (getState, currentCell, targetCell)=>{
 
 const takeStep = (creature, boundary, square)=>{
   return (dispatch, getState)=>{
-    dispatch(completeMove(creature, square))
+    dispatch(teleportObject(creature, square))
   }
 }
 
@@ -295,15 +299,5 @@ const attackCell = (creature, cell)=>{
 const blockMove = (creature, blockingCell, message)=>{
   return (dispatch, getState)=>{
     return dispatch(sendError(message))
-  }
-}
-
-const completeMove = (creature, targetCell)=>{
-  return (dispatch, getState)=>{
-    dispatch({
-      type: actionTypes.MOVE_OBJECT,
-      targetCell: targetCell,
-      object: creature
-    })
   }
 }

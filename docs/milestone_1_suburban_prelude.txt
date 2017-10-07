@@ -82,8 +82,8 @@ Tasks:
     ✓- Boulders and ladders
     ✓- A few preset maps for various testing purposes
  - Z-levels Part 3
-   - Characters can "jump" several squares to clear holes and gaps
-   - BUGFIX: Player is leaving ghosts behind, why? Fix them.
+  ✓- Characters can "jump" several squares to clear holes and gaps
+  ✓- BUGFIX: Player is leaving ghosts behind, why? Fix them.
    - Re-implement falling logic in the new movement system
   ✓- Actually display the z-levels in a final usable form, overlayed and filtered somehow
 ✓- BUGFIX: Start layer-centered on player
