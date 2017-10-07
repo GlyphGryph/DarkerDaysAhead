@@ -1,14 +1,14 @@
 import { createReducer } from 'redux-create-reducer'
 import { actionTypes } from '../types'
 
-const createCreature = (state = [], action)=>{
+const createCreature = (state, action)=>{
   return [
     ...state,
     action.object
   ]
 }
 
-const updateCreature = (state = [], action)=>{
+const updateCreature = (state, action)=>{
   return [
     ...state.slice(0, action.object.id),
     {
@@ -19,7 +19,7 @@ const updateCreature = (state = [], action)=>{
   ]
 }
 
-const moveCreature = (state = [], action)=>{
+const moveCreature = (state, action)=>{
   return [
     ...state.slice(0, action.object.id),
     {
@@ -33,7 +33,7 @@ const moveCreature = (state = [], action)=>{
   ]
 }
 
-const setIsFlying = (state = [], action)=>{
+const setIsFlying = (state, action)=>{
   return [
     ...state.slice(0, action.object.id),
     {
@@ -44,7 +44,7 @@ const setIsFlying = (state = [], action)=>{
   ]
 }
 
-const setIsJumping = (state = [], action)=>{
+const setIsJumping = (state, action)=>{
   return [
     ...state.slice(0, action.object.id),
     {
@@ -55,7 +55,7 @@ const setIsJumping = (state = [], action)=>{
   ]
 }
 
-const killCreature = (state = [], action)=>{
+const killCreature = (state, action)=>{
   return [
     ...state.slice(0, action.object.id),
     null,
@@ -63,7 +63,7 @@ const killCreature = (state = [], action)=>{
   ]
 }
 
-const clearCreatures = (state = [], action)=>{
+const clearCreatures = (state, action)=>{
   return []
 }
 

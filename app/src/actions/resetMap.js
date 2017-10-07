@@ -26,10 +26,10 @@ export const resetMap = ()=>{
     state = getState()
     for(let objectDefinition of buildPlan.terrain){
       let targetCellId = helpers.findCellIdByPosition(
+        state,
         objectDefinition.x,
         objectDefinition.y,
-        objectDefinition.z,
-        state
+        objectDefinition.z
       )
       terrainBatches[objectDefinition.key] = terrainBatches[objectDefinition.key] || []
       terrainBatches[objectDefinition.key].push(state.cells.byId[targetCellId])

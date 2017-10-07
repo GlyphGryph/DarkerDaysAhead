@@ -1,5 +1,5 @@
-import { cellTypes } from '../types'
-const findCellIdByPosition = (xx, yy, zz, state)=>{
+import { cellTypes, directionTypes } from '../types'
+const findCellIdByPosition = (state, xx, yy, zz)=>{
   // Dig through the byPosition structure, if ever encountering
   // an invalid position, return null
   let xxCells = state.cells.idByPosition[xx]
@@ -11,7 +11,64 @@ const findCellIdByPosition = (xx, yy, zz, state)=>{
   return cellId
 }
 
-const findCellsFromIds = (ids, state)=>{
+const findCellInDirection = (state, currentCell, direction, distance)=>{
+  let targetX = currentCell.x
+  let targetY = currentCell.y
+  let targetZ = currentCell.z
+
+  switch(direction){
+    case directionTypes.NORTH:
+      targetY = currentCell.y - distance
+      break
+    case directionTypes.NORTHEAST:
+      targetX = currentCell.x + distance
+      targetY = currentCell.y - distance
+      break
+    case directionTypes.EAST:
+      targetX = currentCell.x + distance
+      break
+    case directionTypes.SOUTHEAST:
+      targetX = currentCell.x + distance
+      targetY = currentCell.y + distance
+      break
+    case directionTypes.SOUTH:
+      targetY = currentCell.y + distance
+      break
+    case directionTypes.SOUTHWEST:
+      targetX = currentCell.x - distance
+      targetY = currentCell.y + distance
+      break
+    case directionTypes.WEST:
+      targetX = currentCell.x - distance
+      break
+    case directionTypes.NORTHWEST:
+      targetX = currentCell.x - distance
+      targetY = currentCell.y - distance
+      break
+    case directionTypes.UP:
+      targetZ = currentCell.z + distance
+      break
+    case directionTypes.DOWN:
+      targetZ = currentCell.z - distance
+      break
+    default:
+      targetX = currentCell.x
+      targetY = currentCell.y
+      break
+  }
+  let cellId = findCellIdByPosition(
+      state,
+      targetX, 
+      targetY,
+      targetZ
+  )
+  if(!cellId){
+    return null
+  }
+  return state.cells.byId[cellId]
+}
+
+const findCellsFromIds = (state, ids)=>{
   return ids.map((cellid)=>{
     return state.cells.byId[cellid]
   })
@@ -34,8 +91,8 @@ const cellsDepth = (view)=>{
 
 const squareCells = (state)=>{
   return findCellsFromIds(
-    state.cells.idsByType[cellTypes.SQUARE],
-    state
+    state,
+    state.cells.idsByType[cellTypes.SQUARE]
   )
 }
 
@@ -52,8 +109,8 @@ const boundaryCells = (state)=>{
 
 const layerBoundaryCells = (state)=>{
   return findCellsFromIds(
-    state.cells.idsByType[cellTypes.LBOUNDARY],
-    state
+    state,
+    state.cells.idsByType[cellTypes.LBOUNDARY]
   )
 }
 
@@ -68,16 +125,16 @@ const edgeSquares = (state)=>{
   })
 }
 
-const neighbourSquares = (xx, yy, zz, state)=>{
+const neighbourSquares = (state, xx, yy, zz)=>{
   return [
-    state.cells.byId[findCellIdByPosition(xx, yy-2, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx+2, yy-2, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx+2, yy, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx+2, yy+2, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx, yy+2, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx-2, yy+2, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx-2, yy, zz, state)],
-    state.cells.byId[findCellIdByPosition(xx-2, yy-2, zz, state)],
+    state.cells.byId[findCellIdByPosition(state, xx, yy-2, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx+2, yy-2, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx+2, yy, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx+2, yy+2, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx, yy+2, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx-2, yy+2, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx-2, yy, zz)],
+    state.cells.byId[findCellIdByPosition(state, xx-2, yy-2, zz)],
   ]
 }
 
@@ -99,8 +156,8 @@ const randomEmptyEdgeSquare = (state)=>{
   return findRandomCell(findEmptyCells(edgeSquares(state)))
 }
 
-const randomEmptyNeighbourSquare = (xx, yy, zz, state)=>{
-  return findRandomCell(findEmptyCells(neighbourSquares(xx, yy, zz, state)))
+const randomEmptyNeighbourSquare = (state, xx, yy, zz)=>{
+  return findRandomCell(findEmptyCells(neighbourSquares(xx, yy, zz)))
 }
 
 const randomEmptySquare = (state)=>{
@@ -120,6 +177,7 @@ const findDistance = (source, target)=>{
 export default {
   findCellIdByPosition,
   findCellsFromIds,
+  findCellInDirection,
   cellsWidth,
   cellsHeight,
   cellsDepth,
