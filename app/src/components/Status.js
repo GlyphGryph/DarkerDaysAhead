@@ -2,14 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const walkStatus = (isJumping)=>{
+const walkStatus = (isJumping, isFlying)=>{
   if(isJumping){
     return (<span>Jumping</span>)
+  }else if(isFlying){
+    return (<span>Flying</span>)
   }else{
     return (<span>Walking</span>)
   }
 }
-const Status = ({ isJumping, yPosition, width }) => (
+const Status = ({ isJumping, isFlying, yPosition, width }) => (
   <div
     className='status'
     style={{
@@ -21,12 +23,13 @@ const Status = ({ isJumping, yPosition, width }) => (
     }}
   > 
     <span>STATUS:</span>
-    {walkStatus(isJumping)}
+    {walkStatus(isJumping, isFlying)}
   </div>
 )
 
 Status.propTypes = {
   isJumping: PropTypes.bool.isRequired,
+  isFlying: PropTypes.bool.isRequired,
   yPosition: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
 }
