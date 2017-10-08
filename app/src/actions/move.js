@@ -56,7 +56,21 @@ const moveTowardsCell = (creature, targetCell)=>{
     let currentCell = state.cells.byId[creature.cellId]
     let steps = getPath(getState, currentCell, targetCell)
     for(let step of steps){
-      if(isValidStep(step.nextBoundary, step.nextSquare)){
+      // If the player falls, interrupt this movement and fall instead
+
+      // Refresh our state references since the last dispatch
+      state = getState()
+      creature = state.creatures[creature.id]
+      let nextBoundary = state.cells.byId[step.nextBoundary.id]
+      let nextSquare = state.cells.byId[step.nextSquare.id]
+      if(shouldFall(state, creature)){
+        dispatch(sink(creature))
+        // TODO: When get z-levels being thirds of floors,
+        // then a fall of one z-level since previous will be fine
+        // For now, break movement on all falls
+        break
+      }
+      if(isValidStep(state, creature, nextBoundary, nextSquare)){
         dispatch(takeStep(
           state.creatures[creature.id],
           state.cells.byId[step.nextBoundary.id],
@@ -68,6 +82,11 @@ const moveTowardsCell = (creature, targetCell)=>{
       }
     }
     dispatch(setJumpMode(false))
+    state = getState()
+    creature = state.creatures[creature.id]
+    if(shouldFall(state, creature)){
+      dispatch(sink(creature))
+    }
     return
   }
 }
@@ -95,11 +114,8 @@ const getPath = (getState, currentCell, targetCell)=>{
       })
     }
   }else{
-    // TODO: Finish this deltaError bit so players properly navigate along
-    // non-cardinal directions, then make sure this shit works for distant targets
-    // Also, add clauses to cancel the while loops if blocked
-    // then re-add code for blocking objects
-    // Also include the above vertical movement
+    // TODO: Also include the above vertical movement for when we do
+    // flying/gliding creatures and stuff driving off ledges
 
     // Use a variation of Bresenham's Line algorithm
     let deltaX = Math.abs(targetCell.x - xx)
@@ -152,13 +168,15 @@ const takeStep = (creature, boundary, square)=>{
   }
 }
 
-const isValidStep = (nextBoundary, nextSquare)=>{
+const isValidStep = (state, creature, nextBoundary, nextSquare)=>{
+  // TODO: Add logic for if can move up
   if(
     nextSquare === null ||
     nextSquare === undefined ||
     nextSquare.type != cellTypes.SQUARE ||
     isBlocked(nextBoundary) ||
-    isBlocked(nextSquare)
+    isBlocked(nextSquare) ||
+    (nextSquare.z > creature.z && !canMoveUp(state, creature))
   ){
     return false
   }else{
@@ -226,19 +244,24 @@ const isBlocked = (cell)=>{
   return cell.contents.length > 0
 }
 
-const isSupported = (creature, cell, state)=>{
+const shouldFall = (state, creature)=>{
+  return !isSupported(state, creature, state.cells.byId[creature.cellId])
+}
+
+const isSupported = (state, creature, cell)=>{
   let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
   let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
 
   return (
     creature.isFlying ||
+    creature.isJumping ||
     isNearClimbable(cell, state) ||
-    isGround(cell, state) ||
+    isGround(state, cell) ||
     isNearClimbable(nextSquare, state)
   )
 }
 
-const isGround = (cell, state)=>{
+const isGround = (state, cell)=>{
   let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
   let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
 
@@ -248,7 +271,7 @@ const isGround = (cell, state)=>{
   )
 }
 
-const canMoveUp = (creature, state)=>{
+const canMoveUp = (state, creature)=>{
   let cell = state.cells.byId[creature.cellId]
   return (creature.isFlying || isNearClimbable(cell, state))
 }
@@ -279,13 +302,23 @@ const nearbyTerrain = (cell, state)=>{
   return nearbyTerrain
 }
 
-const findGround = (cell, state)=>{
-  if(cell === undefined || isGround(cell, state)){
+const findGround = (state, cell)=>{
+  if(cell === undefined || isGround(state, cell)){
     return cell
   } else {
     let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
     let nextSquare = state.cells.byId[floorCell.neighbours[directionTypes.DOWN]]
-    return findGround(nextSquare, state)
+    return findGround(state, nextSquare)
+  }
+}
+
+export const sink = (object)=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+    let cell = state.cells.byId[object.cellId]
+    let groundSquare = findGround(state, cell)
+    console.log("Fell "+((cell.z - groundSquare.z)/2)+" layers.")
+    dispatch(teleportObject(object, groundSquare))
   }
 }
 
