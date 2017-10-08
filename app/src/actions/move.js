@@ -1,5 +1,4 @@
 import {
-  actionTypes,
   cellTypes,
   objectTypes,
   directionTypes,
@@ -7,7 +6,7 @@ import {
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
-import { destroyObject, teleportObject, findObject } from './objects'
+import { teleportObject, findObject } from './objects'
 import { setJumpMode } from './creatures'
 
 export const move = (creatureId, direction)=>{
@@ -18,10 +17,6 @@ export const move = (creatureId, direction)=>{
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
     
-    // TODO: Finish converting move functions to take a targetCell
-    // TODO: And then calculate intervening cells, in order
-    // TODO: And then process results (move until a barrier is hit or player falls
-    // TODO: Finally, ignore falling if player is jumping
     // let currentCell = state.cells.byId[creature.cellId]
     let currentCell = state.cells.byId[creature.cellId]
     let targetCell = helpers.findCellInDirection(state, currentCell, direction, 2)
@@ -53,7 +48,7 @@ const isMovingIntoHostileCreature = (state, creature, targetCell)=>{
       possibleObjectRef.id
     )
     // Is that creature an enemy?
-    return (creature.faction !== state.creatures[possibleObjectRef.id].faction)
+    return (creature.faction !== possibleObject.faction)
   }
   return false
 }
@@ -68,7 +63,7 @@ const isAdjacent = (state, firstCell, secondCell)=>{
 
 const moveTowardsCell = (creature, targetCell)=>{
   return (dispatch, getState)=>{
-    if(targetCell === null || targetCell.type != cellTypes.SQUARE){
+    if(targetCell === null || targetCell.type !== cellTypes.SQUARE){
       console.log('invalid target')
       return
     }
@@ -192,11 +187,10 @@ const takeStep = (creature, boundary, square)=>{
 }
 
 const isValidStep = (state, creature, nextBoundary, nextSquare)=>{
-  // TODO: Add logic for if can move up
   if(
     nextSquare === null ||
     nextSquare === undefined ||
-    nextSquare.type != cellTypes.SQUARE ||
+    nextSquare.type !== cellTypes.SQUARE ||
     isBlocked(nextBoundary) ||
     isBlocked(nextSquare) ||
     (nextSquare.z > creature.z && !canMoveUp(state, creature))
@@ -206,62 +200,6 @@ const isValidStep = (state, creature, nextBoundary, nextSquare)=>{
     return true
   }
 }
-/*= (state, creature, targetCell)=>{
-  let moveResult = { valid: false, attackInstead: false, killCreature: false }
-  let crossedBoundary = findCellInDirection(state, currentCell, direction, 1)
-
-  // Check the target cell exists
-  if(targetCell === null){
-    moveResult.failedCell = null
-    moveResult.message = creature.name + ' tried to move out of bounds'
-    return moveResult
-  }
-  
-  // Obey gravity, if necessary
-  if(direction === directionTypes.UP){
-    if(canMoveUp(creature, state)){
-      if(isSupported(creature, targetCell, state)){
-        moveResult.message = creature.name + ' moved up a ladder.'
-      }
-    } else {
-      moveResult.failedCell = targetCell
-      moveResult.message = creature.name + ' cannot fly.'
-      return moveResult
-    }
-  }
-
-  // Make sure the path is clear
-  if(isBlocked(crossedBoundary)){
-    moveResult.failedCell = crossedBoundary
-    moveResult.message = creature.name + " couldn't move through unpassable barrier"
-  }else if(isBlocked(targetCell)){
-    moveResult.failedCell = targetCell
-    let blockingObject = targetCell.contents[0]
-    // If a creature tried to move onto a creature...
-    if(
-      blockingObject.type === objectTypes.CREATURE &&
-      creature.faction !== state.creatures[blockingObject.id].faction
-    ){
-      moveResult.attackInstead = true
-    }else{
-      moveResult.message = creature.name + " couldn't move into occupied cell"
-    }
-  }else if(!isSupported(creature, targetCell, state)){
-    moveResult.valid = true
-    moveResult.finalCell = findGround(targetCell, state)
-    moveResult.message = creature.name + " fell down!"
-    if(!moveResult.finalCell){
-      moveResult.valid = false
-      moveResult.killCreature = true
-      moveResult.message = creature.name + " fell into a bottomless pit!"
-    }
-  }else{
-    moveResult.valid = true
-    moveResult.finalCell = targetCell
-  }
-  return moveResult
-}*/
-
 
 const isBlocked = (cell)=>{
   return cell.contents.length > 0
@@ -349,11 +287,5 @@ const attackCell = (creature, cell)=>{
   return (dispatch, getState)=>{
     dispatch(sendError(creature.name + ' killed something!'))
     return dispatch(attack(creature.id, cell.contents[0].id))
-  }
-}
-
-const blockMove = (creature, blockingCell, message)=>{
-  return (dispatch, getState)=>{
-    return dispatch(sendError(message))
   }
 }

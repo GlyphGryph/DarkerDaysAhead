@@ -91,7 +91,7 @@ Tasks:
 ✓- BUGFIX: Start layer-centered on player
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
 ✓- Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
- - Clean up warnings
+✓- Clean up warnings and comments
  - Clean up brand new perf problems
  - Consider storing cell visual data, like positions, in cells for now to improve performance
  - Allow player to 'look' around them

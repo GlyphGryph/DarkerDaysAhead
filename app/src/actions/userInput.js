@@ -7,8 +7,7 @@ import {
   spawnAdjacentAlly
 } from './creatures'
 import {
-  executePlayerAction,
-  enterJumpMode
+  executePlayerAction
 } from './player'
 import { move } from './move'
 import { wait } from './behaviours'

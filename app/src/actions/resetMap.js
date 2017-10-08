@@ -1,6 +1,6 @@
 import { actionTypes } from '../types'
 import { spawnCreature } from './creatures'
-import { spawnTerrain, spawnMultipleTerrain } from './createTerrain'
+import { spawnMultipleTerrain } from './createTerrain'
 import helpers from '../logic/helpers'
 import mapBuilder from '../logic/mapBuilder'
 
@@ -51,9 +51,3 @@ export const resetMap = ()=>{
     })
   }
 }
-
-const randColorValue = ()=>{
-  return (Math.floor(Math.random() * 6)+4).toString(16)
-}
-
-

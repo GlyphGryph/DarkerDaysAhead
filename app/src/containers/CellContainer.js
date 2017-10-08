@@ -84,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
     if(content.type === objectTypes.CREATURE){
       active = content.controlled && content.id === state.turnQueue[0]
     }
-  }else if(cell.z == floorLayerId){
+  }else if(cell.z === floorLayerId){
     // If a floor cell has no contents
     // set it to default background color at opacity 0.5
     backgroundColor = emptyFloorColor
