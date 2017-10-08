@@ -31,6 +31,14 @@ export const spawnObject = (template, cell, createFunction, actionType)=>{
   }
 }
 
+export const findObject = (state, type, id)=>{
+  if(type === objectTypes.CREATURE){
+    return state.creatures[id]
+  }else if(type === objectTypes.TERRAIN){
+    return state.terrain[id]
+  }
+}
+
 export const teleportObject = (object, targetCell)=>{
   return (dispatch, getState)=>{
     let state = getState()

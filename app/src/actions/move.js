@@ -7,7 +7,7 @@ import {
 import helpers from '../logic/helpers'
 import { sendError } from './errors'
 import { attack } from './attack'
-import { destroyObject, teleportObject } from './objects'
+import { destroyObject, teleportObject, findObject } from './objects'
 import { setJumpMode } from './creatures'
 
 export const move = (creatureId, direction)=>{
@@ -28,22 +28,42 @@ export const move = (creatureId, direction)=>{
     if(creature.isJumping){
       targetCell = helpers.findCellInDirection(state, currentCell, direction, 4)
     }
-    // // Process if this move can be completed or if it is interrupted
-    dispatch(moveTowardsCell(creature, targetCell))
-    // if(moveResult.valid){
-    //   if(moveResult.message){
-    //     dispatch(sendError(moveResult.message))
-    //   }
-    //   dispatch(completeMove(creature, moveResult.finalCell))
-    // }else if(moveResult.killCreature){
-    //   dispatch(destroyObject(creature))
-    // }else if(moveResult.attackInstead){
-    //   dispatch(attackCell(creature, moveResult.failedCell))
-    // }else{
-    //   dispatch(blockMove(creature, moveResult.failedCell, moveResult.message))
-    // }
-    // return dispatch(setJumpMode(false))
+    // If we're going to move into a creature in our first move
+    // Then assume this isn't a move at all, but an attack
+    if(isMovingIntoHostileCreature(state, creature, targetCell)){
+      return dispatch(attackCell(creature, targetCell))
+    }else{
+      // Begin moving
+      return dispatch(moveTowardsCell(creature, targetCell))
+    }
   }
+}
+
+const isMovingIntoHostileCreature = (state, creature, targetCell)=>{
+  let possibleObjectRef = targetCell.contents[0]
+  let currentCell = state.cells.byId[creature.cellId]
+  // Is there a creature in the target cell?
+  if(possibleObjectRef &&
+    isAdjacent(state, currentCell, targetCell) &&
+    possibleObjectRef.type === objectTypes.CREATURE
+  ){
+    let possibleObject = findObject(
+      state,
+      possibleObjectRef.type,
+      possibleObjectRef.id
+    )
+    // Is that creature an enemy?
+    return (creature.faction !== state.creatures[possibleObjectRef.id].faction)
+  }
+  return false
+}
+
+const isAdjacent = (state, firstCell, secondCell)=>{
+  return (
+    Math.abs(firstCell.x - secondCell.x) <= 2 &&
+    Math.abs(firstCell.y - secondCell.y) <= 2 &&
+    Math.abs(firstCell.z - secondCell.z) <= 2
+  )
 }
 
 const moveTowardsCell = (creature, targetCell)=>{
@@ -52,17 +72,19 @@ const moveTowardsCell = (creature, targetCell)=>{
       console.log('invalid target')
       return
     }
+
     let state = getState()
     let currentCell = state.cells.byId[creature.cellId]
     let steps = getPath(getState, currentCell, targetCell)
     for(let step of steps){
-      // If the player falls, interrupt this movement and fall instead
 
       // Refresh our state references since the last dispatch
       state = getState()
       creature = state.creatures[creature.id]
       let nextBoundary = state.cells.byId[step.nextBoundary.id]
       let nextSquare = state.cells.byId[step.nextSquare.id]
+
+      // If the player falls, interrupt this movement and fall instead
       if(shouldFall(state, creature)){
         dispatch(sink(creature))
         // TODO: When get z-levels being thirds of floors,
@@ -70,6 +92,7 @@ const moveTowardsCell = (creature, targetCell)=>{
         // For now, break movement on all falls
         break
       }
+
       if(isValidStep(state, creature, nextBoundary, nextSquare)){
         dispatch(takeStep(
           state.creatures[creature.id],
