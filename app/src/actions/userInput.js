@@ -7,7 +7,8 @@ import {
   spawnAdjacentAlly
 } from './creatures'
 import {
-  executePlayerAction
+  executePlayerAction,
+  setLookMode,
 } from './player'
 import { move } from './move'
 import { wait } from './behaviours'
@@ -35,12 +36,21 @@ export const userInput = (key)=> {
       dispatch(toggleFlyMode())
     }else if(keyAction.value === 'JUMP_MODE'){
       dispatch(setJumpMode(true))
+    }else if(keyAction.value === 'LOOK'){
+      dispatch(setLookMode(true))
+    }else if(keyAction.value === 'ESCAPE'){
+      dispatch(setJumpMode(false))
+      dispatch(setLookMode(false))
     }else if(keyAction.value === 'WAIT'){
       shouldUpdateDisplay = false
       dispatch(executePlayerAction(wait))
     }else if(keyAction.tags.includes('MOVE')){
-      shouldUpdateDisplay = false
-      dispatch(executePlayerAction(move, keyAction.value));
+      if(state.player.isLooking){
+        // TODO: implement look behaviour
+      }else{
+        shouldUpdateDisplay = false
+        dispatch(executePlayerAction(move, keyAction.value));
+      }
     }else{
       console.log('Key bound but unused: '+key)
     }

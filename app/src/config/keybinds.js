@@ -1,6 +1,7 @@
 import { directionTypes } from '../types'
 
 let Keys = {
+  ESCAPE: 'Escape',
   ENTER: 'Enter',
   SPACE: ' ',
   W: 'w',
@@ -12,6 +13,7 @@ let Keys = {
   R: 'r',
   K: 'k',
   J: 'j',
+  L: 'l',
   PLUS: '+',
   MINUS: '-',
   UP: 'ArrowUp',
@@ -29,6 +31,7 @@ let Keys = {
   NUMPAD9: '9',
 }
 let Keybinds = [
+  [Keys.ESCAPE, {value: 'ESCAPE', tags: []}],
   [Keys.ENTER, {value: 'SELECT', tags: []}],
   [Keys.SPACE, {value: 'CHANGE', tags: []}],
   [Keys.K, {value: 'TOGGLE_FLY', tags: []}],
@@ -54,7 +57,8 @@ let Keybinds = [
   [Keys.E, {value: directionTypes.UP, tags: ['MOVE']}],
   [Keys.Q, {value: directionTypes.DOWN, tags: ['MOVE']}],
   [Keys.PLUS, {value: directionTypes.UP, tags: ['MOVE']}],
-  [Keys.MINUS, {value: directionTypes.DOWN, tags: ['MOVE']}]
+  [Keys.MINUS, {value: directionTypes.DOWN, tags: ['MOVE']}],
+  [Keys.L, {value: 'LOOK', tags: []}]
 ]
 Keybinds = new Map(Keybinds)
 

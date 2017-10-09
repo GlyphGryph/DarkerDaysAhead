@@ -2,13 +2,19 @@ export const actionTypes = {
   //DisplayStore types
   LOAD_DISPLAY: 'LOAD_DISPLAY',
 
-  //DataStore types
-  CREATE_ERROR: 'CREATE_ERROR',
-  RESET_MAP: 'RESET_MAP',
+  // ----
+  // DataStore types
+  // -----
 
+  // Error types
+  CREATE_ERROR: 'CREATE_ERROR',
+
+  // Map management
+  RESET_MAP: 'RESET_MAP',
   ADD_TO_CELL: 'ADD_TO_CELL',
   REMOVE_FROM_CELL: 'REMOVE_FROM_CELL',
 
+  // Object types
   CREATE_CREATURE: 'CREATE_CREATURE',
   UPDATE_CREATURE: 'UPDATE_CREATURE',
   CONTROL_CREATURE: 'CONTROL_CREATURE',
@@ -17,13 +23,13 @@ export const actionTypes = {
   SET_IS_JUMPING: 'SET_IS_JUMPING',
   DESTROY_OBJECT: 'DESTROY_OBJECT',
   MOVE_OBJECT: 'MOVE_OBJECT',
-
   CREATE_TERRAIN: 'CREATE_TERRAIN',
-
+  
+  // Turn management types
   ADVANCE_QUEUE: 'ADVANCE_QUEUE',
   REMOVE_NEXT_FROM_QUEUE: 'REMOVE_NEXT_FROM_QUEUE',
 
-  MOVE: 'MOVE',
-
-  SET_VIEW_CONFIGS: 'SET_VIEW_CONFIGS'
+  // Player and view management (meta types)
+  SET_VIEW_CONFIGS: 'SET_VIEW_CONFIGS',
+  SET_IS_LOOKING: 'SET_IS_LOOKING'
 }

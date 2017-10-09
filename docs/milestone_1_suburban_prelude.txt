@@ -92,16 +92,19 @@ Tasks:
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
 ✓- Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
 ✓- Clean up warnings and comments
- - Clean up brand new perf problems
- - Consider storing cell visual data, like positions, in cells for now to improve performance
  - Allow player to 'look' around them
-   - Add look key
-   - Add target over player's current location (probably not as a normal cell content!)
-   - Allow moving target on same layer (skip empty boundary cells)
-   - Allow moving target between layers (skip floor layers)
+  ✓- Add look key, enters look mode
+  ✓- Add key to escape look mode (and jump mode!)
+   - Add target over player's current location
+   - It's time - expand the contents logic to support multiple "things" in a cell
+   - Give things properties like 'tangible' and 'blocking'
+   - Implement target as an object of a special type
+   - Allow moving target
+   - Move to boundary cells only if they have contents, otherwise skip to next square
+   - Skip all vertical boundaries
    - Display the description of the contents in cell
    - Also display the description of the floor below squares 
-   - Display 'empty space' if there isn't one
+   - Display 'empty space' if there isn't a floor
  - Improve jump mode
    - Allow for "running jumps" by "looking around" in jump mode.
    - A standing jump skips one space
@@ -109,6 +112,8 @@ Tasks:
    - A long jump moves two squares along the ground and covers three spaces
    - The cursor selects the square the player wants to initiate the jump on
    - An icon indicates where they will land
+ - Consider storing cell visual data, like positions, in cells for now to improve performance
+ - Clean up brand new perf problems
  - AI improvements: Hunting
    - AI's no longer naively try to walk through walls to get to player
    - Basic pathing

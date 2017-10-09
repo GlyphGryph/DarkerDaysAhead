@@ -2,10 +2,11 @@ import { createReducer } from 'redux-create-reducer'
 
 const defaultState = {
   currentCreatureId: null,
+  isLooking: false,
   controlledCreatures: []
 }
 
-const controlCreature = (state = {}, action)=>{
+const controlCreature = (state, action)=>{
   if(action.object.controlled){
     return {
       ...state,
@@ -20,7 +21,7 @@ const controlCreature = (state = {}, action)=>{
   }
 }
 
-const loseControl = (state = [], action)=>{
+const loseControl = (state, action)=>{
   return {
     ...state,
     controlledCreatures: state.controlledCreatures.filter((id)=>{
@@ -32,14 +33,21 @@ const loseControl = (state = [], action)=>{
   }
 }
 
-const resetPlayer = (state = {}, action)=>{
+const resetPlayer = (state, action)=>{
   return defaultState
 }
 
-const setCurrentCreature = (state = {}, action)=>{
+const setCurrentCreature = (state, action)=>{
   return {
     ...state,
     currentCreatureId: action.id
+  }
+}
+
+const setIsLooking = (state , action)=>{
+  return {
+    ...state,
+    isLooking: action.value
   }
 }
 
@@ -47,6 +55,7 @@ const player = createReducer(defaultState, {
   CREATE_CREATURE: controlCreature,
   DESTROY_OBJECT: loseControl,
   SET_CURRENT_CREATURE: setCurrentCreature,
+  SET_IS_LOOKING: setIsLooking,
   RESET_MAP: resetPlayer,
 })
 

@@ -2,16 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const walkStatus = (isJumping, isFlying)=>{
+const walkStatus = (isJumping, isFlying, isLooking)=>{
+  let mode = 'Walking'
   if(isJumping){
-    return (<span>Jumping</span>)
+    mode = 'Jumping'
   }else if(isFlying){
-    return (<span>Flying</span>)
-  }else{
-    return (<span>Walking</span>)
+    mode = 'Flying'
+  }else if(isLooking){
+    mode = 'Looking'
   }
+  return (<span>{mode}</span>)
 }
-const Status = ({ isJumping, isFlying, yPosition, width }) => (
+const Status = ({ isJumping, isFlying, isLooking, yPosition, width }) => (
   <div
     className='status'
     style={{
@@ -23,13 +25,14 @@ const Status = ({ isJumping, isFlying, yPosition, width }) => (
     }}
   > 
     <span>STATUS:</span>
-    {walkStatus(isJumping, isFlying)}
+    {walkStatus(isJumping, isFlying, isLooking)}
   </div>
 )
 
 Status.propTypes = {
   isJumping: PropTypes.bool.isRequired,
   isFlying: PropTypes.bool.isRequired,
+  isLooking: PropTypes.bool.isRequired,
   yPosition: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
 }
