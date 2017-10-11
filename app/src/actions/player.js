@@ -10,7 +10,7 @@ export const executePlayerAction = (action, ...args)=>{
       return
     }
     let currentCreatureId = state.turnQueue[0]
-    let creature = state.creatures[currentCreatureId]
+    let creature = state.creatures.byId[currentCreatureId]
     if(creature.controlled){
       dispatch(action(currentCreatureId, ...args))
       return dispatch(processNextTurn())
@@ -25,15 +25,18 @@ export const setLookMode = (value)=>{
     let state = getState()
 
     let currentCreatureId = state.turnQueue[0]
-    let creature = state.creatures[currentCreatureId]
-
-    if(creature.controlled){
-      return dispatch({
-        type: actionTypes.SET_IS_LOOKING,
-        value
-      })
+    let creature = state.creatures.byId[currentCreatureId]
+    if(value){
+      dispatch(createLookMarker())
+    }else{
+      dispatch(destroyLookMarker())
     }
   }
 }
 
+const createLookMarker = ()=>{
+}
 
+const destroyLookMarker = ()=>{
+
+}

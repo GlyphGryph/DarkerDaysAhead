@@ -24,7 +24,7 @@ export const userInput = (key)=> {
     let shouldUpdateDisplay = true
 
     if(!keyAction){
-      console.log('Key Unbound: '+key)
+      console.warn('Key Unbound: '+key)
     } else if(keyAction.value === 'SELECT'){
       let cell = helpers.randomEmptyEdgeSquare(state)
       dispatch(spawnCreature('KREK', cell))
@@ -52,7 +52,7 @@ export const userInput = (key)=> {
         dispatch(executePlayerAction(move, keyAction.value));
       }
     }else{
-      console.log('Key bound but unused: '+key)
+      console.warn('Key bound but unused: '+key)
     }
     if(shouldUpdateDisplay){
       window.displayStore.dispatch(loadDisplay(getState()))

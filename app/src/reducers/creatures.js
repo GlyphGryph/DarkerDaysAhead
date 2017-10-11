@@ -1,73 +1,95 @@
 import { createReducer } from 'redux-create-reducer'
 import { actionTypes } from '../types'
 
+const defaultState = {
+  byId: {},
+  idList: [],
+}
+
 const createCreature = (state, action)=>{
-  return [
-    ...state,
-    action.object
-  ]
+  return {
+    byId: {
+      ...state.byId,
+      [action.object.id]: action.object
+    },
+    idList: state.idList.concat([action.object.id])
+  }
 }
 
 const updateCreature = (state, action)=>{
-  return [
-    ...state.slice(0, action.object.id),
-    {
-        ...state[action.object.id],
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+      [action.object.id]: {
+        ...state.byId[action.object.id],
         ...action.attributes
-    },
-    ...state.slice(action.object.id + 1)
-  ]
+      }
+    }
+  }
 }
 
 const moveCreature = (state, action)=>{
-  return [
-    ...state.slice(0, action.object.id),
-    {
-      ...state[action.object.id],
-      cellId: action.targetCell.id,
-      x: action.targetCell.x,
-      y: action.targetCell.y,
-      z: action.targetCell.z
-    },
-    ...state.slice(action.object.id+1)
-  ]
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+      [action.object.id]: {
+        ...state.byId[action.object.id],
+        cellId: action.targetCell.id,
+        x: action.targetCell.x,
+        y: action.targetCell.y,
+        z: action.targetCell.z
+      }
+    }
+  }
 }
 
 const setIsFlying = (state, action)=>{
-  return [
-    ...state.slice(0, action.object.id),
-    {
-      ...state[action.object.id],
-      isFlying: action.value,
-    },
-    ...state.slice(action.object.id+1)
-  ]
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+      [action.object.id]: {
+        ...state.byId[action.id.id],
+        isFlying: action.value
+      }
+    }
+  }
 }
 
 const setIsJumping = (state, action)=>{
-  return [
-    ...state.slice(0, action.object.id),
-    {
-      ...state[action.object.id],
-      isJumping: action.value,
-    },
-    ...state.slice(action.object.id+1)
-  ]
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+      [action.object.id]: {
+        ...state.byId[action.object.id],
+        isJumping: action.value
+      }
+    }
+  }
 }
 
 const killCreature = (state, action)=>{
-  return [
-    ...state.slice(0, action.object.id),
-    null,
-    ...state.slice(action.object.id + 1)
-  ]
+  return {
+    byId: {
+      ...state.byId,
+      [action.object.id]: null
+    },
+    idList: [
+      ...state.idList.filter((id)=>{
+        return id !== action.id
+      })
+    ]
+  }
 }
 
 const clearCreatures = (state, action)=>{
-  return []
+  return defaultState
 }
 
-const creatures = createReducer([], {
+const creatures = createReducer(defaultState, {
   [actionTypes.CREATE_CREATURE]: createCreature,
   [actionTypes.UPDATE_CREATURE]: updateCreature,
   [actionTypes.MOVE_OBJECT]: moveCreature,

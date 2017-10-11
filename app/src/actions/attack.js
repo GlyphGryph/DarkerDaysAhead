@@ -5,8 +5,7 @@ import { sendError } from './errors'
 export const attack = (attackerId, defenderId)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    //TODO: let attacker = state.creatures[attackerId]
-    let defender = state.creatures[defenderId]
+    let defender = state.creatures.byId[defenderId]
 
     // Unless the object is the last controlled character, destroy them
     let isPlayerCharacter = (defender.id === state.player.controlledCreatures[0])

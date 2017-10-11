@@ -99,10 +99,10 @@ Tasks:
    - It's time - expand the contents logic to support multiple "things" in a cell
    - Give things properties like 'tangible' and 'blocking'
    - Implement target as an object of a special type
+   - Display the description of the contents in cell
    - Allow moving target
    - Move to boundary cells only if they have contents, otherwise skip to next square
    - Skip all vertical boundaries
-   - Display the description of the contents in cell
    - Also display the description of the floor below squares 
    - Display 'empty space' if there isn't a floor
  - Improve jump mode
@@ -114,6 +114,7 @@ Tasks:
    - An icon indicates where they will land
  - Consider storing cell visual data, like positions, in cells for now to improve performance
  - Clean up brand new perf problems
+ - Put 'state' first in all function calls and definitions that require it!
  - AI improvements: Hunting
    - AI's no longer naively try to walk through walls to get to player
    - Basic pathing

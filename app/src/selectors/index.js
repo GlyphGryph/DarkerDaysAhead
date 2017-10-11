@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect'
 
 // CREATURES
-
-const getCurrentCreature = (state)=>{
-  return state.creatures[state.player.currentCreatureId]
+export const getCurrentCreature = (state)=>{
+  return state.creatures.byId[state.player.currentCreatureId]
 }
 
 // LAYERS

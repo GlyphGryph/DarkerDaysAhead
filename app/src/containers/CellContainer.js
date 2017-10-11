@@ -9,7 +9,7 @@ const getObjectFromContents = (state, cell)=>{
   let content = cell.contents[0]
   if(content){
     if(content.type === objectTypes.CREATURE){
-      return state.creatures[content.id]
+      return state.creatures.byId[content.id]
     }else if(content.type === objectTypes.TERRAIN){
       return state.terrain[content.id]
     }

@@ -1,6 +1,7 @@
 import { actionTypes, factionTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
 import { spawnObject } from './objects'
+import { creatureTemplates } from '../templates'
 
 export const spawnCreature = (template='KREK', cell)=> {
   return (dispatch, getState)=>{
@@ -9,7 +10,8 @@ export const spawnCreature = (template='KREK', cell)=> {
 }
 
 const createCreature = (template, state, x, y, z)=>{
-  let id = state.creatures.length
+  // Set to 1 greater than the last creature or if there isn't one, 1
+  let id = (state.creatures.idList.slice(-1) || 0) + 1
   let cellId = helpers.findCellIdByPosition(state, x, y, z)
   let creatureTemplate = creatureTemplates[template]
   if(creatureTemplate){
@@ -37,7 +39,7 @@ export const toggleFlyMode = ()=>{
     let state = getState()
 
     let currentCreatureId = state.turnQueue[0]
-    let currentCreature = state.creatures[currentCreatureId]
+    let currentCreature = state.creatures.byId[currentCreatureId]
     if(currentCreature.controlled){
       return dispatch({
         type: actionTypes.SET_IS_FLYING,
@@ -55,7 +57,7 @@ export const setJumpMode = (value)=>{
     let state = getState()
 
     let currentCreatureId = state.turnQueue[0]
-    let currentCreature = state.creatures[currentCreatureId]
+    let currentCreature = state.creatures.byId[currentCreatureId]
     if(currentCreature.controlled){
       return dispatch({
         type: actionTypes.SET_IS_JUMPING,
@@ -73,10 +75,10 @@ export const spawnAdjacentAlly = ()=>{
     let state = getState()
 
     let sourceCreatureId = state.turnQueue[0]
-    let sourceCreature = state.creatures[sourceCreatureId]
+    let sourceCreature = state.creatures.byId[sourceCreatureId]
     if(!sourceCreature.controlled){
       sourceCreatureId = state.player.controlledCreatures[0]
-      sourceCreature = state.creatures[sourceCreatureId]
+      sourceCreature = state.creatures.byId[sourceCreatureId]
     }
 
     let cell = helpers.randomEmptyNeighbourSquare(
@@ -87,21 +89,4 @@ export const spawnAdjacentAlly = ()=>{
     )
     return dispatch(spawnCreature('PLAYER', cell))
   }
-}
-
-const creatureTemplates = {
-  PLAYER: {
-    name: 'Player',
-    icon: '@',
-    color: '#FFF',
-    controlled: true,
-    faction: factionTypes.PLAYER
-  },
-  KREK: {
-    name: 'Krek',
-    icon: 'K',
-    color: '#F00',
-    controlled: false,
-    faction: factionTypes.ENEMY1
-  },
 }

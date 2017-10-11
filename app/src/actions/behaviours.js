@@ -11,14 +11,16 @@ export const wait = (id)=>{
 const moveTowardsFaction = (id, faction)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    let actor = state.creatures[id]
+    let actor = state.creatures.byId[id]
 
     // First, find the closest character of that faction
-    let creaturesByDistance = state.creatures.filter((creature)=>{
+    let creaturesByDistance = state.creatures.idList.filter((creatureId)=>{
+      let creature = state.creatures.byId[creatureId]
       return (creature && creature.faction === faction)
-    }).map((creature)=>{
+    }).map((creatureId)=>{
+      let creature = state.creatures.byId[creatureId]
       return {
-        creature: creature,
+        creature,
         distance: helpers.findDistance(actor, creature)
       }
     }).sort((a, b)=>{

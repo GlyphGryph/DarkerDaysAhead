@@ -45,9 +45,10 @@ export const resetMap = ()=>{
       spawnCreature('PLAYER', helpers.randomEmptySquare(getState()))
     )
 
+    // The creature previously created will be the first on a blank map
     dispatch({
       type: actionTypes.CONTROL_CREATURE,
-      id: 0 // The creature previously created will be the first on a blank map
+      id: getState().creatures.idList.slice(-1)
     })
   }
 }

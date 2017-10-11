@@ -33,7 +33,7 @@ export const spawnObject = (template, cell, createFunction, actionType)=>{
 
 export const findObject = (state, type, id)=>{
   if(type === objectTypes.CREATURE){
-    return state.creatures[id]
+    return state.creatures.byId[id]
   }else if(type === objectTypes.TERRAIN){
     return state.terrain[id]
   }
@@ -44,9 +44,9 @@ export const teleportObject = (object, targetCell)=>{
     let state = getState()
     // Refresh objects. Only execute for creatures for now
     if(object.type === objectTypes.CREATURE){
-      object = state.creatures[object.id]
+      object = state.creatures.byId[object.id]
     }else{
-      console.log('Error: Teleporting this type of object is not yet implemented')
+      console.warn('Error: Teleporting this type of object is not yet implemented')
       return
     }
     targetCell = state.cells.byId[targetCell.id]

@@ -12,7 +12,7 @@ import { setJumpMode } from './creatures'
 export const move = (creatureId, direction)=>{
   return (dispatch, getState)=>{
     let state = getState()
-    let creature = state.creatures[creatureId]
+    let creature = state.creatures.byId[creatureId]
     if(!creature){
       return dispatch(sendError("Creature with id "+creatureId+" could not be found"))
     }
@@ -64,7 +64,7 @@ const isAdjacent = (state, firstCell, secondCell)=>{
 const moveTowardsCell = (creature, targetCell)=>{
   return (dispatch, getState)=>{
     if(targetCell === null || targetCell.type !== cellTypes.SQUARE){
-      console.log('invalid target')
+      console.warn('invalid target')
       return
     }
 
@@ -75,7 +75,7 @@ const moveTowardsCell = (creature, targetCell)=>{
 
       // Refresh our state references since the last dispatch
       state = getState()
-      creature = state.creatures[creature.id]
+      creature = state.creatures.byId[creature.id]
       let nextBoundary = state.cells.byId[step.nextBoundary.id]
       let nextSquare = state.cells.byId[step.nextSquare.id]
 
@@ -90,18 +90,18 @@ const moveTowardsCell = (creature, targetCell)=>{
 
       if(isValidStep(state, creature, nextBoundary, nextSquare)){
         dispatch(takeStep(
-          state.creatures[creature.id],
+          state.creatures.byId[creature.id],
           state.cells.byId[step.nextBoundary.id],
           state.cells.byId[step.nextSquare.id]
         ))
       }else{
-        console.log('invalid next step')
+        console.warn('invalid next step')
         break
       }
     }
     dispatch(setJumpMode(false))
     state = getState()
-    creature = state.creatures[creature.id]
+    creature = state.creatures.byId[creature.id]
     if(shouldFall(state, creature)){
       dispatch(sink(creature))
     }
