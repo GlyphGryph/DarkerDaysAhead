@@ -25,18 +25,19 @@ export const setLookMode = (value)=>{
     let state = getState()
 
     let currentCreatureId = state.turnQueue[0]
-    let creature = state.creatures.byId[currentCreatureId]
     if(value){
-      dispatch(createLookMarker())
+      dispatch(createLookMarker(currentCreatureId))
     }else{
       dispatch(destroyLookMarker())
     }
   }
 }
 
-const createLookMarker = ()=>{
+const createLookMarker = (creatureId)=>{
+  return {type: actionTypes.CREATE_LOOK_MARKER, creatureId}
 }
 
 const destroyLookMarker = ()=>{
+  return {type: actionTypes.DESTROY_LOOK_MARKER}
 
 }

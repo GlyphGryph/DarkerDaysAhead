@@ -1,4 +1,4 @@
-import { actionTypes, factionTypes, objectTypes } from '../types'
+import { actionTypes, objectTypes } from '../types'
 import helpers from '../logic/helpers'
 import { spawnObject } from './objects'
 import { creatureTemplates } from '../templates'
