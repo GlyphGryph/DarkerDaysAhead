@@ -1,4 +1,5 @@
-import { actionTypes } from '../types'
+import { actionTypes, cellTypes } from '../types'
+import helpers from '../logic/helpers'
 import { processNextTurn } from './processing'
 import { sendError } from './errors'
 
@@ -25,19 +26,43 @@ export const setLookMode = (value)=>{
     let state = getState()
 
     let currentCreatureId = state.turnQueue[0]
+    let creature = state.creatures.byId[currentCreatureId]
     if(value){
-      dispatch(createLookMarker(currentCreatureId))
+      dispatch(createLookMarker(creature.cellId))
     }else{
       dispatch(destroyLookMarker())
     }
   }
 }
 
-const createLookMarker = (creatureId)=>{
-  return {type: actionTypes.CREATE_LOOK_MARKER, creatureId}
+const createLookMarker = (cellId)=>{
+  return {type: actionTypes.LOOK_AT, cellId}
 }
 
 const destroyLookMarker = ()=>{
-  return {type: actionTypes.DESTROY_LOOK_MARKER}
+  return {type: actionTypes.STOP_LOOKING}
+}
 
+export const moveLookMarker = (direction)=>{
+  return (dispatch, getState)=>{
+    let state = getState()
+    let currentCell = state.cells.byId[state.player.lookingAt.cellId]
+    let nextCell = helpers.findCellInDirection(state, currentCell, direction, 1)
+    // If the target cell does not exist, do nothing
+    if(nextCell === null){
+      return Promise.resolve()
+    }
+    // Skip boundaries if we are on a cell and there's nothing there
+    if(currentCell.type === cellTypes.SQUARE && nextCell.contents.length < 1){
+      nextCell = helpers.findCellInDirection(state, currentCell, direction, 2)
+    }
+    // If the target cell does not exist, do nothing
+    if(nextCell === null){
+      return Promise.resolve()
+    }
+    return dispatch({
+      type: actionTypes.LOOK_AT,
+      cellId: nextCell.id
+    })
+  }
 }

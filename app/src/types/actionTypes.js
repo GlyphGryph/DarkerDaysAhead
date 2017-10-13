@@ -31,7 +31,6 @@ export const actionTypes = {
 
   // Player and view management (meta types)
   SET_VIEW_CONFIGS: 'SET_VIEW_CONFIGS',
-  SET_IS_LOOKING: 'SET_IS_LOOKING',
-  CREATE_LOOK_MARKER: 'CREATE_LOOK_MARKER',
-  DESTROY_LOOK_MARKET: 'DESTROY_LOOK_MARKER'
+  LOOK_AT: 'LOOK_AT',
+  STOP_LOOKING: 'STOP_LOOKING'
 }

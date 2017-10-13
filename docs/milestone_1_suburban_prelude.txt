@@ -95,13 +95,10 @@ Tasks:
  - Allow player to 'look' around them
   ✓- Add look key, enters look mode
   ✓- Add key to escape look mode (and jump mode!)
-   - Add target over player's current location
-   - It's time - expand the contents logic to support multiple "things" in a cell
-   - Give things properties like 'tangible' and 'blocking'
-   - Implement target as an object of a special type
+  ✓- Add target over player's current location
+  ✓- Allow moving target
+  ✓- Move to boundary cells only if they have contents, otherwise skip to next square
    - Display the description of the contents in cell
-   - Allow moving target
-   - Move to boundary cells only if they have contents, otherwise skip to next square
    - Skip all vertical boundaries
    - Also display the description of the floor below squares 
    - Display 'empty space' if there isn't a floor

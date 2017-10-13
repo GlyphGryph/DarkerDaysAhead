@@ -10,10 +10,20 @@ const mapStateToProps = state => {
     isFlying = creature.isFlying
     isJumping = creature.isJumping
   }
+  let lookingAt = {}
+  let isLooking =  state.player.isLooking
+  if(isLooking){
+    let cell = state.cells.byId[state.player.lookingAt.cellId]
+    lookingAt.x = cell.x
+    lookingAt.y = cell.y
+    lookingAt.z = cell.z
+    lookingAt.hasContents = false
+  }
   return {
     isJumping,
     isFlying,
-    isLooking: state.player.isLooking,
+    isLooking,
+    lookingAt,
     yPosition: (state.view.height-1)/2 * state.view.cellHeight,
     width: 100
   }

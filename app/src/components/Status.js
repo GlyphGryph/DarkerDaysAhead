@@ -13,19 +13,35 @@ const walkStatus = (isJumping, isFlying, isLooking)=>{
   }
   return (<span>{mode}</span>)
 }
-const Status = ({ isJumping, isFlying, isLooking, yPosition, width }) => (
+
+const details = (isLooking, lookingAt)=>{
+  if(isLooking){
+    return (
+      <div>
+        <span>Looking at:</span>
+        <span>cell coords: {lookingAt.x},{lookingAt.y},{lookingAt.z}</span>
+      </div>
+    )
+  }
+  return (
+    <div>No details</div>
+  )
+}
+
+const Status = (props) => (
   <div
     className='status'
     style={{
       position: 'absolute',
-      top: ''+yPosition+'px',
+      top: ''+props.yPosition+'px',
       left: '0px',
-      width: ''+width+'px',
+      width: ''+props.width+'px',
       height: '18px',
     }}
   > 
     <span>STATUS:</span>
-    {walkStatus(isJumping, isFlying, isLooking)}
+    {walkStatus(props.isJumping, props.isFlying, props.isLooking)}
+    {details(props.isLooking, props.lookingAt)}
   </div>
 )
 
@@ -33,6 +49,7 @@ Status.propTypes = {
   isJumping: PropTypes.bool.isRequired,
   isFlying: PropTypes.bool.isRequired,
   isLooking: PropTypes.bool.isRequired,
+  lookingAt: PropTypes.object.isRequired,
   yPosition: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
 }

@@ -9,8 +9,11 @@ import {
 import {
   executePlayerAction,
   setLookMode,
+  moveLookMarker
 } from './player'
-import { move } from './move'
+import {
+  move
+} from './move'
 import { wait } from './behaviours'
 import { loadDisplay } from './loadDisplay'
 import helpers from '../logic/helpers'
@@ -46,7 +49,7 @@ export const userInput = (key)=> {
       dispatch(executePlayerAction(wait))
     }else if(keyAction.tags.includes('MOVE')){
       if(state.player.isLooking){
-        // TODO: implement look behaviour
+        dispatch(moveLookMarker(keyAction.value))
       }else{
         shouldUpdateDisplay = false
         dispatch(executePlayerAction(move, keyAction.value));

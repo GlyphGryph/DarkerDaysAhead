@@ -8,3 +8,14 @@
 @keyframes blinkToWhite{  
   0% { background-color: #FFF; }
 }
+
+.blink-to-transparent{
+  animation-name: blinkToTransparent;
+  animation-duration: .7s;
+  animation-timing-function: steps(2, start);
+  animation-iteration-count: infinite;
+}
+
+@keyframes blinkToTransparent{  
+  0% { opacity: 0.0; }
+}

@@ -14,7 +14,8 @@ const mapStateToProps = (state)=>{
   return {
     layers: layerSelectors.getVisibleLayers(state),
     width: visibleWidth(state),
-    height: visibleHeight(state)
+    height: visibleHeight(state),
+    showLookMarker: state.player.isLooking
   }
 }
 

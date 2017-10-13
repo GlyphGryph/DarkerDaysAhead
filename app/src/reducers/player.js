@@ -3,6 +3,9 @@ import { createReducer } from 'redux-create-reducer'
 const defaultState = {
   currentCreatureId: null,
   isLooking: false,
+  lookingAt: {
+    cellId: 0
+  },
   controlledCreatures: []
 }
 
@@ -44,10 +47,20 @@ const setCurrentCreature = (state, action)=>{
   }
 }
 
-const setIsLooking = (state , action)=>{
+const lookAt = (state , action)=>{
   return {
     ...state,
-    isLooking: action.value
+    isLooking: true,
+    lookingAt: {
+      cellId: action.cellId
+    }
+  }
+}
+
+const stopLooking = (state , action)=>{
+  return {
+    ...state,
+    isLooking: false
   }
 }
 
@@ -55,8 +68,9 @@ const player = createReducer(defaultState, {
   CREATE_CREATURE: controlCreature,
   DESTROY_OBJECT: loseControl,
   SET_CURRENT_CREATURE: setCurrentCreature,
-  SET_IS_LOOKING: setIsLooking,
-  RESET_MAP: resetPlayer,
+  LOOK_AT: lookAt,
+  STOP_LOOKING: stopLooking,
+  RESET_MAP: resetPlayer
 })
 
 export default player
