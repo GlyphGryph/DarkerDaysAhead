@@ -1,4 +1,12 @@
-import { cellTypes, directionTypes } from '../types'
+import {
+  cellTypes,
+  directionTypes,
+  objectTypes
+} from '../types'
+
+//-------------------
+// Cell/Map helpers
+//-------------------
 const findCellIdByPosition = (state, xx, yy, zz)=>{
   // Dig through the byPosition structure, if ever encountering
   // an invalid position, return null
@@ -174,7 +182,31 @@ const findDistance = (source, target)=>{
   return Math.hypot(a, b);
 }
 
+//-------------------
+// Content Helpers
+//-------------------
+const getContentsFromCell = (state, cell)=>{
+  let contents = []
+  for(let contentRef of cell.contents){
+    contents.push(getContentFromRef(state, contentRef))
+  }
+  return contents
+}
+
+const getContentFromRef = (state, ref)=>{
+  if(ref.type === objectTypes.CREATURE){
+    return state.creatures.byId[ref.id]
+  }else if(ref.type === objectTypes.TERRAIN){
+    return state.terrain[ref.id]
+  }
+}
+
+
+
+
+
 export default {
+  // Cell/Map helpers
   findCellIdByPosition,
   findCellsFromIds,
   findCellInDirection,
@@ -188,5 +220,8 @@ export default {
   randomEmptyBoundary,
   findDistance,
   squareCells,
-  layerBoundaryCells
+  layerBoundaryCells,
+
+  // Content helpers
+  getContentsFromCell
 }

@@ -98,10 +98,11 @@ Tasks:
   ✓- Add target over player's current location
   ✓- Allow moving target
   ✓- Move to boundary cells only if they have contents, otherwise skip to next square
-   - Display the description of the contents in cell
+  ✓- Display the description of the contents in cell
+   - Have the 'view' follow the look markers active layer.
    - Skip all vertical boundaries
-   - Also display the description of the floor below squares 
-   - Display 'empty space' if there isn't a floor
+  ✓- Also display the description of the floor below squares 
+  ✓- Display 'empty space' if there isn't a floor
  - Improve jump mode
    - Allow for "running jumps" by "looking around" in jump mode.
    - A standing jump skips one space

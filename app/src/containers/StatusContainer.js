@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 import { getCurrentCreature } from '../selectors'
+import { directionTypes } from '../types'
 import Status from '../components/Status'
+import helpers from '../logic/helpers'
 
 const mapStateToProps = state => {
   let creature = getCurrentCreature(state)
@@ -17,7 +19,15 @@ const mapStateToProps = state => {
     lookingAt.x = cell.x
     lookingAt.y = cell.y
     lookingAt.z = cell.z
-    lookingAt.hasContents = false
+    lookingAt.cellContents = helpers.getContentsFromCell(state, cell)
+    lookingAt.hasCellContents = (lookingAt.cellContents.length > 0)
+    if(cell.neighbours[directionTypes.DOWN]){
+      let floorCell = state.cells.byId[cell.neighbours[directionTypes.DOWN]]
+      lookingAt.floorContents = helpers.getContentsFromCell(state, floorCell)
+    } else {
+      lookingAt.floorContents = []
+    }
+    lookingAt.hasFloorContents = (lookingAt.floorContents.length > 0)
   }
   return {
     isJumping,
@@ -25,7 +35,7 @@ const mapStateToProps = state => {
     isLooking,
     lookingAt,
     yPosition: (state.view.height-1)/2 * state.view.cellHeight,
-    width: 100
+    width: 700
   }
 }
 

@@ -28,9 +28,9 @@ const View = ({layers, width, height, showLookMarker}) => (
 
 View.propTypes = {
   layers: PropTypes.array.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  showLookMarker: PropTypes.bool
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  showLookMarker: PropTypes.bool.isRequired
 }
 
 export default View

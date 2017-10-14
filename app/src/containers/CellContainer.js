@@ -2,21 +2,9 @@ import { connect } from 'react-redux'
 import { objectTypes, cellTypes } from '../types'
 import Cell from '../components/Cell'
 import { layerSelectors } from '../selectors'
+import helpers from '../logic/helpers'
 
 let emptyFloorColor = '#CCF'
-
-const getObjectFromContents = (state, cell)=>{
-  let content = cell.contents[0]
-  if(content){
-    if(content.type === objectTypes.CREATURE){
-      return state.creatures.byId[content.id]
-    }else if(content.type === objectTypes.TERRAIN){
-      return state.terrain[content.id]
-    }
-  }
-  return null
-}
-
 
 const getPosition = (state, cell)=>{
   // By default, assuming we are working with
@@ -62,7 +50,7 @@ const mapStateToProps = (state, ownProps) => {
   let cell = state.cells.byId[ownProps.id]
   let currentLayerId = layerSelectors.getCurrentLayerId(state)
   let floorLayerId = currentLayerId - 1
-  let content = getObjectFromContents(state, cell)
+  let content = helpers.getContentsFromCell(state, cell)[0]
   let position = getPosition(state, cell)
   let dimensions = getDimensions(state, cell)
   

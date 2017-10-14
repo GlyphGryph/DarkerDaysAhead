@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import Description from './Description'
 
 const walkStatus = (isJumping, isFlying, isLooking)=>{
   let mode = 'Walking'
@@ -16,10 +16,28 @@ const walkStatus = (isJumping, isFlying, isLooking)=>{
 
 const details = (isLooking, lookingAt)=>{
   if(isLooking){
+    let cellContents = "Nothing to see here."
+    if(lookingAt.hasCellContents){
+      cellContents = lookingAt.cellContents.map((content)=>(
+        <Description content={content}/>
+      ))
+    }
+    let floorContents = "Empty Space"
+    if(lookingAt.hasFloorContents){
+      floorContents = lookingAt.floorContents.map((content)=>(
+        <Description content={content}/>
+      ))
+    }
     return (
       <div>
-        <span>Looking at:</span>
-        <span>cell coords: {lookingAt.x},{lookingAt.y},{lookingAt.z}</span>
+        <div>Looking at: {lookingAt.x},{lookingAt.y},{lookingAt.z}</div>
+        <div>
+          { cellContents }
+        </div>
+        <div>---</div>
+        <div>
+          { floorContents }
+        </div>
       </div>
     )
   }
