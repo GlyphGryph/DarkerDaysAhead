@@ -4,7 +4,8 @@ const defaultState = {
   currentCreatureId: null,
   isLooking: false,
   lookingAt: {
-    cellId: 0
+    cellId: 0,
+    z: 0
   },
   controlledCreatures: []
 }
@@ -52,7 +53,8 @@ const lookAt = (state , action)=>{
     ...state,
     isLooking: true,
     lookingAt: {
-      cellId: action.cellId
+      cellId: action.cellId,
+      z: action.z
     }
   }
 }

@@ -36,7 +36,10 @@ export const setLookMode = (value)=>{
 }
 
 const createLookMarker = (cellId)=>{
-  return {type: actionTypes.LOOK_AT, cellId}
+  return (dispatch, getState)=>{
+    let cell = getState().cells.byId[cellId]
+    return dispatch({type: actionTypes.LOOK_AT, cellId, z: cell.z})
+  }
 }
 
 const destroyLookMarker = ()=>{
@@ -105,7 +108,8 @@ export const moveLookMarker = (direction)=>{
     }
     return dispatch({
       type: actionTypes.LOOK_AT,
-      cellId: nextCell.id
+      cellId: nextCell.id,
+      z: nextCell.z
     })
   }
 }

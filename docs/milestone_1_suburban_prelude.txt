@@ -92,15 +92,15 @@ Tasks:
 ✓- Bug prevention: Kill player if they attempt to move to a cell that doesn't exist
 ✓- Find a way to DELAY RENDER for batch actions like map resetting and enemy moves
 ✓- Clean up warnings and comments
- - Allow player to 'look' around them
+✓- Allow player to 'look' around them
   ✓- Add look key, enters look mode
   ✓- Add key to escape look mode (and jump mode!)
   ✓- Add target over player's current location
   ✓- Allow moving target
   ✓- Move to boundary cells only if they have contents, otherwise skip to next square
   ✓- Display the description of the contents in cell
-   - Have the 'view' follow the look markers active layer.
-   - Skip all vertical boundaries
+  ✓- Have the 'view' follow the look markers active layer.
+  ✓- Skip all vertical boundaries
   ✓- Also display the description of the floor below squares 
   ✓- Display 'empty space' if there isn't a floor
  - Improve jump mode

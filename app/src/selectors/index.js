@@ -5,13 +5,24 @@ export const getCurrentCreature = (state)=>{
   return state.creatures.byId[state.player.currentCreatureId]
 }
 
+// PLAYER
+export const getIsLooking = (state)=>{
+  return state.player.isLooking
+}
+
+export const getLookingAt = (state)=>{
+  return state.player.lookingAt
+}
+
 // LAYERS
 
 const getCurrentLayerId = createSelector(
-  [getCurrentCreature],
-  (creature)=>{
+  [getCurrentCreature, getIsLooking, getLookingAt],
+  (creature, isLooking, lookingAt)=>{
     // By default, look at layer 1
-    if(creature){
+    if(isLooking){
+      return lookingAt.z
+    }else if(creature){
       return creature.z
     }else{
       return 1
