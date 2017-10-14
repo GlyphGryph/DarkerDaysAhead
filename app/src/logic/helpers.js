@@ -182,6 +182,15 @@ const findDistance = (source, target)=>{
   return Math.hypot(a, b);
 }
 
+const isBoundaryCell = (cell)=>{
+  return (
+    cell.type === cellTypes.VBOUNDARY ||
+    cell.type === cellTypes.HBOUNDARY ||
+    cell.type === cellTypes.CORNER ||
+    cell.type === cellTypes.LBOUNDARY
+  )
+}
+
 //-------------------
 // Content Helpers
 //-------------------
@@ -221,6 +230,7 @@ export default {
   findDistance,
   squareCells,
   layerBoundaryCells,
+  isBoundaryCell,
 
   // Content helpers
   getContentsFromCell

@@ -50,7 +50,6 @@ const getDimensions = (state, cell)=>{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.player)
   let cell = state.cells.byId[state.player.lookingAt.cellId]
   let position = getPosition(state, cell)
   let dimensions = getDimensions(state, cell)
