@@ -1,11 +1,9 @@
 import { connect } from 'react-redux'
-import { objectTypes, cellTypes } from '../types'
-import helpers from '../logic/helpers'
+import { cellTypes } from '../types'
 import Highlight from '../components/Highlight'
 
 const backgroundColor = '#55F'
 const opacity = 1
-const text = ''
 const color = '#FFF'
 const borderWidth = 2
 
