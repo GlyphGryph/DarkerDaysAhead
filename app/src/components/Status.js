@@ -19,13 +19,13 @@ const details = (isLooking, lookingAt)=>{
     let cellContents = "Nothing to see here."
     if(lookingAt.hasCellContents){
       cellContents = lookingAt.cellContents.map((content)=>(
-        <Description content={content}/>
+        <Description key={(content.type+'_'+content.id)} content={content}/>
       ))
     }
     let floorContents = "Empty Space"
     if(lookingAt.hasFloorContents){
       floorContents = lookingAt.floorContents.map((content)=>(
-        <Description content={content}/>
+        <Description key={(content.type+'_'+content.id)} content={content}/>
       ))
     }
     return (
