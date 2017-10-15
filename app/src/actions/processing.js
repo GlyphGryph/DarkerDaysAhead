@@ -23,16 +23,16 @@ export const processNextTurn = ()=>{
       if(creature === null){
         console.warn('Invalid turn queue reference, dropped from queue.')
         dispatch(dropFromQueue())
-      }
-      
-      if(creature.controlled){
-        // If creature is controlled, stop processing and wait for user input
-        dispatch({type: actionTypes.SET_CURRENT_CREATURE, id: creature.id})
-        exit = true
       }else{
-        // Otherwise, creature takes its turn and we repeat this action
-        dispatch(executeBehaviourFor(creature))
-        dispatch(advanceQueue())
+        if(creature.controlled){
+          // If creature is controlled, stop processing and wait for user input
+          dispatch({type: actionTypes.SET_CURRENT_CREATURE, id: creature.id})
+          exit = true
+        }else{
+          // Otherwise, creature takes its turn and we repeat this action
+          dispatch(executeBehaviourFor(creature))
+          dispatch(advanceQueue())
+        }
       }
 
       // Error states. Prevents crashes or infinite loops
