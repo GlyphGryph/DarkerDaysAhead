@@ -51,7 +51,7 @@ const setIsFlying = (state, action)=>{
     byId: {
       ...state.byId,
       [action.object.id]: {
-        ...state.byId[action.id.id],
+        ...state.byId[action.object.id],
         isFlying: action.value
       }
     }

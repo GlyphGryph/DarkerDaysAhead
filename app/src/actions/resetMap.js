@@ -1,6 +1,6 @@
 import { actionTypes } from '../types'
 import { spawnCreature } from './creatures'
-import { spawnMultipleTerrain } from './createTerrain'
+import { spawnMultipleTerrain } from './terrains'
 import helpers from '../logic/helpers'
 import mapBuilder from '../logic/mapBuilder'
 

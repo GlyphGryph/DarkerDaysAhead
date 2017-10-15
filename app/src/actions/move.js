@@ -216,9 +216,9 @@ const isSupported = (state, creature, cell)=>{
   return (
     creature.isFlying ||
     creature.isJumping ||
-    isNearClimbable(cell, state) ||
+    isNearClimbable(state, cell) ||
     isGround(state, cell) ||
-    isNearClimbable(nextSquare, state)
+    isNearClimbable(state, nextSquare)
   )
 }
 
@@ -234,20 +234,20 @@ const isGround = (state, cell)=>{
 
 const canMoveUp = (state, creature)=>{
   let cell = state.cells.byId[creature.cellId]
-  return (creature.isFlying || isNearClimbable(cell, state))
+  return (creature.isFlying || isNearClimbable(state, cell))
 }
 
-const isNearClimbable = (cell, state)=>{
-  return !!nearbyTerrain(cell, state).find((terrain)=>{
+const isNearClimbable = (state, cell)=>{
+  return !!nearbyTerrain(state, cell).find((terrain)=>{
     return terrain.climbable
   })
 }
 
-const nearbyTerrain = (cell, state)=>{
+const nearbyTerrain = (state, cell)=>{
   let nearbyCells = Object.values(cell.neighbours).map((cellId)=>{
     return state.cells.byId[cellId]
   })
-  let nearbyTerrain = nearbyCells.map((cell)=>{
+  let terrain = nearbyCells.map((cell)=>{
     if(cell){
       return cell.contents.filter((content)=>{
         return content.type === objectTypes.TERRAIN
@@ -260,7 +260,7 @@ const nearbyTerrain = (cell, state)=>{
   }).reduce((a,b)=>{
     return a.concat(b)
   }, [])
-  return nearbyTerrain
+  return terrain
 }
 
 const findGround = (state, cell)=>{

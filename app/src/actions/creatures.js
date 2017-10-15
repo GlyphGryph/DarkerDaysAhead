@@ -9,7 +9,7 @@ export const spawnCreature = (template='KREK', cell)=> {
   }
 }
 
-const createCreature = (template, state, x, y, z)=>{
+const createCreature = (state, template, x, y, z)=>{
   // Set to 1 greater than the last creature or if there isn't one, 1
   let id = (state.creatures.idList.slice(-1) || 0) + 1
   let cellId = helpers.findCellIdByPosition(state, x, y, z)

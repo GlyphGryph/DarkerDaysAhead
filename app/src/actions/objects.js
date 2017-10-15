@@ -17,7 +17,7 @@ export const spawnObject = (template, cell, createFunction, actionType)=>{
     }else if(helpers.cellIsBlocked(cell)){
       dispatch(sendError("Could not create "+template+". Cell is blocked."))
     }else{
-      let object = createFunction(template, state, cell.x, cell.y, cell.z)
+      let object = createFunction(state, template, cell.x, cell.y, cell.z)
       if(object.errors){
         dispatch(sendError(object.errors))
       }else{

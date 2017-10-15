@@ -103,9 +103,8 @@ Tasks:
   ✓- Skip all vertical boundaries
   ✓- Also display the description of the floor below squares 
   ✓- Display 'empty space' if there isn't a floor
- - Consider storing cell visual data, like positions, in cells for now to improve performance
- - Clean up brand new perf problems
- - Put 'state' first in all function calls and definitions that require it!
+✓- Consider storing cell visual data, like positions, in cells for now to improve performance (Considered and rejected)
+✓- Put 'state' first in all function calls and definitions that require it!
  - AI improvements: Hunting
    - AI's no longer naively try to walk through walls to get to player
    - Basic pathing

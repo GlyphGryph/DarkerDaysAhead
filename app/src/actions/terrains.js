@@ -17,7 +17,7 @@ export const spawnMultipleTerrain = (template, cells)=>{
   }
 }
 
-const createTerrain = (template, state, x, y, z)=>{
+const createTerrain = (state, template, x, y, z)=>{
   let id = state.terrain.length
   let cellId = helpers.findCellIdByPosition(state, x, y, z)
   let terrainTemplate = terrainTemplates[template]
