@@ -7,6 +7,8 @@ Goal: A small, static map the player can move around and fight monsters that spa
 ✓ = insert->ctrl-v + u2713
 
 Tasks:
+
+Part 1: The Basics - COMPLETE
 ✓- Local World (single screen), initially blank
 ✓- Character
 ✓- Player Driven Movement of Character
@@ -105,24 +107,40 @@ Tasks:
   ✓- Display 'empty space' if there isn't a floor
 ✓- Consider storing cell visual data, like positions, in cells for now to improve performance (Considered and rejected)
 ✓- Put 'state' first in all function calls and definitions that require it!
- - AI improvements: Hunting
-   - AI's no longer naively try to walk through walls to get to player
-   - Basic pathing
+
+Part 2: Behaviours
+ - Implement a basic pathfinding algorithm
+   - Basic A*
+   - can be passed a grid, starting, and ending points
+   - Assume all connections are valid
+   - Returns a list of cellIds to be traversed
+   - Shape the cell data to make calculations easier and quicker
+   - Make the pathfinding algorithm execute very quickly
+   - Find out MORE ways to get it quicker for later
+   - Allow the passing of two basic strategies - Flying, Crawling
+   - Generate paths for the Flying strategy that does not move through blocking terrain
+   - Generate paths for the Crawling strategy that does not move through blocking terrain or empty space
+   - Can not move ONTO empty spaces yet - no intentional dropping
+   - Note that we ignore blocking creatures at this point - let them bump into each other
+   - Determine accessibility behaviour 
+     - if a monster can't reach a player because they are flying or walled in, what happens?
+   - Limit movement to happening through boundaries but never moving along boundaries
+ - Enemy is capable of pathing to player anywhere on map
+ - Intentional dropping - even Crawling creatures can choose to move onto empty squares so long as its within their fall acceptance. Pathing continues from next "supported" square after drop.
+ - Implement two advanced strategies - Climbing and Jumping
+   - Make "climbable" a property of cells, have it update whenever a climbable object is added
+   - Make "supported" a property of cells as well, have it update based on added objects again
+   - This way the calculation can tell these things without having to make calculations based on neighbours
+   - Have climbing walk like crawling except creatures can move up/down climbable squares
+   - Have jumping be like climbing, but rather than empty squares being inaccessible always they are inaccessible over a certain distance from pathed support
+ - Path around other creatures
+ - Figure out a method for determing target priority. Closest enemy by path distance? How to break ties?
+
+Part 3: Complexity
  - Stagger speed
    - Rather than simply going to the end of the queue, actions take speed
    - Jumping takes more time than walking
    - Enemies move slower than players
- - Break up each step of the jump instead of having it happen all at once
-  - Add a system that qeues automated actions for player controlled characters
-  - Allow jumps to be "interrupted" by enemy attacks
-  - Having the final landing of the jump take longer than the rest
- - Improve jump mode
-   - Allow for "running jumps" by "looking around" in jump mode.
-   - A standing jump skips one space
-   - A short running jump moves one square along the ground and covers two spaces
-   - A long jump moves two squares along the ground and covers three spaces
-   - The cursor selects the square the player wants to initiate the jump on
-   - An icon indicates where they will land
  - Status effects (crippled)
    - Falling characters are crippled
  - Crippled enemies skip their next several turns
@@ -140,8 +158,20 @@ Tasks:
    - Move ladders to square terrainand instead make certain walls climbable
    - Make ladders climbable
    - Jumps go into the third dimension - characters go up a level during the height of their jumps.
+ - Break up each step of the jump instead of having it happen all at once
+  - Add a system that qeues automated actions for player controlled characters
+  - Allow jumps to be "interrupted" by enemy attacks
+  - Having the final landing of the jump take longer than the rest
+ - Improve jump mode
+   - Allow for "running jumps" by "looking around" in jump mode.
+   - A standing jump skips one space
+   - A short running jump moves one square along the ground and covers two spaces
+   - A long jump moves two squares along the ground and covers three spaces
+   - The cursor selects the square the player wants to initiate the jump on
+   - An icon indicates where they will land
  - Performance improved for map rendering 3
    ✓- Map only renders anything at beginning of players turn
+    - Map also renders things that the player does that don't end their turn
     - Map STILL only renders things that changed
  - Inventory, the ability to pick up and put down an item
  - Items spawn randomly around map as time progresses
